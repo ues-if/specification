@@ -1,0 +1,46 @@
+= Universal Eyeglass Standard: Interchangeable Lens Specification
+:toc: left
+:toclevels: 3
+:sectnums:
+:icons: font
+:version: 0.1.0
+:revdate: 2026-04-06
+
+== Welcome to Universal Eyeglass Standard
+
+This project aims to create an industry-wide standard for interchangeable prescription eyeglass lenses, enabling consumers to use a single set of prescription lenses across multiple compatible frames.
+
+== Project Documentation
+
+This documentation is organized into three main sections:
+
+<<spec/technical-spec.adoc#,Technical Specification>>::
+The complete technical specification defining the physical, optical, and mechanical standards for standardized lens modules.
+
+<<docs/idea-and-business.adoc#,Idea & Business Model>>::
+The concept, market analysis, and business process surrounding the standard glasses initiative.
+
+<<docs/organization.adoc#,Organization & Governance>>::
+Information about the organization responsible for maintaining and promoting this open standard.
+
+== Quick Links
+
+* link:spec/technical-spec.adoc[Read the Full Specification]
+* link:docs/idea-and-business.adoc[Understand the Concept]
+* link:docs/organization.adoc[About the Organization]
+
+== Current Status
+
+[WARNING]
+====
+This specification is in *DRAFT* status (Version {version}). 
+The standard is being developed as an open, royalty-free specification.
+====
+
+== Contributing
+
+This is an open standard. Contributions, feedback, and implementation reports are welcome.
+
+== License
+
+This specification is intended to be published under a royalty-free license, ensuring that any party may implement the standard without licensing fees or restrictions.

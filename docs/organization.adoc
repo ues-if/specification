@@ -1,0 +1,613 @@
+= Organization & Governance: Universal Eyeglass Standards Consortium
+:toc: left
+:toclevels: 3
+:sectnums:
+:icons: font
+:version: 0.1.0
+:revdate: 2026-04-06
+
+[abstract]
+--
+This document describes the organizational structure, governance model, and operations of the Universal Eyeglass Standards Consortium (UESC), the entity responsible for developing and maintaining the Universal Eyeglass Standard specification.
+--
+
+== Mission and Vision
+
+=== Mission Statement
+
+To develop, maintain, and promote an open, royalty-free standard for interchangeable prescription eyeglass lenses that:
+
+* Reduces consumer costs and increases choice
+* Minimizes waste in the eyewear industry
+* Ensures optical quality and safety
+* Enables innovation in eyewear design
+
+=== Vision
+
+A world where prescription lenses are portable across frames, where broken glasses no longer mean replacing expensive prescription lenses, and where consumers have unlimited frame choices without sacrificing optical quality.
+
+=== Values
+
+* **Openness**: Standards development is transparent and inclusive
+* **Independence**: Decisions serve users and industry collectively, not individual companies
+* **Excellence**: Technical rigor and safety are never compromised
+* **Sustainability**: Design choices minimize environmental impact
+* **Accessibility**: Standards enable affordable, quality eyewear for all
+
+== Organizational Structure
+
+=== Legal Entity
+
+**Proposed Structure**: Non-profit association or consortium
+
+**Jurisdiction**: To be determined based on founding members
+* Options: USA (501(c)(6) trade association), EU (AISBL), Switzerland (Association)
+
+**Rationale for Non-Profit**:
+* Ensures independence from commercial interests
+* Facilitates open, royalty-free licensing
+* Enables grant funding and foundation support
+* Builds trust with consumers and regulators
+
+=== Governance Bodies
+
+==== Board of Directors
+
+**Composition** (7-11 members):
+
+* 3-5 Industry representatives (manufacturers, retailers)
+* 2-3 Professional representatives (optometrists, optical engineers)
+* 1-2 Consumer representatives
+* 1-2 Independent technical experts
+
+**Term**: 3 years, staggered terms, maximum 2 consecutive terms
+
+**Responsibilities**:
+* Set strategic direction
+* Approve annual budget and business plan
+* Appoint and oversee Executive Director
+* Approve major partnerships and initiatives
+* Ensure financial sustainability
+
+**Voting**: Simple majority for standard decisions, 2/3 supermajority for:
+* Specification major version changes
+* Changes to licensing terms
+* Amendments to bylaws
+
+==== Technical Committee
+
+**Composition** (9-15 members):
+
+* Optical engineers (3-4)
+* Lens manufacturers (2-3)
+* Frame manufacturers (2-3)
+* Materials scientists (1-2)
+* Safety/regulatory experts (1-2)
+* Academic researchers (1-2)
+
+**Term**: 2 years, renewable
+
+**Responsibilities**:
+* Develop and maintain technical specification
+* Review proposed specification changes
+* Establish testing procedures
+* Evaluate new materials and technologies
+* Issue technical guidance documents
+* Approve reference implementations
+
+**Voting**: Consensus-based, with 2/3 vote fallback. Any member can escalate controversial technical decisions to Board.
+
+==== Certification Board
+
+**Composition** (5-7 members):
+
+* Quality assurance experts (2)
+* Testing laboratory representatives (2)
+* Industry compliance specialists (2)
+* Legal/IP expert (1)
+
+**Term**: 2 years, renewable
+
+**Responsibilities**:
+* Develop and maintain certification criteria
+* Accredit testing laboratories
+* Review certification applications
+* Handle compliance disputes
+* Maintain list of certified products and manufacturers
+* Issue and revoke certifications
+
+**Voting**: Simple majority
+
+==== Working Groups
+
+Task-focused groups for specific activities:
+
+* **Patents & IP Working Group**: Patent landscape, freedom-to-operate, defensive publications
+* **Marketing & Communications Working Group**: Brand management, consumer education
+* **Manufacturing Working Group**: Production best practices, supply chain
+* **Sustainability Working Group**: Environmental impact, circular economy metrics
+* **International Expansion Working Group**: Regional adaptations, regulatory harmonization
+
+Working groups report to relevant governance body (Technical Committee or Board).
+
+=== Membership Structure
+
+==== Member Categories
+
+===== Founding Members
+
+* First 10-15 organizations to join and commit funding
+* Special recognition in all materials
+* Guaranteed Board seat for first 3 years
+* Annual dues: €25,000-50,000 (sliding scale by company size)
+
+===== Manufacturer Members
+
+*Lens Manufacturers* produce SG-compliant lenses
+
+*Frame Manufacturers* produce SG-compliant frames
+
+Benefits:
+- Vote in Technical Committee elections
+- Access to pre-release specifications
+- Listed as certified manufacturer
+- Use of "UES Member" logo
+- Discounted certification fees
+
+Annual dues: €10,000-25,000
+
+===== Associate Members
+
+Organizations supporting but not producing SG products:
+* Optical laboratories
+* Retail opticians
+* Industry suppliers (materials, coatings, equipment)
+* Professional associations
+
+Benefits:
+- Participate in working groups
+- Access to specifications and technical documents
+- Listed as associate member
+- Networking and industry events
+
+Annual dues: €5,000-10,000
+
+===== Academic/Research Members
+
+Universities and research institutions studying eyewear, optics, or related fields.
+
+Benefits:
+- Access to specifications and reference implementations
+- Collaborate on research projects
+- Present findings at SGC events
+
+Annual dues: €1,000-2,500
+
+===== Individual Members
+
+Optometrists, optical engineers, and industry professionals.
+
+Benefits:
+- Newsletter and updates
+- Attend member events
+- Participate in public comment periods
+
+Annual dues: €100-250
+
+==== Member Rights and Obligations
+
+**Rights**:
+* Access to all published specifications and technical documents
+* Participate in member meetings and committees
+* Vote (where applicable based on category)
+* Implement specifications under royalty-free license
+
+**Obligations**:
+* Pay annual membership dues
+* Comply with code of conduct
+* Respect intellectual property and licensing terms
+* Report certification compliance (for manufacturers)
+* Support mission and values of SGC
+
+== Intellectual Property Policy
+
+=== Specification Licensing
+
+The Universal Eyeglass Standard specification is published under a **royalty-free, perpetual, worldwide license** that allows any party to:
+
+* Implement the specification in products
+* Create derivative specifications (with attribution)
+* Use the specification for certification testing
+* Distribute and reproduce the specification
+
+**Restrictions**:
+* May not claim exclusive rights to the standard
+* May not restrict others' implementation
+* Derivative specifications must not be named "Universal Eyeglass Standard" without authorization
+
+=== Patent Policy
+
+==== Defensive Publication Strategy
+
+SGC commits to publishing detailed technical specifications to create prior art, preventing future patenting of core standard concepts by third parties.
+
+==== Patent Non-Assertion Covenant
+
+Founding members and contributors agree:
+
+1. **Royalty-Free License**: Grant all implementers a royalty-free license to any patents necessary to implement the specification
+2. **Non-Assertion**: Will not assert patent claims against any party implementing the specification in good faith
+3. **Defensive Termination**: License terminates for any party that asserts patents against SGC or compliant implementers
+
+==== Patent Review Process
+
+Before publishing specification or major amendments:
+
+1. Technical Committee identifies potentially relevant patents
+2. Patents & IP Working Group conducts freedom-to-operate analysis
+3. If potential conflicts identified:
+   * Seek design-around solutions, OR
+   * Negotiate licenses from patent holders, OR
+   * Publish alternative approaches as optional methods
+
+=== Certification Marks
+
+**"UES Certified" Mark**: Registered trademark of UESC
+
+* Awarded to products that pass certification testing
+* Licensed to manufacturers under certification agreement
+* Revocable for non-compliance
+* Licensed at cost-recovery rates
+
+**"Universal Eyeglass Standard" Brand**: Owned by UESC
+
+* Generic term for the standard itself (not trademarkable)
+* "Universal Eyeglass Standards Consortium" and "UESC" are protected
+* Members may state "complies with Universal Eyeglass Standard specification" without license
+
+== Certification Program
+
+=== Overview
+
+The UESC certification program ensures that products labeled as "UES Certified" meet the technical requirements of the specification.
+
+=== Certification Process
+
+1. **Application**: Manufacturer submits application with product details
+2. **Testing**: Product sent to accredited testing laboratory
+3. **Review**: Certification Board reviews test reports
+4. **Approval**: Certificate issued (valid 3 years)
+5. **Surveillance**: Random market sampling for ongoing compliance
+6. **Renewal**: Recertification required every 3 years
+
+=== Testing Laboratories
+
+==== Accreditation
+
+SGC accredits independent testing laboratories based on:
+
+* ISO/IEC 17025 accreditation (or equivalent)
+* Appropriate equipment and expertise
+* No conflict of interest with manufacturers
+* Agreement to follow SGC testing procedures
+
+==== Accredited Labs (Current)
+
+_To be established upon program launch_
+
+Target initial accreditations:
+
+* Colts Laboratories (USA)
+* SGS Optical Testing (Global)
+* TÜV Rheinland (Germany)
+* Regional labs in Asia, Europe, Americas
+
+=== Certification Fees
+
+Intended to be cost-recovery, not profit-generating:
+
+[cols="2,1", options="header"]
+|===
+|Service
+|Fee (Estimated)
+
+|Lens certification (per size)
+|€500-1,000
+
+|Frame certification (per model)
+|€750-1,500
+
+|Expedited review
+|+50% surcharge
+
+|Annual certification mark license
+|€500-2,000
+
+|Re-testing (after non-compliance)
+|Full testing fee
+|===
+
+Discounts for UESC members (25-50% reduction).
+
+=== Compliance and Enforcement
+
+==== Non-Compliance Actions
+
+If certified product fails surveillance testing or complaint investigation:
+
+1. **Notice**: Manufacturer notified of specific non-compliance
+2. **Corrective Action**: 60-90 days to remedy and retest
+3. **Suspension**: Certification suspended if not remedied
+4. **Revocation**: Persistent or severe non-compliance → permanent revocation
+5. **Public Notice**: Revocations published on SGC website
+
+==== Appeals Process
+
+Manufacturers may appeal certification decisions:
+
+* Appeal to Certification Board within 30 days
+* Board reviews within 60 days
+* Final appeal to Board of Directors
+* Independent arbitration if dispute persists
+
+==== Unauthorized Use
+
+UESC may pursue legal action against:
+
+* Use of "UES Certified" mark without valid certification
+* False claims of compliance with Universal Eyeglass Standard specification
+* Misuse of UESC trademarks
+
+== Financial Model
+
+=== Revenue Sources
+
+1. **Membership Dues** (target: 50-60% of revenue)
+   * Based on member category and company size
+   * Predictable, recurring revenue
+
+2. **Certification Fees** (target: 30-40% of revenue)
+   * Application and testing coordination fees
+   * Annual certification mark licensing
+
+3. **Grants and Donations** (target: 5-10% of revenue)
+   * Foundation grants for sustainability impact
+   * Government innovation grants
+   * Industry donations
+
+4. **Sponsorships** (target: 5% of revenue)
+   * Event sponsorships
+   * Research partnerships
+   * Educational programs
+
+=== Budget Allocation (Projected)
+
+[source]
+----
+Personnel (Executive Director, Technical Staff):  40-50%
+Specification Development & Maintenance:          15-20%
+Certification Program Operations:                 15-20%
+Marketing & Communications:                       10-15%
+Events & Member Services:                         5-10%
+Administration & Legal:                           5-10%
+Reserves:                                         10%
+----
+
+=== Financial Sustainability Targets
+
+* **Year 1**: €300K-500K (foundation funding + founding members)
+* **Year 2**: €500K-800K (growing membership)
+* **Year 3**: €800K-1.2M (certification revenue grows)
+* **Year 4+**: €1M-1.5M (steady-state operations)
+
+Reserve target: 12 months operating expenses.
+
+== Operations
+
+=== Staffing
+
+==== Phase 1: Foundation (Year 1)
+
+* **Executive Director** (full-time): Overall leadership, fundraising, partnerships
+* **Technical Lead** (full-time): Specification development, engineering
+* **Certification Manager** (part-time/contract): Develop certification program
+
+==== Phase 2: Growth (Years 2-3)
+
+Add:
+* **Marketing & Communications Manager** (full-time)
+* **Operations Manager** (full-time)
+* **Certification Coordinator** (full-time)
+
+==== Phase 3: Maturity (Year 4+)
+
+Add as needed:
+* Additional technical staff
+* Regional coordinators (Asia, Europe, Americas)
+* Research partnerships coordinator
+
+=== Location
+
+**Headquarters**: TBD based on founding members and applicable law
+
+**Considerations**:
+* Proximity to optical industry clusters (Europe: Jura region; Asia: Japan, South Korea, China; USA: California)
+* Favorable non-profit regulations
+* International travel accessibility
+* Operating costs
+
+**Model**: Lean operations with remote work where possible
+
+=== Communication Channels
+
+* **Website**: universal-eyeglass-standard.org (documentation, certification lists, news)
+* **GitHub**: Open repository for specification versions, technical discussions
+* **Newsletter**: Monthly, for members and public subscribers
+* **Annual Conference**: Technical presentations, member meeting, networking
+* **Webinars**: Quarterly, on technical topics and industry updates
+
+== Stakeholder Engagement
+
+=== Industry Engagement
+
+**Manufacturers**: Direct outreach, demonstrate business case, early adopter programs
+
+**Retailers**: Education on benefits, point-of-sale materials, training
+
+**Laboratories**: Integration with existing workflow, equipment requirements, training
+
+=== Professional Engagement
+
+**Optometrists**: 
+* CE-accredited courses on Standard Glasses fitting
+* Practice benefits: reduced inventory, faster service
+* Professional association partnerships
+
+**Optical Engineers**:
+* Research collaboration opportunities
+* Publication in professional journals
+* Standards development participation
+
+=== Consumer Engagement
+
+**Education**:
+* "How it Works" video series
+* FAQ and myth-busting
+* Consumer guides to sizing and fitting
+
+**Advocacy**:
+* Right-to-repair alignment
+* Sustainability messaging
+* Cost savings calculators
+
+**Feedback**:
+* Online reviews and ratings
+* User testing programs
+* Consumer advisory panel
+
+=== Regulatory Engagement
+
+Work with regulators to ensure:
+
+* SG specification aligns with safety standards (ANSI, EN, ISO)
+* Certification program recognized
+* No regulatory barriers to direct-to-consumer lens sales
+
+Target regions:
+
+* USA: FDA (21 CFR Part 801), ANSI Z87.1
+* EU: Medical Device Regulation (MDR), EN ISO standards
+* International: ISO/TC 172 (Optics and Photonics)
+
+== Roadmap: Organization Development
+
+=== Year 0: Pre-Launch
+
+* ☐ Recruit founding steering committee
+* ☐ Conduct feasibility study and business plan
+* ☐ Secure initial funding (€300K)
+* ☐ Draft governance documents (bylaws, IP policy, code of conduct)
+* ☐ Form legal entity
+* ☐ Hire Executive Director
+
+=== Year 1: Foundation
+
+* ☐ Recruit founding members (target: 10-15)
+* ☐ Establish Board of Directors and Technical Committee
+* ☐ Complete v1.0 specification
+* ☐ Develop certification program
+* ☐ Accredit first testing laboratories
+* ☐ Launch website and communication channels
+* ☐ First prototypes produced
+
+=== Year 2: Validation
+
+* ☐ First pilot certifications (3-5 lens mfg, 10-15 frame mfg)
+* ☐ Market pilot in limited geography
+* ☐ Gather feedback and issue spec amendments
+* ☐ Grow membership (target: 25-30)
+* ☐ Develop consumer education materials
+* ☐ First Annual Conference
+
+=== Year 3: Market Launch
+
+* ☐ Public launch and marketing campaign
+* ☐ Expand certification (target: 10+ lens, 50+ frame manufacturers)
+* ☐ Achieve financial sustainability
+* ☐ International expansion begins
+* ☐ Publish research on impact (cost savings, waste reduction)
+
+=== Year 4+: Maturity & Evolution
+
+* ☐ Specification v2.0 (enhanced features, smart lenses, etc.)
+* ☐ Industry-wide adoption (target: >10% of market)
+* ☐ Recognition by international standards bodies (ISO)
+* ☐ Ecosystem development (apps, services, marketplaces)
+
+== Risks and Mitigation
+
+[cols="2,1,3", options="header"]
+|===
+|Risk
+|Likelihood
+|Mitigation
+
+|Funding shortfall
+|Medium
+|Diversified revenue, lean operations, founding member commitments
+
+|Low industry adoption
+|Medium-High
+|Early value demonstration, focus on independents before large players
+
+|Governance conflicts
+|Low-Medium
+|Clear bylaws, professional facilitation, balanced representation
+
+|Certification disputes
+|Medium
+|Clear criteria, independent testing, transparent appeals process
+
+|Competing standards
+|Low
+|First-mover advantage, open licensing prevents fork incentive
+
+|Patent litigation
+|Low-Medium
+|Thorough FTO, defensive publication, patent non-assertion covenants
+
+|Loss of key personnel
+|Medium
+|Documentation, succession planning, knowledge sharing
+
+|Mission drift
+|Low
+|Strong bylaws, non-profit structure, independent Board
+|===
+
+== Conclusion
+
+The Standard Glasses Consortium is structured as an independent, open organization serving the collective interests of consumers, manufacturers, and professionals. Through transparent governance, rigorous technical standards, and inclusive membership, SGC aims to transform the eyewear industry toward greater choice, lower cost, and sustainability.
+
+== Contact and Participation
+
+**To get involved**:
+
+* Join as a founding member (limited time)
+* Participate in technical specification development
+* Express interest in certification
+* Subscribe to updates
+
+**Contact** (to be established):
+
+* Email: info@universal-eyeglass-standard.org
+* Web: https://universal-eyeglass-standard.org
+* GitHub: https://github.com/universal-eyeglass-standard
+
+---
+
+_This document is maintained by the Universal Eyeglass Standards Consortium._
+
+_Last updated: {revdate}_
+
+_See link:../index.adoc[Project Overview] | link:../spec/technical-spec.adoc[Technical Specification] | link:idea-and-business.adoc[Business Model]_

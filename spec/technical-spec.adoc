@@ -1,0 +1,57 @@
+= Technical Specification: Universal Eyeglass Standard Lens System
+:toc: left
+:toclevels: 3
+:sectnums:
+:icons: font
+:version: 0.1.0
+:revdate: 2026-04-06
+:imagesdir: ../images
+
+[abstract]
+--
+This document defines the technical specification for a standardized, interchangeable prescription lens system for eyeglasses.
+--
+
+== Introduction
+
+=== Scope
+
+This specification defines:
+
+* Four standard lens and bridge sizes
+* Mechanical interface standards for snap-fit mounting
+* Compliance testing procedures
+
+== Standard Lens Sizes
+
+=== Size Classification
+
+The standard defines four fixed lens sizes:
+
+[cols="1,2,2,2", options="header"]
+|===
+|Size Code
+|Target Users
+|Lens Size
+|Bridge Width
+
+|XS
+|Children (ages 4-10)
+|51 mm
+|15 mm
+
+|S
+|Small adults / Youth (ages 11-16)
+|56 mm
+|17 mm
+
+|M
+|Average adults
+|61 mm
+|19 mm
+
+|L
+|Large adults
+|67 mm
+|21 mm
+|===
