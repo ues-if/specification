@@ -1,0 +1,146 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+permissions:
+  contents: write
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Job 1: Build documentation inside the official AsciiDoctor Docker image
+  # ---------------------------------------------------------------------------
+  docs:
+    runs-on: ubuntu-latest
+    container:
+      image: asciidoctor/docker-asciidoctor:latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract version
+        id: ver
+        run: echo "version=$GITHUB_REF_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Build HTML
+        run: make html VERSION=${{ steps.ver.outputs.version }}
+
+      - name: Build PDF
+        run: make pdf VERSION=${{ steps.ver.outputs.version }}
+
+      - name: Package HTML
+        run: |
+          apk add --no-cache zip
+          cd build
+          zip -r ../ues-docs-html-${{ steps.ver.outputs.version }}.zip .
+
+      - name: Upload docs artefacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs
+          path: |
+            ues-docs-html-${{ steps.ver.outputs.version }}.zip
+            build/spec/technical-spec.pdf
+            build/docs/idea-and-business.pdf
+
+  # ---------------------------------------------------------------------------
+  # Job 2: Export CAD (STEP / STL)
+  # ---------------------------------------------------------------------------
+  cad:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-build123d
+
+      - name: Install build123d
+        run: pip install build123d
+
+      - name: Export CAD
+        run: make cad
+
+      - name: Upload CAD artefacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: cad
+          path: build/cad/
+
+  # ---------------------------------------------------------------------------
+  # Job 3: Create GitHub Release with all artefacts
+  # ---------------------------------------------------------------------------
+  release:
+    runs-on: ubuntu-latest
+    needs: [docs, cad]
+
+    steps:
+      - name: Extract version
+        id: ver
+        run: echo "version=$GITHUB_REF_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Download docs
+        uses: actions/download-artifact@v4
+        with:
+          name: docs
+          path: artefacts/
+
+      - name: Download CAD
+        uses: actions/download-artifact@v4
+        with:
+          name: cad
+          path: artefacts/cad/
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "UES ${{ steps.ver.outputs.version }}"
+          tag_name: ${{ github.ref_name }}
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          body: |
+            ## Universal Eyeglass Standard ${{ steps.ver.outputs.version }}
+
+            ### Release artefacts
+
+            | File | Description |
+            |------|-------------|
+            | `ues-docs-html-*.zip` | Full HTML documentation (open `index.html`) |
+            | `technical-spec.pdf` | Technical Specification |
+            | `idea-and-business.pdf` | Idea & Business Model |
+            | `ues-C-*-frame.step` | Reference frame CAD (STEP) per size |
+            | `ues-C-*-lens.step` | Reference lens CAD (STEP) per size |
+            | `ues-C-*-frame.stl` | Reference frame mesh (STL) per size |
+
+            ### Sizes
+            | Code | Diameter | Bridge |
+            |------|----------|--------|
+            | C-XS | 51 mm | 15 mm |
+            | C-S  | 56 mm | 17 mm |
+            | C-M  | 61 mm | 19 mm |
+            | C-L  | 67 mm | 21 mm |
+          files: |
+            artefacts/ues-docs-html-${{ steps.ver.outputs.version }}.zip
+            artefacts/build/spec/technical-spec.pdf
+            artefacts/build/docs/idea-and-business.pdf
+            artefacts/cad/ues-C-XS-frame.step
+            artefacts/cad/ues-C-XS-lens.step
+            artefacts/cad/ues-C-XS-frame.stl
+            artefacts/cad/ues-C-S-frame.step
+            artefacts/cad/ues-C-S-lens.step
+            artefacts/cad/ues-C-S-frame.stl
+            artefacts/cad/ues-C-M-frame.step
+            artefacts/cad/ues-C-M-lens.step
+            artefacts/cad/ues-C-M-frame.stl
+            artefacts/cad/ues-C-L-frame.step
+            artefacts/cad/ues-C-L-lens.step
+            artefacts/cad/ues-C-L-frame.stl

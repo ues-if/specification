@@ -4,16 +4,12 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+    tags:
+      - '*'
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -21,37 +17,126 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+    container:
+      image: asciidoctor/docker-asciidoctor:latest
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-      
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-      
-      - name: Install AsciiDoctor
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extract version/slot
+        id: slot
         run: |
-          gem install asciidoctor
-          gem install asciidoctor-pdf
-      
-      - name: Build documentation
-        run: make html
-      
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            echo "slot=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+          else
+            echo "slot=main" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build HTML
+        run: make html VERSION=${{ steps.slot.outputs.slot }}
+
+      - name: Upload build artefact
+        uses: actions/upload-artifact@v4
         with:
-          path: ./build
+          name: html-${{ steps.slot.outputs.slot }}
+          path: build/
 
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
-    
+
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Extract slot
+        id: slot
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            echo "slot=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+          else
+            echo "slot=main" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Download build
+        uses: actions/download-artifact@v4
+        with:
+          name: html-${{ steps.slot.outputs.slot }}
+          path: new-build/
+
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+        continue-on-error: true
+
+      - name: Initialise gh-pages if missing
+        run: |
+          if [ ! -d "gh-pages/.git" ]; then
+            mkdir -p gh-pages
+            cd gh-pages
+            git init
+            git checkout -b gh-pages
+          fi
+
+      - name: Deploy slot
+        run: |
+          SLOT="${{ steps.slot.outputs.slot }}"
+          cd gh-pages
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+          rm -rf "$SLOT"
+          mkdir -p "$SLOT"
+          cp -r ../new-build/* "$SLOT"/
+
+          # Regenerate root index listing all deployed slots
+          cat > index.html << 'HTML'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Universal Eyeglass Standard</title>
+            <style>
+              body { font-family: system-ui, sans-serif; max-width: 720px; margin: 60px auto; padding: 0 20px; color: #333; line-height: 1.6; }
+              h1 { color: #2c3e50; }
+              h2 { color: #34495e; border-bottom: 2px solid #3498db; padding-bottom: 6px; }
+              ul { list-style: none; padding: 0; }
+              li { margin: 12px 0; }
+              a.btn { display: inline-block; padding: 10px 18px; background: #3498db; color: #fff; text-decoration: none; border-radius: 4px; }
+              a.btn:hover { background: #2980b9; }
+              a.btn.dev { background: #e67e22; }
+              a.btn.dev:hover { background: #d35400; }
+              .badge { font-size: .8em; padding: 2px 7px; border-radius: 3px; margin-left: 8px; color: #fff; }
+              .badge.dev { background: #e67e22; }
+              .badge.stable { background: #27ae60; }
+            </style>
+          </head>
+          <body>
+            <h1>Universal Eyeglass Standard</h1>
+            <p>Open, royalty-free interchangeable lens specification.</p>
+
+            <h2>Development (latest)</h2>
+            <ul>
+              <li><a href="main/" class="btn dev">main</a> <span class="badge dev">DEV</span></li>
+            </ul>
+
+            <h2>Stable releases</h2>
+            <ul>
+          HTML
+
+          # List version directories (exclude main and .git)
+          for dir in $(ls -d */ 2>/dev/null | sed 's/\///' | grep -v '^main$' | grep -v '^\.' | sort -V -r); do
+            echo "      <li><a href=\"$dir/\" class=\"btn\">$dir</a> <span class=\"badge stable\">STABLE</span></li>" >> index.html
+          done
+
+          cat >> index.html << 'HTML'
+            </ul>
+            <p><a href="https://github.com/${{ github.repository }}">Source on GitHub</a></p>
+          </body>
+          </html>
+          HTML
+
+          git add "$SLOT" index.html
+          git commit -m "Deploy $SLOT" || exit 0
+          git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" gh-pages

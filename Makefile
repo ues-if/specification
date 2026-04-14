@@ -1,5 +1,14 @@
 # Makefile for Standard Glasses AsciiDoc Documentation
 
+# ---------------------------------------------------------------------------
+# Version — auto-detected from git tag, overridable: make VERSION=1.2.3
+# ---------------------------------------------------------------------------
+VERSION ?= $(shell git describe --tags --exact-match 2>/dev/null | sed 's/^v//' || git describe --tags --always 2>/dev/null || echo "dev")
+REVDATE ?= $(shell date +%Y-%m-%d)
+
+# Attributes injected into every asciidoctor call so docs show version + date
+ADOC_ATTRS = -a revnumber=$(VERSION) -a revdate=$(REVDATE)
+
 # Variables
 # Use Docker if asciidoctor is not installed locally
 DOCKER_IMAGE = asciidoctor/docker-asciidoctor:latest
@@ -53,7 +62,7 @@ help:
 	@echo "  make index      - Build main index.html"
 	@echo "  make spec       - Build technical specification"
 	@echo "  make business   - Build business model document"
-	@echo "  make org        - Build organization document"
+	@echo "  make cad        - Export CAD (STEP/STL) for all sizes"
 
 html: $(INDEX_HTML) $(SPEC_HTML) $(BUSINESS_HTML)
 	@echo "✓ HTML documentation generated successfully"
@@ -68,30 +77,37 @@ spec: $(SPEC_HTML)
 
 business: $(BUSINESS_HTML)
 
-org: $(ORG_HTML)
-
 # HTML generation rules
 $(INDEX_HTML): $(INDEX) | $(BUILD_DIR)
-	@echo "Building $@..."
-	$(ADOC) -o $@ $(INDEX)
+	@echo "Building $@ (v$(VERSION))..."
+	$(ADOC) $(ADOC_ATTRS) -o $@ $(INDEX)
 
 $(SPEC_HTML): $(SPEC) | $(BUILD_DIR)/spec
-	@echo "Building $@..."
-	$(ADOC) -o $@ $(SPEC)
+	@echo "Building $@ (v$(VERSION))..."
+	$(ADOC) $(ADOC_ATTRS) -o $@ $(SPEC)
 
 $(BUSINESS_HTML): $(BUSINESS) | $(BUILD_DIR)/docs
-	@echo "Building $@..."
-	$(ADOC) -o $@ $(BUSINESS)
+	@echo "Building $@ (v$(VERSION))..."
+	$(ADOC) $(ADOC_ATTRS) -o $@ $(BUSINESS)
 	@cp -r docs/diagrams $(BUILD_DIR)/docs/diagrams
 
 # PDF generation rules
 $(SPEC_PDF): $(SPEC) | $(BUILD_DIR)/spec
-	@echo "Building $@..."
-	$(ADOC_PDF) -o $@ $(SPEC)
+	@echo "Building $@ (v$(VERSION))..."
+	$(ADOC_PDF) $(ADOC_ATTRS) -o $@ $(SPEC)
 
 $(BUSINESS_PDF): $(BUSINESS) | $(BUILD_DIR)/docs
-	@echo "Building $@..."
-	$(ADOC_PDF) -o $@ $(BUSINESS)
+	@echo "Building $@ (v$(VERSION))..."
+	$(ADOC_PDF) $(ADOC_ATTRS) -o $@ $(BUSINESS)
+
+# CAD export
+cad: | $(BUILD_DIR)/cad
+	@echo "Exporting CAD (v$(VERSION))..."
+	python src/ues/export.py $(BUILD_DIR)/cad
+	@echo "✓ CAD exported to $(BUILD_DIR)/cad"
+
+$(BUILD_DIR)/cad:
+	@mkdir -p $(BUILD_DIR)/cad
 
 # Create build directories
 $(BUILD_DIR):
