@@ -80,6 +80,17 @@ def create_lens_rim(diameter: float) -> Part:
     W2 = BEVEL_WIDTH / 2    # 0.6 mm — half-width at groove opening
     Zc = RIM_DEPTH / 2      # groove centre: midpoint of rim depth
 
+    # Rounded groove apex — must match create_reference_lens
+    TIP_RADIUS = 0.20
+    bevel_len = ((D ** 2) + (W2 ** 2)) ** 0.5
+    s = min(TIP_RADIUS, bevel_len * 0.45)
+    ux    = -D  / bevel_len
+    uz_up =  W2 / bevel_len
+    uz_dn = -W2 / bevel_len
+    p_up = (R + ux * s, Zc + uz_up * s)
+    p_dn = (R + ux * s, Zc + uz_dn * s)
+    mid  = (R - TIP_RADIUS, Zc)
+
     with BuildPart() as lens_rim:
         # Outer rim ring
         with BuildSketch() as outer:
@@ -91,18 +102,21 @@ def create_lens_rim(diameter: float) -> Part:
             Circle(radius=R - D)
         extrude(amount=RIM_DEPTH, mode=Mode.SUBTRACT)
 
-        # V-groove on the inner wall — triangle that mirrors the lens V-ridge.
+        # Rounded V-groove on the inner wall — mirrors the lens V-ridge.
         # In Plane.XZ (X = radial, Z = axial):
         #   (R-D, Zc+W2)  upper foot
         #         \
-        #          * (R, Zc)  groove apex (deepest point into rim material)
+        #   p_up  (near apex, upper bevel face)
+        #         ) rounded apex arc (same TIP_RADIUS as lens bevel)
+        #   p_dn  (near apex, lower bevel face)
         #         /
         #   (R-D, Zc-W2)  lower foot
         with BuildSketch(Plane.XZ) as groove_profile:
-            with BuildLine() as groove_line:
-                l1 = Line((R - D, Zc + W2), (R,     Zc      ))  # upper bevel face
-                l2 = Line((R,     Zc      ), (R - D, Zc - W2))  # lower bevel face
-                l3 = Line((R - D, Zc - W2), (R - D, Zc + W2))  # close along inner wall
+            with BuildLine():
+                Line((R - D, Zc + W2), p_up)               # upper bevel face
+                ThreePointArc(p_up, mid, p_dn)              # rounded apex
+                Line(p_dn, (R - D, Zc - W2))               # lower bevel face
+                Line((R - D, Zc - W2), (R - D, Zc + W2))  # close along inner wall
             make_face()
         revolve(axis=Axis.Z, mode=Mode.SUBTRACT)
 
@@ -180,44 +194,59 @@ def create_reference_lens(size_code: str) -> Part:
 
     with BuildPart() as lens:
         # Main lens body
-        Cylinder(radius=diameter/2, height=lens_thickness, 
-                align=(Align.CENTER, Align.CENTER, Align.CENTER))
-        
-        # Create V-bevel ridge on the lens edge by subtracting the two chamfer
-        # regions above and below the V.  Apex is at r = diameter/2 (outermost
-        # point of the cylinder). Each bevel face goes 1.0 mm inward (BEVEL_DEPTH)
-        # and 0.6 mm axially (BEVEL_WIDTH/2) to form a 120° V-ridge.
-        #
-        # Profile cross-section in Plane.XZ (X = radial, Z = axial):
-        #
-        #   flat face (T/2) ---+-------+  (outside, also cut here)
-        #                      |       |
-        #   bevel foot (W/2) --+        \
-        #                                * apex (R, 0)
-        #   bevel foot (-W/2)--+        /
-        #                      |       |
-        #   flat face (-T/2)---+-------+
-        #                   R-D        R+overhang
-        #
-        # The heptagonal subtract profile removes both chamfer regions at once.
+        Cylinder(
+            radius=diameter / 2,
+            height=lens_thickness,
+            align=(Align.CENTER, Align.CENTER, Align.CENTER),
+        )
+
+        # Rounded V-bevel parameters
         R = diameter / 2
         T = lens_thickness
-        W2 = BEVEL_WIDTH / 2       # half-width at bevel foot
+        W2 = BEVEL_WIDTH / 2
         D = BEVEL_DEPTH
-        overhang = 0.5             # extends past outer surface for a clean cut
+        overhang = 0.5
+        TIP_RADIUS = 0.20  # mm, start here and tune
+
+        # Distance to step back from the sharp apex along each bevel face
+        # so we can replace the point with a small rounding arc.
+        bevel_len = ((D ** 2) + (W2 ** 2)) ** 0.5
+        s = min(TIP_RADIUS, bevel_len * 0.45)
+
+        # Unit vectors from apex toward each bevel foot
+        ux = -D / bevel_len
+        uz_up =  W2 / bevel_len
+        uz_dn = -W2 / bevel_len
+
+        apex = (R, 0)
+        p_up = (R + ux * s, 0 + uz_up * s)
+        p_dn = (R + ux * s, 0 + uz_dn * s)
+
+        # Bulge point for the round tip.
+        # Push slightly inward in radial direction to create a soft crest.
+        mid = (R - TIP_RADIUS, 0)
 
         with BuildSketch(Plane.XZ) as bevel_profile:
-            with BuildLine() as bevel_line:
-                l1 = Line((R - D,  W2),       (R - D,  T / 2))      # up inner wall
-                l2 = Line((R - D,  T / 2),    (R + overhang,  T / 2)) # top face out
-                l3 = Line((R + overhang,  T / 2), (R + overhang, -T / 2)) # outer wall
-                l4 = Line((R + overhang, -T / 2), (R - D, -T / 2))  # bottom face in
-                l5 = Line((R - D, -T / 2),    (R - D, -W2))          # down inner wall
-                l6 = Line((R - D, -W2),       (R,  0))               # lower bevel face
-                l7 = Line((R,  0),            (R - D,  W2))          # upper bevel face
+            with BuildLine():
+                Line((R - D,  W2),       (R - D,  T / 2))         # up inner wall
+                Line((R - D,  T / 2),    (R + overhang,  T / 2))  # top face out
+                Line((R + overhang,  T / 2), (R + overhang, -T / 2))  # outer wall
+                Line((R + overhang, -T / 2), (R - D, -T / 2))     # bottom face in
+                Line((R - D, -T / 2),    (R - D, -W2))            # down inner wall
+
+                # Lower bevel face up toward rounded tip
+                Line((R - D, -W2), p_dn)
+
+                # Rounded tip replacing the sharp apex
+                ThreePointArc(p_dn, mid, p_up)
+
+                # Upper bevel face back to bevel foot
+                Line(p_up, (R - D, W2))
+
             make_face()
+
         revolve(axis=Axis.Z, mode=Mode.SUBTRACT)
-    
+
     return lens.part
 
 # ============================================================================
