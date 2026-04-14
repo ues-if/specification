@@ -85,6 +85,7 @@ $(SPEC_HTML): $(SPEC) | $(BUILD_DIR)/spec
 $(BUSINESS_HTML): $(BUSINESS) | $(BUILD_DIR)/docs
 	@echo "Building $@..."
 	$(ADOC) -o $@ $(BUSINESS)
+	@cp -r docs/diagrams $(BUILD_DIR)/docs/diagrams
 
 $(ORG_HTML): $(ORG) | $(BUILD_DIR)/docs
 	@echo "Building $@..."

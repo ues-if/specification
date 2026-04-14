@@ -31,15 +31,22 @@ Today's eyewear market creates several problems for consumers:
 
 4. **Limited frame selection**: Consumers often choose frames based on availability at their optometrist rather than unlimited choice
 
+5. **Complex logistics**: Eyeglass must align costumer's wishes, frame brands and lens manufacturers:
+
+.Current user journey flow
+image::diagrams/current.drawio.png[Current user journey flow]
+
 === Proposed Solution
 
-Create an **industry-wide standard** for interchangeable prescription lenses with four fixed sizes (XS, S, M, L) that:
+Create an **industry-wide standard** for interchangeable prescription lenses interfaces that:
 
-* Use a standardized "rounded square" optical aperture
+* Use a standardized lens sizes (S, M, L, XL) and shape (circular, rounded square)
 * Employ a tool-free snap-fit mounting system
 * Work with any Standards Glasses-compliant frame
 * Can be ordered online and installed at home
-* Reduce waste and cost over the product lifecycle
+
+.New user journey flow
+image::diagrams/new.drawio.png[New user journey flow]
 
 === How It Works
 
