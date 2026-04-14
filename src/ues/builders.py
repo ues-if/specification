@@ -52,6 +52,22 @@ def contour_half_width(contour: LensContour) -> float:
     return make_lens_wire(contour).bounding_box().max.X
 
 
+def _wire_y_at_max_x(wire: Wire) -> float:
+    """Return the Y coordinate at the point of maximum X on the wire.
+
+    This is the nasal tip — the closest point to the opposite lens —
+    and defines where the bridge should be vertically attached.
+    Sampled densely enough to handle spline curves accurately.
+    """
+    best_x, best_y = -1e9, 0.0
+    for edge in wire.edges():
+        for i in range(21):
+            pt = edge.position_at(i / 20)
+            if pt.X > best_x:
+                best_x, best_y = pt.X, pt.Y
+    return best_y
+
+
 def _profile_plane_at_wire_start(wire: Wire) -> Plane:
     """
     Return a Plane at the wire's start point for sweep profile placement.
@@ -177,11 +193,13 @@ def create_reference_lens(size_code: str, lens_thickness: float = 2.0) -> Part:
     return lens.part
 
 
-def create_bridge(width: float) -> Part:
+def create_bridge(width: float, y_offset: float = 0.0) -> Part:
+    # Bridge sits at the nasal tip height (y_offset) of the lens,
+    # hanging downward from RIM_DEPTH/2 in Z.
     with BuildPart() as bridge:
         Box(width, BRIDGE_THICKNESS, BRIDGE_HEIGHT,
             align=(Align.CENTER, Align.CENTER, Align.MAX))
-        bridge.part.move(Location((0, 0, RIM_DEPTH / 2)))
+        bridge.part.move(Location((0, y_offset, RIM_DEPTH / 2)))
     return bridge.part
 
 
@@ -203,6 +221,7 @@ def create_frame(size_code: str) -> Part:
     bbox         = wire.bounding_box()
     nasal_reach  = bbox.max.X   # rightmost edge = nasal side of left lens
     total_span   = bbox.size.X  # full lens width (temporal-to-nasal)
+    nasal_y      = _wire_y_at_max_x(wire)  # Y at the nasal tip (bridge attachment)
 
     with BuildPart() as frame:
         # Place left rim so its rightmost (nasal) edge sits at -(bridge_width/2),
@@ -211,7 +230,7 @@ def create_frame(size_code: str) -> Part:
             Location((-(bridge_width / 2 + nasal_reach), 0, 0)))
         add(left_rim)
         add(left_rim.mirror(Plane.YZ))  # right rim is the mirror image
-        add(create_bridge(bridge_width))
+        add(create_bridge(bridge_width, y_offset=nasal_y))
         for side in (-1, 1):
             t = create_temple().rotate(Axis.Y, -90).rotate(Axis.Z, -90)
             add(t.move(Location((side * (bridge_width / 2 + total_span + RIM_WIDTH), 0, 0))))
