@@ -13,7 +13,7 @@ from build123d import *
 from .spec import (
     LensContour, CircularContour, RectangularContour, BezierContour,
     LensSizeSpec, LENS_SPECS,
-    BEVEL_DEPTH, BEVEL_WIDTH,
+    BEVEL_DEPTH, BEVEL_WIDTH, GROOVE_CLEARANCE,
     RIM_WIDTH, RIM_DEPTH,
     BRIDGE_HEIGHT, BRIDGE_THICKNESS,
     TEMPLE_LENGTH, TEMPLE_HEIGHT, TEMPLE_THICKNESS,
@@ -95,10 +95,14 @@ def _profile_plane_at_wire_start(wire: Wire) -> Plane:
     return Plane(origin=start_pt, x_dir=outward, z_dir=plane_normal)
 
 
-def _bevel_tip_params() -> tuple:
-    """Shared rounded-apex geometry derived from BEVEL_DEPTH / BEVEL_WIDTH."""
-    D        = BEVEL_DEPTH
-    W2       = BEVEL_WIDTH / 2
+def _bevel_tip_params(clearance: float = 0.0) -> tuple:
+    """Rounded-apex V-profile geometry.
+
+    clearance > 0 makes the profile deeper and wider by that amount per side,
+    producing the frame groove which must be slightly larger than the lens ridge.
+    """
+    D        = BEVEL_DEPTH + clearance
+    W2       = BEVEL_WIDTH / 2 + clearance
     TIP_R    = 0.20
     bevel_len = (D ** 2 + W2 ** 2) ** 0.5
     s        = min(TIP_R, bevel_len * 0.45)
@@ -121,7 +125,7 @@ def create_lens_rim(contour: LensContour) -> Part:
     outer_wire    = lens_wire.offset_2d(+RIM_WIDTH,   kind=Kind.ARC)
     aperture_wire = lens_wire.offset_2d(-BEVEL_DEPTH, kind=Kind.ARC)
 
-    D, W2, TIP_R, s, ux, uz_up, uz_dn = _bevel_tip_params()
+    D, W2, TIP_R, s, ux, uz_up, uz_dn = _bevel_tip_params(clearance=GROOVE_CLEARANCE)
     Zc = RIM_DEPTH / 2
 
     # Groove profile in local (u, z): u=0 at aperture wall, u>0 into rim material

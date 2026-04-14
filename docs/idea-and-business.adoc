@@ -45,10 +45,10 @@ Create an **industry-wide standard** for interchangeable prescription lenses int
 * Work with any Standards Glasses-compliant frame
 * Can be ordered online and installed at home
 
+=== How It Works
+
 .New user journey flow
 image::diagrams/new.drawio.png[New user journey flow]
-
-=== How It Works
 
 ==== For Consumers
 
@@ -185,7 +185,27 @@ Based on research, partial implementations exist:
    * Prefer repair over replace
    * Align with circular economy values
 
-==== Value Proposition
+5. **Children in Low-Income Families and Developing Countries** (High-Impact)
+   * Uncorrected vision is one of the leading causes of poor school performance in children
+   * A single optometry consultation is sufficient — lenses can be reused indefinitely as the child changes frames due to growth or damage
+   * NGOs, school programs, and public health systems can stock standard lenses for immediate distribution
+   * Dramatically lowers the cost-per-corrected-child compared to fully custom eyewear
+
+==== Value Proposition for Humanitarian and Pediatric Use
+
+Uncorrected refractive errors affect an estimated 1 billion children worldwide, with the majority in low- and middle-income countries.
+Cost and logistics are the primary barriers: a single pair of custom glasses is unaffordable for many families, and re-glazing when a child's frame breaks requires a new consultation and new cut lenses.
+
+With UES:
+
+* A child is measured once — the prescription determines the UES size.
+* Lenses are produced in batch at low cost and can be pre-positioned in schools or clinics.
+* When the frame breaks, only the frame is replaced — at a fraction of the total cost.
+* Donated or subsidised lens stock (stocked by size code) can serve many children with no individual manufacturing lead time.
+
+This makes UES a natural fit for school eye-health programs, NGO distribution, and government public-health procurement.
+
+==== Value Proposition for Individual Consumers
 
 For a consumer with a $200 prescription:
 
@@ -271,5 +291,3 @@ First-mover advantage is critical: publishing an open specification quickly esta
 Open licensing and an inclusive governance model make it unattractive for competitors to fork a separate standard.
 
 _See link:../spec/technical-spec.adoc[Technical Specification] for detailed standards._
-
-_See link:organization.adoc[Organization & Governance] for details on structure._

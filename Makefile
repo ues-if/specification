@@ -24,17 +24,14 @@ BUILD_DIR = build
 INDEX = index.adoc
 SPEC = spec/technical-spec.adoc
 BUSINESS = docs/idea-and-business.adoc
-ORG = docs/organization.adoc
 
 # Output files
 INDEX_HTML = $(BUILD_DIR)/index.html
 SPEC_HTML = $(BUILD_DIR)/spec/technical-spec.html
 BUSINESS_HTML = $(BUILD_DIR)/docs/idea-and-business.html
-ORG_HTML = $(BUILD_DIR)/docs/organization.html
 
 SPEC_PDF = $(BUILD_DIR)/spec/technical-spec.pdf
 BUSINESS_PDF = $(BUILD_DIR)/docs/idea-and-business.pdf
-ORG_PDF = $(BUILD_DIR)/docs/organization.pdf
 
 # Targets
 .PHONY: all html pdf clean view help
@@ -58,10 +55,10 @@ help:
 	@echo "  make business   - Build business model document"
 	@echo "  make org        - Build organization document"
 
-html: $(INDEX_HTML) $(SPEC_HTML) $(BUSINESS_HTML) $(ORG_HTML)
+html: $(INDEX_HTML) $(SPEC_HTML) $(BUSINESS_HTML)
 	@echo "✓ HTML documentation generated successfully"
 
-pdf: $(SPEC_PDF) $(BUSINESS_PDF) $(ORG_PDF)
+pdf: $(SPEC_PDF) $(BUSINESS_PDF)
 	@echo "✓ PDF documentation generated successfully"
 
 # Individual HTML targets
@@ -87,10 +84,6 @@ $(BUSINESS_HTML): $(BUSINESS) | $(BUILD_DIR)/docs
 	$(ADOC) -o $@ $(BUSINESS)
 	@cp -r docs/diagrams $(BUILD_DIR)/docs/diagrams
 
-$(ORG_HTML): $(ORG) | $(BUILD_DIR)/docs
-	@echo "Building $@..."
-	$(ADOC) -o $@ $(ORG)
-
 # PDF generation rules
 $(SPEC_PDF): $(SPEC) | $(BUILD_DIR)/spec
 	@echo "Building $@..."
@@ -99,10 +92,6 @@ $(SPEC_PDF): $(SPEC) | $(BUILD_DIR)/spec
 $(BUSINESS_PDF): $(BUSINESS) | $(BUILD_DIR)/docs
 	@echo "Building $@..."
 	$(ADOC_PDF) -o $@ $(BUSINESS)
-
-$(ORG_PDF): $(ORG) | $(BUILD_DIR)/docs
-	@echo "Building $@..."
-	$(ADOC_PDF) -o $@ $(ORG)
 
 # Create build directories
 $(BUILD_DIR):

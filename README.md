@@ -32,14 +32,7 @@ The project is organized into three main documents:
    - Implementation roadmap
    - Financial considerations
 
-3. **[Organization & Governance](docs/organization.adoc)** (`docs/organization.adoc`)
-   - Standard Glasses Consortium (SGC) structure
-   - Governance bodies and membership
-   - Intellectual property policy (royalty-free licensing)
-   - Certification program
-   - Financial model and operations
-
-4. **[Main Index](index.adoc)** (`index.adoc`)
+3. **[Main Index](index.adoc)** (`index.adoc`)
    - Project overview and navigation
 
 ## Building the Documentation
@@ -72,7 +65,6 @@ gem install asciidoctor-pdf
 asciidoctor index.adoc
 asciidoctor spec/technical-spec.adoc
 asciidoctor docs/idea-and-business.adoc
-asciidoctor docs/organization.adoc
 
 # Or use the provided Makefile
 make html
@@ -84,7 +76,6 @@ make html
 # Generate PDF documents
 asciidoctor-pdf spec/technical-spec.adoc
 asciidoctor-pdf docs/idea-and-business.adoc
-asciidoctor-pdf docs/organization.adoc
 
 # Or use the Makefile
 make pdf

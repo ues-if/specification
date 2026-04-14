@@ -62,6 +62,11 @@ BEVEL_WIDTH         = 1.2   # mm — opening width at the lens surface
 BEVEL_ANGLE         = 120   # degrees (symmetrical V-ridge)
 BEVEL_APEX_POSITION = 1.5   # mm — from lens outer circumference
 
+# Assembly clearance applied to the frame groove (per flank / per face).
+# The groove is this much deeper and wider per side than the lens ridge,
+# ensuring a clearance fit for tool-free hand assembly.
+GROOVE_CLEARANCE    = 0.05  # mm
+
 # ============================================================================
 # REFERENCE FRAME DESIGN PARAMETERS
 # ============================================================================

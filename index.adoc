@@ -20,14 +20,10 @@ The complete technical specification defining the physical, optical, and mechani
 <<docs/idea-and-business.adoc#,Idea & Business Model>>::
 The concept, market analysis, and business process surrounding the standard glasses initiative.
 
-<<docs/organization.adoc#,Organization & Governance>>::
-Information about the organization responsible for maintaining and promoting this open standard.
-
 == Quick Links
 
 * link:spec/technical-spec.adoc[Read the Full Specification]
 * link:docs/idea-and-business.adoc[Understand the Concept]
-* link:docs/organization.adoc[About the Organization]
 
 == Current Status
 
