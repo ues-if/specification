@@ -15,6 +15,10 @@ The standardized interface (from spec) includes:
 The frame design itself is a reference model and not part of the spec.
 """
 
+from __future__ import annotations
+from dataclasses import dataclass
+from typing import Union
+
 from build123d import *
 
 # ============================================================================
@@ -32,13 +36,36 @@ SHOW_RIGHT_TEMPLE = True
 # STANDARDIZED LENS INTERFACE (from technical-spec.adoc)
 # ============================================================================
 
-# Lens sizes: {size_code: (lens_diameter, bridge_width)}
+# Lens contour dataclasses — define the 2-D perimeter shape of a lens
+
+@dataclass
+class CircularContour:
+    diameter: float
+
+@dataclass
+class RectangularContour:
+    width: float
+    height: float
+    corner_radius: float = 2.0
+
+@dataclass
+class BezierContour:
+    control_points: list  # list of (x, y) tuples, closed via Spline(periodic=True)
+
+LensContour = Union[CircularContour, RectangularContour, BezierContour]
+
+@dataclass
+class LensSizeSpec:
+    contour: LensContour
+    bridge_width: float
+
+# Lens sizes: {size_code: LensSizeSpec}
 # Bridge width terminology per ISO 8624
 LENS_SPECS = {
-    "XS": (51, 15),  # Children (ages 4-10)
-    "S": (56, 17),   # Small adults / Youth (ages 11-16)
-    "M": (61, 19),   # Average adults
-    "L": (67, 21),   # Large adults
+    "XS": LensSizeSpec(CircularContour(51), 15),  # Children (ages 4-10)
+    "S":  LensSizeSpec(CircularContour(56), 17),  # Small adults / Youth (ages 11-16)
+    "M":  LensSizeSpec(CircularContour(61), 19),  # Average adults
+    "L":  LensSizeSpec(CircularContour(67), 21),  # Large adults
 }
 
 # Lens edge bevel specification (defined by this standard)
@@ -68,57 +95,114 @@ TEMPLE_HEIGHT = 8         # mm (vertical dimension when worn)
 TEMPLE_THICKNESS = 2      # mm (horizontal depth/width)
 
 # ============================================================================
-# COMPONENT BUILDERS
+# CONTOUR HELPERS
 # ============================================================================
 
-def create_lens_rim(diameter: float) -> Part:
-    """
-    Create a lens rim with a V-groove on the inner wall matching the lens bevel ridge.
-    """
-    R  = diameter / 2
-    D  = BEVEL_DEPTH        # 1.0 mm — groove depth (radially outward into rim)
-    W2 = BEVEL_WIDTH / 2    # 0.6 mm — half-width at groove opening
-    Zc = RIM_DEPTH / 2      # groove centre: midpoint of rim depth
+def make_lens_wire(contour: LensContour) -> Wire:
+    """Return a closed Wire in the XY plane representing the lens perimeter."""
+    if isinstance(contour, CircularContour):
+        return Wire([Edge.make_circle(contour.diameter / 2)])
+    if isinstance(contour, RectangularContour):
+        with BuildSketch() as sk:
+            RectangleRounded(contour.width, contour.height, contour.corner_radius)
+        return sk.sketch.faces()[0].outer_wire()
+    if isinstance(contour, BezierContour):
+        with BuildLine() as bl:
+            Spline(*contour.control_points, periodic=True)
+        return bl.line.wires()[0]
+    raise ValueError(f"Unknown contour type: {type(contour)}")
 
-    # Rounded groove apex — must match create_reference_lens
+
+def contour_half_width(contour: LensContour) -> float:
+    """Return the X half-extent of the contour (used for frame horizontal positioning)."""
+    if isinstance(contour, CircularContour):
+        return contour.diameter / 2
+    bb = make_lens_wire(contour).bounding_box()
+    return bb.size.X / 2
+
+
+def _profile_plane_at_wire_start(wire: Wire) -> Plane:
+    """
+    Return a Plane at the wire's start point for sweep profile placement.
+
+    Local (u, v) sketch coordinates:
+      u = 0  at the wire perimeter, u > 0  outward (away from centroid)
+      v      along global Z (axial direction)
+
+    The plane's normal is chosen so that  y_dir = z_dir x x_dir = (0, 0, 1).
+    """
+    start_pt = wire.start_point()
+    t = wire.edges()[0].tangent_at(0.0)
+    # Candidate outward normal: tangent rotated -90 deg in XY
+    cand_out = Vector(t.Y, -t.X, 0)
+    center = wire.center()
+    sp_xy = Vector(start_pt.X, start_pt.Y, 0)
+    ct_xy = Vector(center.X, center.Y, 0)
+    if (sp_xy - ct_xy).dot(cand_out) < 0:
+        cand_out = Vector(-t.Y, t.X, 0)
+    outward = cand_out.normalized()
+    # z_dir (plane normal) s.t. y_dir = z_dir x outward = (0, 0, 1).
+    # Derivation: z_dir = (outward.Y, -outward.X, 0)
+    plane_normal = Vector(outward.Y, -outward.X, 0)
+    return Plane(origin=start_pt, x_dir=outward, z_dir=plane_normal)
+
+
+def _bevel_tip_params():
+    """Shared rounded-apex geometry derived from BEVEL_DEPTH / BEVEL_WIDTH."""
+    D  = BEVEL_DEPTH
+    W2 = BEVEL_WIDTH / 2
     TIP_RADIUS = 0.20
-    bevel_len = ((D ** 2) + (W2 ** 2)) ** 0.5
-    s = min(TIP_RADIUS, bevel_len * 0.45)
+    bevel_len = (D ** 2 + W2 ** 2) ** 0.5
+    s     = min(TIP_RADIUS, bevel_len * 0.45)
     ux    = -D  / bevel_len
     uz_up =  W2 / bevel_len
     uz_dn = -W2 / bevel_len
-    p_up = (R + ux * s, Zc + uz_up * s)
-    p_dn = (R + ux * s, Zc + uz_dn * s)
-    mid  = (R - TIP_RADIUS, Zc)
+    return D, W2, TIP_RADIUS, s, ux, uz_up, uz_dn
+
+
+# ============================================================================
+# COMPONENT BUILDERS
+# ============================================================================
+
+def create_lens_rim(contour: LensContour) -> Part:
+    """
+    Create a lens rim with a rounded V-groove on the inner wall matching the lens bevel
+    ridge.  Works for any lens contour shape via sweep.
+    """
+    lens_wire     = make_lens_wire(contour)
+    outer_wire    = lens_wire.offset_2d(+RIM_WIDTH,   kind=Kind.ARC)
+    aperture_wire = lens_wire.offset_2d(-BEVEL_DEPTH, kind=Kind.ARC)
+
+    D, W2, TIP_RADIUS, s, ux, uz_up, uz_dn = _bevel_tip_params()
+    Zc = RIM_DEPTH / 2
+
+    # Groove profile in local (u, z): u = 0 at aperture inner wall, u > 0 into rim
+    p_up = (D + ux * s, Zc + uz_up * s)
+    p_dn = (D + ux * s, Zc + uz_dn * s)
+    mid  = (D - TIP_RADIUS, Zc)
+
+    profile_plane = _profile_plane_at_wire_start(aperture_wire)
 
     with BuildPart() as lens_rim:
-        # Outer rim ring
-        with BuildSketch() as outer:
-            Circle(radius=R + RIM_WIDTH)
+        # Outer rim body
+        with BuildSketch():
+            add(Face(outer_wire))
         extrude(amount=RIM_DEPTH, mode=Mode.ADD)
 
-        # Aperture: sized to the lens body at the bevel foot (r = R - D)
-        with BuildSketch() as inner:
-            Circle(radius=R - D)
+        # Aperture (inner opening)
+        with BuildSketch():
+            add(Face(aperture_wire))
         extrude(amount=RIM_DEPTH, mode=Mode.SUBTRACT)
 
-        # Rounded V-groove on the inner wall — mirrors the lens V-ridge.
-        # In Plane.XZ (X = radial, Z = axial):
-        #   (R-D, Zc+W2)  upper foot
-        #         \
-        #   p_up  (near apex, upper bevel face)
-        #         ) rounded apex arc (same TIP_RADIUS as lens bevel)
-        #   p_dn  (near apex, lower bevel face)
-        #         /
-        #   (R-D, Zc-W2)  lower foot
-        with BuildSketch(Plane.XZ) as groove_profile:
+        # Rounded V-groove swept around the aperture perimeter
+        with BuildSketch(profile_plane):
             with BuildLine():
-                Line((R - D, Zc + W2), p_up)               # upper bevel face
-                ThreePointArc(p_up, mid, p_dn)              # rounded apex
-                Line(p_dn, (R - D, Zc - W2))               # lower bevel face
-                Line((R - D, Zc - W2), (R - D, Zc + W2))  # close along inner wall
+                Line((0, Zc + W2), p_up)              # upper bevel face
+                ThreePointArc(p_up, mid, p_dn)         # rounded apex
+                Line(p_dn, (0, Zc - W2))              # lower bevel face
+                Line((0, Zc - W2), (0, Zc + W2))      # close along inner wall
             make_face()
-        revolve(axis=Axis.Z, mode=Mode.SUBTRACT)
+        sweep(path=aperture_wire, mode=Mode.SUBTRACT)
 
     return lens_rim.part
 
@@ -148,104 +232,79 @@ def create_temple() -> Part:
 
 
 def create_frame(size_code: str) -> Part:
-    lens_diameter, bridge_width = LENS_SPECS[size_code]
+    spec         = LENS_SPECS[size_code]
+    hw           = contour_half_width(spec.contour)
+    bridge_width = spec.bridge_width
 
     with BuildPart() as frame:
         # Left lens rim
         if SHOW_LEFT_LENS:
-            left_rim = create_lens_rim(lens_diameter)
-            add(left_rim.move(Location((-(bridge_width/2 + lens_diameter/2), 0, 0))))
-        
+            left_rim = create_lens_rim(spec.contour)
+            add(left_rim.move(Location((-(bridge_width / 2 + hw), 0, 0))))
+
         # Right lens rim
         if SHOW_RIGHT_LENS:
-            right_rim = create_lens_rim(lens_diameter)
-            add(right_rim.move(Location((bridge_width/2 + lens_diameter/2, 0, 0))))
-        
+            right_rim = create_lens_rim(spec.contour)
+            add(right_rim.move(Location((bridge_width / 2 + hw, 0, 0))))
+
         # Bridge
         if SHOW_BRIDGE:
             bridge = create_bridge(bridge_width)
             add(bridge)
-        
+
         # Left temple
         if SHOW_LEFT_TEMPLE:
             left_temple = create_temple()
             left_temple_positioned = left_temple.rotate(Axis.Y, -90).rotate(Axis.Z, -90)
             add(left_temple_positioned.move(Location((
-                -(bridge_width/2 + lens_diameter + RIM_WIDTH),
-                0,
-                0
+                -(bridge_width / 2 + hw * 2 + RIM_WIDTH), 0, 0
             ))))
-        
+
         # Right temple
         if SHOW_RIGHT_TEMPLE:
             right_temple = create_temple()
             right_temple_positioned = right_temple.rotate(Axis.Y, -90).rotate(Axis.Z, -90)
             add(right_temple_positioned.move(Location((
-                bridge_width/2 + lens_diameter + RIM_WIDTH,
-                0,
-                0
+                bridge_width / 2 + hw * 2 + RIM_WIDTH, 0, 0
             ))))
-        
+
     return frame.part
 
-def create_reference_lens(size_code: str) -> Part:
-    diameter, _ = LENS_SPECS[size_code]
-    lens_thickness = 2  # mm
+def create_reference_lens(contour: LensContour, lens_thickness: float = 2.0) -> Part:
+    """
+    Create a reference lens with a rounded V-ridge bevel on its outer edge.
+    Works for any lens contour shape via sweep.
+    """
+    lens_wire = make_lens_wire(contour)
+    T         = lens_thickness
+    D, W2, TIP_RADIUS, s, ux, uz_up, uz_dn = _bevel_tip_params()
+    overhang  = 0.5
+
+    # Bevel cutter in local (u, z): u = 0 at contour perimeter, u > 0 outward
+    p_up = (ux * s,       uz_up * s)
+    p_dn = (ux * s,       uz_dn * s)
+    mid  = (-TIP_RADIUS,  0)
+
+    profile_plane = _profile_plane_at_wire_start(lens_wire)
 
     with BuildPart() as lens:
-        # Main lens body
-        Cylinder(
-            radius=diameter / 2,
-            height=lens_thickness,
-            align=(Align.CENTER, Align.CENTER, Align.CENTER),
-        )
+        # Main lens body — extruded from face, centered on Z=0
+        lens_face = Face(lens_wire)
+        add(Solid.extrude(lens_face, Vector(0, 0, T)).move(Location((0, 0, -T / 2))))
 
-        # Rounded V-bevel parameters
-        R = diameter / 2
-        T = lens_thickness
-        W2 = BEVEL_WIDTH / 2
-        D = BEVEL_DEPTH
-        overhang = 0.5
-        TIP_RADIUS = 0.20  # mm, start here and tune
-
-        # Distance to step back from the sharp apex along each bevel face
-        # so we can replace the point with a small rounding arc.
-        bevel_len = ((D ** 2) + (W2 ** 2)) ** 0.5
-        s = min(TIP_RADIUS, bevel_len * 0.45)
-
-        # Unit vectors from apex toward each bevel foot
-        ux = -D / bevel_len
-        uz_up =  W2 / bevel_len
-        uz_dn = -W2 / bevel_len
-
-        apex = (R, 0)
-        p_up = (R + ux * s, 0 + uz_up * s)
-        p_dn = (R + ux * s, 0 + uz_dn * s)
-
-        # Bulge point for the round tip.
-        # Push slightly inward in radial direction to create a soft crest.
-        mid = (R - TIP_RADIUS, 0)
-
-        with BuildSketch(Plane.XZ) as bevel_profile:
+        # Bevel cutter swept around the perimeter
+        with BuildSketch(profile_plane):
             with BuildLine():
-                Line((R - D,  W2),       (R - D,  T / 2))         # up inner wall
-                Line((R - D,  T / 2),    (R + overhang,  T / 2))  # top face out
-                Line((R + overhang,  T / 2), (R + overhang, -T / 2))  # outer wall
-                Line((R + overhang, -T / 2), (R - D, -T / 2))     # bottom face in
-                Line((R - D, -T / 2),    (R - D, -W2))            # down inner wall
-
-                # Lower bevel face up toward rounded tip
-                Line((R - D, -W2), p_dn)
-
-                # Rounded tip replacing the sharp apex
-                ThreePointArc(p_dn, mid, p_up)
-
-                # Upper bevel face back to bevel foot
-                Line(p_up, (R - D, W2))
-
+                Line((-D,        W2),          (-D,        T / 2))    # up inner wall
+                Line((-D,        T / 2),       (+overhang, T / 2))    # top face out
+                Line((+overhang, T / 2),       (+overhang, -T / 2))   # outer wall
+                Line((+overhang, -T / 2),      (-D,        -T / 2))   # bottom face in
+                Line((-D,        -T / 2),      (-D,        -W2))      # down inner wall
+                Line((-D,        -W2),          p_dn)                  # lower bevel face
+                ThreePointArc(p_dn, mid, p_up)                         # rounded apex
+                Line(p_up,                     (-D,        W2))       # upper bevel face
             make_face()
-
-        revolve(axis=Axis.Z, mode=Mode.SUBTRACT)
+        sweep(path=lens_wire, mode=Mode.SUBTRACT)
 
     return lens.part
 
