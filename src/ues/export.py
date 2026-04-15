@@ -1,5 +1,5 @@
 """
-Universal Eyeglass Standard — Headless CAD export
+Universal Eyeglass Socket — Headless CAD export
 
 Exports STEP and STL files for all standard sizes.
 Run from the project root:

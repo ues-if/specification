@@ -1,13 +1,13 @@
-= Universal Eyeglass Standard: Interchangeable Lens Specification
+= Universal Eyeglass Socket: Interchangeable Lens Specification
 :toc: left
 :toclevels: 3
 :sectnums:
 :icons: font
-:version: 0.1.0
-:revnumber: {version}
-:revdate: 2026-04-06
+:imagesdir: images
 
-== Welcome to the Universal Eyeglass Standard (UES) project
+image::logo.svg[UES Logo,360,align="center"]
+
+== Welcome to the Universal Eyeglass Socket (UES) project
 
 This project aims to create an industry-wide standard for interchangeable prescription eyeglass lenses, enabling consumers to use a single set of prescription lenses across multiple compatible frames.
 
@@ -19,7 +19,7 @@ This documentation is organized into three main sections:
 The complete technical specification defining the physical, optical, and mechanical standards for standardized lens modules.
 
 <<docs/idea-and-business.adoc#,Idea & Business Model>>::
-The concept, market analysis, and business process surrounding the standard glasses initiative.
+The concept, market analysis, and business process surrounding the eyeglass socket initiative.
 
 == Quick Links
 
@@ -30,7 +30,7 @@ The concept, market analysis, and business process surrounding the standard glas
 
 [WARNING]
 ====
-This specification is in *DRAFT* status (Version {version}). 
+This specification is in *DRAFT* status (Version {revnumber}). 
 The standard is being developed as an open, royalty-free specification.
 ====
 

@@ -24,6 +24,13 @@ else
     ADOC_PDF = asciidoctor-pdf
 endif
 
+RSVG := $(shell command -v rsvg-convert 2>/dev/null)
+ifndef RSVG
+    RSVG_CONVERT = $(DOCKER_RUN) rsvg-convert
+else
+    RSVG_CONVERT = rsvg-convert
+endif
+
 BROWSER = xdg-open
 
 # Build directory
@@ -34,6 +41,10 @@ INDEX = index.adoc
 SPEC = spec/technical-spec.adoc
 BUSINESS = docs/idea-and-business.adoc
 
+# SVG logos and their PNG equivalents
+SVG_LOGOS = $(wildcard images/*.svg)
+PNG_LOGOS = $(patsubst images/%.svg,$(BUILD_DIR)/images/%.png,$(SVG_LOGOS))
+
 # Output files
 INDEX_HTML = $(BUILD_DIR)/index.html
 SPEC_HTML = $(BUILD_DIR)/spec/technical-spec.html
@@ -43,7 +54,7 @@ SPEC_PDF = $(BUILD_DIR)/spec/technical-spec.pdf
 BUSINESS_PDF = $(BUILD_DIR)/docs/idea-and-business.pdf
 
 # Targets
-.PHONY: all html pdf clean view help
+.PHONY: all html pdf logos clean view help
 
 all: html
 
@@ -61,11 +72,18 @@ help:
 	@echo "Individual targets:"
 	@echo "  make index      - Build main index.html"
 	@echo "  make spec       - Build technical specification"
-	@echo "  make business   - Build business model document"
-	@echo "  make cad        - Export CAD (STEP/STL) for all sizes"
+	@echo "  make business   - Build business model document"	@echo "  make logos      - Convert SVG logos to PNG"	@echo "  make cad        - Export CAD (STEP/STL) for all sizes"
 
-html: $(INDEX_HTML) $(SPEC_HTML) $(BUSINESS_HTML)
+html: $(INDEX_HTML) $(SPEC_HTML) $(BUSINESS_HTML) $(PNG_LOGOS)
 	@echo "✓ HTML documentation generated successfully"
+
+logos: $(PNG_LOGOS)
+	@echo "✓ SVG logos converted to PNG"
+
+# SVG → PNG conversion
+$(BUILD_DIR)/images/%.png: images/%.svg | $(BUILD_DIR)/images
+	@echo "Converting $< → $@..."
+	$(RSVG_CONVERT) --zoom 4 $< -o $@
 
 pdf: $(SPEC_PDF) $(BUSINESS_PDF)
 	@echo "✓ PDF documentation generated successfully"
@@ -78,18 +96,21 @@ spec: $(SPEC_HTML)
 business: $(BUSINESS_HTML)
 
 # HTML generation rules
-$(INDEX_HTML): $(INDEX) | $(BUILD_DIR)
+$(INDEX_HTML): $(INDEX) | $(BUILD_DIR)/images
 	@echo "Building $@ (v$(VERSION))..."
 	$(ADOC) $(ADOC_ATTRS) -o $@ $(INDEX)
+	@cp images/* $(BUILD_DIR)/images/
 
-$(SPEC_HTML): $(SPEC) | $(BUILD_DIR)/spec
+$(SPEC_HTML): $(SPEC) | $(BUILD_DIR)/spec $(BUILD_DIR)/images
 	@echo "Building $@ (v$(VERSION))..."
 	$(ADOC) $(ADOC_ATTRS) -o $@ $(SPEC)
+	@cp images/* $(BUILD_DIR)/images/
 
-$(BUSINESS_HTML): $(BUSINESS) | $(BUILD_DIR)/docs
+$(BUSINESS_HTML): $(BUSINESS) | $(BUILD_DIR)/docs $(BUILD_DIR)/images
 	@echo "Building $@ (v$(VERSION))..."
 	$(ADOC) $(ADOC_ATTRS) -o $@ $(BUSINESS)
-	@cp -r docs/diagrams $(BUILD_DIR)/docs/diagrams
+	@cp images/* $(BUILD_DIR)/images/
+	@cp -r docs/diagrams $(BUILD_DIR)/images/diagrams
 
 # PDF generation rules
 $(SPEC_PDF): $(SPEC) | $(BUILD_DIR)/spec
@@ -118,6 +139,9 @@ $(BUILD_DIR)/spec:
 
 $(BUILD_DIR)/docs:
 	@mkdir -p $(BUILD_DIR)/docs
+
+$(BUILD_DIR)/images:
+	@mkdir -p $(BUILD_DIR)/images
 
 # View in browser
 view: html

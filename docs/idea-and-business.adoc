@@ -1,15 +1,15 @@
-= Idea & Business Model: Universal Eyeglass Standard Initiative
+= Idea & Business Model: Universal Eyeglass Socket Initiative
 :toc: left
 :toclevels: 3
 :sectnums:
 :icons: font
-:version: 0.1.0
-:revnumber: {version}
-:revdate: 2026-04-06
+:imagesdir: ../images
+
+image::logo.svg[UES Logo,280,align="center"]
 
 [abstract]
 --
-This document describes the concept behind Universal Eyeglass Standard, the market opportunity, business model, and the process for implementing a universal standard for interchangeable prescription lenses.
+This document describes the concept behind Universal Eyeglass Socket, the market opportunity, business model, and the process for implementing a universal standard for interchangeable prescription lenses.
 --
 
 == The Core Idea
@@ -56,7 +56,7 @@ image::diagrams/new.drawio.png[New user journey flow]
 1. **Initial Measurement**: Visit an optometrist for:
    * Prescription measurement
    * Pupillary distance (PD) measurement
-   * Face measurements to determine Standard Glasses size (XS/S/M/L)
+   * Face measurements to determine Eyeglass Socket size (XS/S/M/L)
 
 2. **Lens Purchase**: Order UES lenses from:
    * Online retailers

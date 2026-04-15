@@ -1,5 +1,5 @@
 """
-Universal Eyeglass Standard — Reference frame and lens builders
+Universal Eyeglass Socket — Reference frame and lens builders
 
 All geometry is driven by the spec constants and contour types in spec.py.
 The bevel/groove cross-section profile is expressed in local (u, z) coordinates

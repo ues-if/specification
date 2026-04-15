@@ -1,10 +1,10 @@
-# Universal Eyeglass Standard: Interchangeable Lens Specification
+# Universal Eyeglass Socket: Interchangeable Lens Specification
 
 An open, royalty-free standard for interchangeable prescription eyeglass lenses.
 
 ## Project Overview
 
-This repository contains a multi-document AsciiDoc specification for the **Universal Eyeglass Standard** initiative—a proposal to create industry-wide standardized, interchangeable prescription lenses with fixed sizes that work across compatible frames.
+This repository contains a multi-document AsciiDoc specification for the **Universal Eyeglass Socket** initiative—a proposal to create industry-wide standardized, interchangeable prescription lenses with fixed sizes that work across compatible frames.
 
 ### Core Concept
 
@@ -119,7 +119,7 @@ This specification is in early draft stage. The goal is to:
 2. Conduct freedom-to-operate patent analysis
 3. Build prototype lenses and frames
 4. Recruit founding industry partners
-5. Form the Universal Eyeglass Standards Consortium
+5. Form the Universal Eyeglass Socket Consortium
 6. Launch pilot program
 
 ## Key Features of the Standard
@@ -162,12 +162,12 @@ The specification documents are intended to be published under a royalty-free li
 - Commercial and non-commercial use
 - Distribution and reproduction
 
-The Universal Eyeglass Standards Consortium will grant implementers a royalty-free, perpetual patent license for any specification-essential patents.
+The Universal Eyeglass Socket Consortium will grant implementers a royalty-free, perpetual patent license for any specification-essential patents.
 
 ## Contact
 
 **Project Repository**: https://github.com/jorgecarleitao/universal-eyeglass-standard  
-**Future Organization**: Universal Eyeglass Standards Consortium (to be formed)
+**Future Organization**: Universal Eyeglass Socket Consortium (to be formed)
 
 ## Roadmap
 

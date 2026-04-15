@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  UES – Universal Eyeglass Socket
+  Full logo lockup: certification mark + wordmark
+
+  Symbol: identical to logo-mark.svg
+  Canvas: 130 × 108 px
+-->
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 130 108"
+     width="130" height="108"
+     role="img"
+     aria-label="UES — Universal Eyeglass Socket logo">
+
+  <title>UES — Universal Eyeglass Socket</title>
+  <desc>
+    Certification logo for the Universal Eyeglass Socket.
+    Compact single-colour mark for the Universal Eyeglass Socket.
+    Stamp or engrave on any UES-compliant frame or lens packaging.
+  </desc>
+
+  <!-- ── Left lens: outer rim ── -->
+  <circle cx="30" cy="31" r="25"
+          fill="none" stroke="#1a1a2e" stroke-width="5"/>
+
+  <!-- ── Left lens: inner ring (bevel-seat indicator) ── -->
+  <circle cx="30" cy="31" r="17"
+          fill="none" stroke="#1a1a2e" stroke-width="2"/>
+
+  <!-- ── Right lens: outer rim ── -->
+  <circle cx="100" cy="31" r="25"
+          fill="none" stroke="#1a1a2e" stroke-width="5"/>
+
+  <!-- ── Right lens: inner ring ── -->
+  <circle cx="100" cy="31" r="17"
+          fill="none" stroke="#1a1a2e" stroke-width="2"/>
+
+  <!-- ── Bridge arch ── -->
+  <!--   Start (55,31) → peak (~65,17) → end (75,31)  -->
+  <path d="M 55,31 C 60,17 70,17 75,31"
+        fill="none" stroke="#1a1a2e" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- ── Divider rule ── -->
+  <line x1="5" y1="70" x2="125" y2="70"
+        stroke="#1a1a2e" stroke-width="0.5"/>
+
+  <!-- ── Acronym ── -->
+  <text x="65" y="91"
+        text-anchor="middle"
+        font-family="'Arial Black', 'Helvetica Neue', Arial, Helvetica, sans-serif"
+        font-weight="900"
+        font-size="16"
+        letter-spacing="4"
+        fill="#1a1a2e">UES</text>
+
+  <!-- ── Full name ── -->
+  <text x="65" y="103"
+        text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif"
+        font-weight="400"
+        font-size="3.5"
+        letter-spacing="1"
+        fill="#1a1a2e">UNIVERSAL EYEGLASS STANDARD</text>
+
+</svg>

@@ -1,6 +1,6 @@
 """
-Universal Eyeglass Standard — Specification definitions
-Based on Universal Eyeglass Standard Lens System Specification v0.1.0
+Universal Eyeglass Socket — Specification definitions
+Based on Universal Eyeglass Socket Lens System Specification v0.1.0
 
 This module contains ONLY the standardised data:
   - Lens contour types (CircularContour, RectangularContour, BezierContour)
