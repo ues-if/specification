@@ -117,30 +117,30 @@ jobs:
             | `ues-docs-html-*.zip` | Full HTML documentation (open `index.html`) |
             | `technical-spec.pdf` | Technical Specification |
             | `idea-and-business.pdf` | Idea & Business Model |
-            | `ues-C-*-frame.step` | Reference frame CAD (STEP) per size |
-            | `ues-C-*-lens.step` | Reference lens CAD (STEP) per size |
-            | `ues-C-*-frame.stl` | Reference frame mesh (STL) per size |
+            | `ues-UES-C-*-frame.step` | Reference frame CAD (STEP) per size |
+            | `ues-UES-C-*-lens.step` | Reference lens CAD (STEP) per size |
+            | `ues-UES-C-*-frame.stl` | Reference frame mesh (STL) per size |
 
             ### Sizes
             | Code | Diameter | Bridge |
-            |------|----------|--------|
-            | C-XS | 51 mm | 15 mm |
-            | C-S  | 56 mm | 17 mm |
-            | C-M  | 61 mm | 19 mm |
-            | C-L  | 67 mm | 21 mm |
+            |------|----------|---------|
+            | UES-C-XS | 51 mm | 15 mm |
+            | UES-C-S  | 56 mm | 17 mm |
+            | UES-C-M  | 61 mm | 19 mm |
+            | UES-C-L  | 67 mm | 21 mm |
           files: |
             artefacts/ues-docs-html-${{ steps.ver.outputs.version }}.zip
             artefacts/build/spec/technical-spec.pdf
             artefacts/build/docs/idea-and-business.pdf
-            artefacts/cad/ues-C-XS-frame.step
-            artefacts/cad/ues-C-XS-lens.step
-            artefacts/cad/ues-C-XS-frame.stl
-            artefacts/cad/ues-C-S-frame.step
-            artefacts/cad/ues-C-S-lens.step
-            artefacts/cad/ues-C-S-frame.stl
-            artefacts/cad/ues-C-M-frame.step
-            artefacts/cad/ues-C-M-lens.step
-            artefacts/cad/ues-C-M-frame.stl
-            artefacts/cad/ues-C-L-frame.step
-            artefacts/cad/ues-C-L-lens.step
-            artefacts/cad/ues-C-L-frame.stl
+            artefacts/cad/ues-UES-C-XS-frame.step
+            artefacts/cad/ues-UES-C-XS-lens.step
+            artefacts/cad/ues-UES-C-XS-frame.stl
+            artefacts/cad/ues-UES-C-S-frame.step
+            artefacts/cad/ues-UES-C-S-lens.step
+            artefacts/cad/ues-UES-C-S-frame.stl
+            artefacts/cad/ues-UES-C-M-frame.step
+            artefacts/cad/ues-UES-C-M-lens.step
+            artefacts/cad/ues-UES-C-M-frame.stl
+            artefacts/cad/ues-UES-C-L-frame.step
+            artefacts/cad/ues-UES-C-L-lens.step
+            artefacts/cad/ues-UES-C-L-frame.stl

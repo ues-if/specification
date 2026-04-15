@@ -41,7 +41,7 @@ image::diagrams/current.drawio.png[Current user journey flow]
 
 Create an **industry-wide standard** for interchangeable prescription lenses interfaces that:
 
-* Use a standardized lens sizes (S, M, L, XL) and shape (circular, rounded square)
+* Use standardized lens sizes (UES-C-XS, UES-C-S, UES-C-M, UES-C-L) and shape (circular, rounded square)
 * Employ a tool-free snap-fit mounting system
 * Work with any Standards Glasses-compliant frame
 * Can be ordered online and installed at home
@@ -56,7 +56,7 @@ image::diagrams/new.drawio.png[New user journey flow]
 1. **Initial Measurement**: Visit an optometrist for:
    * Prescription measurement
    * Pupillary distance (PD) measurement
-   * Face measurements to determine Eyeglass Socket size (XS/S/M/L)
+   * Face measurements to determine Eyeglass Socket size (UES-C-XS / UES-C-S / UES-C-M / UES-C-L)
 
 2. **Lens Purchase**: Order UES lenses from:
    * Online retailers
@@ -233,11 +233,49 @@ PLUS: Option to own multiple frames for same lens cost
 
 === Open Standard with a non-profit backing
 
-The UES initiative operates as an **open, royalty-free specification**:
+The UES initiative operates as an **open, royalty-free specification** governed by a non-profit association (_Associação sem fins lucrativos_, the "Association").
 
-* legally protected by a non-profit
-* Specification published publicly
-* license to use under conditions of trademark protection
+==== The specification
+
+The technical specification is published publicly and is free to implement without royalties or membership fees.
+Any manufacturer may read, implement, and ship products based on it at no cost.
+
+==== The logo as a conformance mark
+
+The Association holds the trademark over the UES logo, registered as an EU trade mark (EUTM) through the EUIPO in the following Nice Classification classes:
+
+* **Class 9** — optical apparatus and instruments; spectacles, spectacle frames, lenses, and related eyewear components.
+* **Class 42** — technical standardisation services; testing and quality certification relating to eyewear conformance standards.
+
+The logo functions as a **conformance mark** — it signals to consumers that a product has been made in conformance with the specification.
+
+Use of the logo is **self-certified**: no prior approval from the Association is required.
+Any manufacturer may use the mark provided that:
+
+* their product passes the published conformance test suite (see link:../spec/technical-spec.adoc[Technical Specification]);
+* they accept that the Association may challenge or revoke use of the mark if a product is later found to be non-conforming.
+
+This is intentionally permissive. The Association does not act as a gatekeeper; the specification and its functional tests are the gatekeeper.
+
+==== How the two interact
+
+[cols="1,2", options="header"]
+|===
+|Layer
+|Who controls it
+
+|Specification (technical standard)
+|Public domain / open licence — anyone may implement freely
+
+|Conformance test suite
+|Published by the Association — defines what "compliant" means in practice
+
+|Logo / conformance mark
+|Association trademark — free to use upon self-certified conformance; revocable if non-conformance is demonstrated
+|===
+
+In plain terms: *build a conforming product, pass the tests, use the mark — no permission needed.*
+The Association's role is to maintain the specification and test suite, and to act on credible reports of misuse of the mark.
 
 === Risks and Mitigation
 

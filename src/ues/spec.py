@@ -90,10 +90,10 @@ TEMPLE_THICKNESS = 2     # mm — horizontal depth
 # ============================================================================
 
 LENS_SPECS: dict[str, LensSizeSpec] = {
-    "C-XS": LensSizeSpec(CircularContour(51), 15),
-    "C-S":  LensSizeSpec(CircularContour(56), 17),
-    "C-M":  LensSizeSpec(CircularContour(61), 19),
-    "C-L":  LensSizeSpec(CircularContour(67), 21),
+    "UES-C-XS": LensSizeSpec(CircularContour(51), 15),
+    "UES-C-S":  LensSizeSpec(CircularContour(56), 17),
+    "UES-C-M":  LensSizeSpec(CircularContour(61), 19),
+    "UES-C-L":  LensSizeSpec(CircularContour(67), 21),
     "R-M":  LensSizeSpec(RectangularContour(61, 40, 10), 18),
     "D-M": LensSizeSpec(BezierContour(
         [

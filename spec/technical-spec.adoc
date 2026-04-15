@@ -19,7 +19,7 @@ It covers lens shapes and sizes, and the bevel interface that joins lenses to co
 
 This specification defines:
 
-* Standard circular lens sizes and bridge widths (C-XS / C-S / C-M / C-L)
+* Standard circular lens sizes and bridge widths (UES-C-XS / UES-C-S / UES-C-M / UES-C-L)
 * The bevel interface — the mechanical joint that allows any compliant lens to seat in any compliant frame rim
 
 === Normative References
@@ -49,22 +49,22 @@ All dimensions are nominal; tolerances are defined in <<tolerances>>.
 |Lens Diameter (mm)
 |Bridge Width (mm)
 
-|C-XS
+|UES-C-XS
 |Children (ages 4–10)
 |51
 |15
 
-|C-S
+|UES-C-S
 |Small adults / youth (ages 11–16)
 |56
 |17
 
-|C-M
+|UES-C-M
 |Average adults
 |61
 |19
 
-|C-L
+|UES-C-L
 |Large adults
 |67
 |21

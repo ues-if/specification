@@ -53,7 +53,7 @@ def main() -> None:
     out_dir = Path(args.outdir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    sizes = [code for code in LENS_SPECS if code.startswith("C-")]
+    sizes = [code for code in LENS_SPECS if code.startswith("UES-C-")]
     print(f"Exporting {len(sizes)} circular sizes to {out_dir}/")
     for size_code in sizes:
         export_size(size_code, out_dir)
