@@ -71,7 +71,7 @@ image::diagrams/new.drawio.png[New user journey flow]
 
 4. **At-Home Installation**: 
    * Snap lenses into frames (no tools required)
-   * Takes <2 minutes per lens
+   * Takes <30 seconds per lens
    * Visual confirmation of proper engagement
 
 ==== For the Industry

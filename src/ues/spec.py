@@ -68,22 +68,21 @@ BEVEL_APEX_POSITION = 1.5   # mm — from lens outer circumference
 GROOVE_CLEARANCE    = 0.05  # mm
 
 # ============================================================================
-# REFERENCE FRAME DESIGN PARAMETERS
+# FRAME DESIGN PARAMETERS  (re-exported from frames.py for convenience)
 # ============================================================================
-
-# Rim
-RIM_WIDTH          = 2.5   # mm — radial width of frame rim
-RIM_DEPTH          = 3.0   # mm — axial depth / thickness
-RIM_WALL_THICKNESS = 1.5   # mm — wall thickness
-
-# Bridge
-BRIDGE_HEIGHT    = 3     # mm
-BRIDGE_THICKNESS = 1.5   # mm
-
-# Temple
-TEMPLE_LENGTH    = 140   # mm (same for all sizes)
-TEMPLE_HEIGHT    = 8     # mm — vertical dimension when worn
-TEMPLE_THICKNESS = 2     # mm — horizontal depth
+# Frame geometry (rim shape, bridge, temple) lives in frames.py.
+# These re-exports keep existing callers working without changes.
+from .frames import (          # noqa: E402 — intentional re-export
+    RIM_WIDTH, RIM_DEPTH, RIM_WALL_THICKNESS,
+    BRIDGE_DEPTH, BRIDGE_THICKNESS, BRIDGE_ARCH_DROP,
+    TEMPLE_LENGTH, TEMPLE_THICKNESS,
+    BRIDGE_HEIGHT,             # legacy alias for BRIDGE_DEPTH
+    HINGE_PIN_DIAMETER, HINGE_BARREL_OD,
+    FrameDesign, DEFAULT, MINIMAL, SHOWCASE,
+)
+# TEMPLE_HEIGHT and TEMPLE_TIP_HEIGHT are defined in frames.py;
+# re-import explicitly to avoid shadowing the local alias there.
+from .frames import TEMPLE_HEIGHT, TEMPLE_TIP_HEIGHT  # noqa: E402
 
 # ============================================================================
 # STANDARD LENS SIZE CATALOGUE

@@ -14,10 +14,8 @@ from .spec import (
     LensContour, CircularContour, RectangularContour, BezierContour,
     LensSizeSpec, LENS_SPECS,
     BEVEL_DEPTH, BEVEL_WIDTH, GROOVE_CLEARANCE,
-    RIM_WIDTH, RIM_DEPTH,
-    BRIDGE_HEIGHT, BRIDGE_THICKNESS,
-    TEMPLE_LENGTH, TEMPLE_HEIGHT, TEMPLE_THICKNESS,
 )
+from .frames import FrameDesign, DEFAULT as DEFAULT_DESIGN
 
 # ============================================================================
 # CONTOUR HELPERS
@@ -116,17 +114,17 @@ def _bevel_tip_params(clearance: float = 0.0) -> tuple:
 # COMPONENT BUILDERS
 # ============================================================================
 
-def create_lens_rim(contour: LensContour) -> Part:
+def create_lens_rim(contour: LensContour, design: FrameDesign = DEFAULT_DESIGN) -> Part:
     """
     Rim with a rounded V-groove on the inner wall that mates with the lens bevel ridge.
     Works for any contour shape via sweep.
     """
     lens_wire     = make_lens_wire(contour)
-    outer_wire    = lens_wire.offset_2d(+RIM_WIDTH,   kind=Kind.ARC)
-    aperture_wire = lens_wire.offset_2d(-BEVEL_DEPTH, kind=Kind.ARC)
+    outer_wire    = lens_wire.offset_2d(+design.rim_width, kind=Kind.ARC)
+    aperture_wire = lens_wire.offset_2d(-BEVEL_DEPTH,      kind=Kind.ARC)
 
     D, W2, TIP_R, s, ux, uz_up, uz_dn = _bevel_tip_params(clearance=GROOVE_CLEARANCE)
-    Zc = RIM_DEPTH / 2
+    Zc = design.rim_depth / 2
 
     # Groove profile in local (u, z): u=0 at aperture wall, u>0 into rim material
     #   (0, Zc+W2)  upper foot
@@ -142,11 +140,11 @@ def create_lens_rim(contour: LensContour) -> Part:
     with BuildPart() as rim:
         with BuildSketch():
             add(Face(outer_wire))
-        extrude(amount=RIM_DEPTH, mode=Mode.ADD)
+        extrude(amount=design.rim_depth, mode=Mode.ADD)
 
         with BuildSketch():
             add(Face(aperture_wire))
-        extrude(amount=RIM_DEPTH, mode=Mode.SUBTRACT)
+        extrude(amount=design.rim_depth, mode=Mode.SUBTRACT)
 
         with BuildSketch(profile_plane):
             with BuildLine():
@@ -197,46 +195,138 @@ def create_reference_lens(size_code: str, lens_thickness: float = 2.0) -> Part:
     return lens.part
 
 
-def create_bridge(width: float, y_offset: float = 0.0) -> Part:
-    # Bridge sits at the nasal tip height (y_offset) of the lens,
-    # hanging downward from RIM_DEPTH/2 in Z.
-    with BuildPart() as bridge:
-        Box(width, BRIDGE_THICKNESS, BRIDGE_HEIGHT,
-            align=(Align.CENTER, Align.CENTER, Align.MAX))
-        bridge.part.move(Location((0, y_offset, RIM_DEPTH / 2)))
-    return bridge.part
+def create_bridge(width: float, y_offset: float, design: FrameDesign = DEFAULT_DESIGN) -> Part:
+    """
+    Arched nasal bridge sweeping a rounded-rectangle profile along a
+    three-point arc that dips ``design.bridge_arch_drop`` mm below the
+    nasal attachment points. Optional nose-pad bumps are added at each end.
+    """
+    z_c  = design.rim_depth / 2
+    half = width / 2
+    drop = design.bridge_arch_drop
+    bt   = design.bridge_thickness
+    bd   = design.bridge_depth
+
+    # Arch path: three-point arc in the XY plane, dipping by `drop`.
+    with BuildLine() as bl:
+        ThreePointArc(
+            Vector(-half, y_offset, z_c),
+            Vector(0.0,   y_offset - drop, z_c),
+            Vector(+half, y_offset, z_c),
+        )
+    path_wire = bl.line.wires()[0]
+
+    # Profile plane at path start (left nasal tip).
+    # Sketch axes: x → global −Z (depth), y → ≈ global +Y (vertical).
+    start   = path_wire.start_point()
+    tangent = path_wire.edges()[0].tangent_at(0.0).normalized()
+    prof_plane = Plane(origin=start, x_dir=Vector(0, 0, -1), z_dir=tangent)
+
+    with BuildPart() as bp:
+        with BuildSketch(prof_plane):
+            RectangleRounded(bd, bt, bt / 4)
+        sweep(path=path_wire)
+
+        if design.nose_pad_bumps:
+            pad_r = bt * 0.85
+            with Locations(
+                Location((-half, y_offset - pad_r * 0.4, z_c)),
+                Location((+half, y_offset - pad_r * 0.4, z_c)),
+            ):
+                Sphere(radius=pad_r)
+
+    return bp.part
 
 
-def create_temple() -> Part:
-    with BuildPart() as temple:
-        Box(TEMPLE_LENGTH, TEMPLE_THICKNESS, TEMPLE_HEIGHT,
-            align=(Align.MIN, Align.CENTER, Align.CENTER))
-        with BuildPart(Plane.YZ) as hinge:
-            Cylinder(radius=2, height=BRIDGE_THICKNESS,
-                     align=(Align.CENTER, Align.CENTER, Align.CENTER))
-            hinge.part.rotate(Axis.X, 90)
-    return temple.part
+def create_temple(design: FrameDesign = DEFAULT_DESIGN) -> Part:
+    """
+    Tapered temple arm, lofted from a tall profile at the hinge end to a
+    slimmer profile at the ear tip.  A cylindrical hinge barrel sits at the
+    hinge end; its axis becomes vertical (Y) after the rotations applied in
+    create_frame, ready to receive a 2 mm pin.
+
+    Print note: separate from the frame body and pin after printing for a
+    working hinge.  Or fuse/print together for a rigid showcase piece.
+    """
+    L    = design.temple_length
+    th   = design.temple_thickness
+    h    = design.temple_height
+    h_t  = design.temple_tip_height
+    bo   = design.hinge_barrel_od
+    bp_d = design.hinge_pin_diameter
+
+    # Temple body runs along +X (x=0 = hinge end, x=L = ear tip).
+    # Profiles are in planes with normal = +X.
+    hinge_pln = Plane(origin=Vector(0, 0, 0), x_dir=Vector(0, 1, 0), z_dir=Vector(1, 0, 0))
+    tip_pln   = Plane(origin=Vector(L, 0, 0), x_dir=Vector(0, 1, 0), z_dir=Vector(1, 0, 0))
+
+    r_hinge = min(th, h)   * 0.20   # corner radius at hinge end
+    r_tip   = min(th, h_t) * 0.20   # corner radius at ear tip
+    th_tip  = th * 0.75              # tapered thickness at ear tip
+
+    with BuildPart() as tp:
+        # --- tapered body ---
+        with BuildSketch(hinge_pln):
+            RectangleRounded(th, h, r_hinge)
+        with BuildSketch(tip_pln):
+            RectangleRounded(th_tip, h_t, r_tip)
+        loft()
+
+        # --- hinge barrel ---
+        # Cylinder centred at origin, axis = Z (becomes the vertical Y after
+        # the two rotations in create_frame).  Its circular footprint in XY
+        # (radius = bo/2) protrudes beyond the loft start in ±X, which after
+        # rotation becomes the ±Z depth direction — exactly the visible hinge
+        # knuckle that sits flush with the front and rear rim faces.
+        barrel_half_h = h / 2 + 2.0    # extends ±this in Z
+        with BuildSketch(Plane.XY):     # circle in X–Y, extruded along Z
+            Circle(radius=bo / 2)
+        extrude(amount=barrel_half_h * 2, both=True, mode=Mode.ADD)
+
+        # --- pin through-hole (axis = Z) ---
+        with BuildSketch(Plane.XY):
+            Circle(radius=bp_d / 2)
+        extrude(amount=(barrel_half_h + 1) * 2, both=True, mode=Mode.SUBTRACT)
+
+    return tp.part
 
 
-def create_frame(size_code: str) -> Part:
+def create_frame(size_code: str, design: FrameDesign = DEFAULT_DESIGN) -> Part:
+    """
+    Assemble a complete frame: left + right rim, bridge, and two temples.
+
+    Parameters
+    ----------
+    size_code:
+        Key into LENS_SPECS (e.g. ``"UES-C-M"`` or ``"SHOWCASE-M"``).
+    design:
+        FrameDesign instance controlling all aesthetic dimensions.  Defaults
+        to ``DEFAULT_DESIGN`` (the original reference dimensions).  Use
+        ``frames.SHOWCASE`` for a chunky 3‑D‑printable prototype.
+    """
     spec         = LENS_SPECS[size_code]
     bridge_width = spec.bridge_width
     wire         = make_lens_wire(spec.contour)
     bbox         = wire.bounding_box()
-    nasal_reach  = bbox.max.X   # rightmost edge = nasal side of left lens
-    total_span   = bbox.size.X  # full lens width (temporal-to-nasal)
+    nasal_reach  = bbox.max.X          # rightmost edge = nasal side of left lens
+    total_span   = bbox.size.X         # full lens width (temporal-to-nasal)
     nasal_y      = _wire_y_at_max_x(wire)  # Y at the nasal tip (bridge attachment)
 
+    temporal_x = bridge_width / 2 + total_span + design.rim_width
+
     with BuildPart() as frame:
-        # Place left rim so its rightmost (nasal) edge sits at -(bridge_width/2),
-        # preserving the ISO 8624 bridge distance to the mirrored right rim.
-        left_rim = create_lens_rim(spec.contour).move(
+        # Left rim — nasal edge at −bridge_width/2 (ISO 8624 bridge gap)
+        left_rim = create_lens_rim(spec.contour, design).move(
             Location((-(bridge_width / 2 + nasal_reach), 0, 0)))
         add(left_rim)
-        add(left_rim.mirror(Plane.YZ))  # right rim is the mirror image
-        add(create_bridge(bridge_width, y_offset=nasal_y))
+        add(left_rim.mirror(Plane.YZ))  # mirror for right rim
+
+        # Arch bridge
+        add(create_bridge(bridge_width, y_offset=nasal_y, design=design))
+
+        # Temples (left side = −1, right side = +1)
         for side in (-1, 1):
-            t = create_temple().rotate(Axis.Y, -90).rotate(Axis.Z, -90)
-            add(t.move(Location((side * (bridge_width / 2 + total_span + RIM_WIDTH), 0, 0))))
+            t = create_temple(design).rotate(Axis.Y, -90).rotate(Axis.Z, -90)
+            add(t.move(Location((side * temporal_x, 0, 0))))
 
     return frame.part
