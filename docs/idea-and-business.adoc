@@ -238,7 +238,24 @@ The UES initiative operates as an **open, royalty-free specification** governed 
 ==== The specification
 
 The technical specification is published publicly and is free to implement without royalties or membership fees.
-Any manufacturer may read, implement, and ship products based on it at no cost.
+Any manufacturer may read, implement, and ship products based on it at no cost, provided they do not use the official UES logo or trademarks.
+
+==== Participation options
+
+There are two paths to logo rights:
+
+**Logo Licensee — 250 €/year**
+
+* Right to use the UES logo and trademarks on compliant products, packaging, and marketing;
+* Listing of declared compliant products in the public compatibility registry;
+* Relationship is purely contractual via the Trademark/Logo Licence Agreement; no governance role.
+
+**Membership — 1,000 €/year**
+
+All rights of the Logo Licensee, plus:
+
+* Membership in the association;
+* Listing in the official compatibility registry as a member company.
 
 ==== The logo as a conformance mark
 
@@ -249,13 +266,14 @@ The Association holds the trademark over the UES logo, registered as an EU trade
 
 The logo functions as a **conformance mark** — it signals to consumers that a product has been made in conformance with the specification.
 
-Use of the logo is **self-certified**: no prior approval from the Association is required.
-Any manufacturer may use the mark provided that:
+To use the mark, a manufacturer must:
 
-* their product passes the published conformance test suite (see link:../spec/technical-spec.adoc[Technical Specification]);
-* they accept that the Association may challenge or revoke use of the mark if a product is later found to be non-conforming.
+. Self-certify conformance by running the published test suite and keeping records;
+. Join as a **Member** or register as a **Logo Licensee** by signing the Trademark/Logo Licence Agreement and paying the corresponding annual fee.
 
-This is intentionally permissive. The Association does not act as a gatekeeper; the specification and its functional tests are the gatekeeper.
+There is no separate per-product or per-model logo fee under either path.
+Membership and logo rights lapse if the annual fee is not renewed.
+The Association may request self-test documentation or production samples at any time, and may revoke logo use rights if products are found to be non-compliant.
 
 ==== How the two interact
 
@@ -271,11 +289,53 @@ This is intentionally permissive. The Association does not act as a gatekeeper; 
 |Published by the Association — defines what "compliant" means in practice
 
 |Logo / conformance mark
-|Association trademark — free to use upon self-certified conformance; revocable if non-conformance is demonstrated
+|Available to Members and Logo Licensees; requires self-certified conformance and signed Trademark/Logo Licence Agreement; revocable on non-conformance or lapsed fee
+
+|Compatibility registry
+|Published by the Association — keyed by brand and model name; no numeric manufacturer ID
 |===
 
-In plain terms: *build a conforming product, pass the tests, use the mark — no permission needed.*
-The Association's role is to maintain the specification and test suite, and to act on credible reports of misuse of the mark.
+In plain terms: *build a conforming product, self-test it, sign the licence, choose your path (Member or Logo Licensee), use the mark.*
+The Association's role is to maintain the specification and test suite, hold the trademark registration, publish the compatibility registry, and act on credible reports of misuse of the mark.
+
+==== Fee structure rationale
+
+Both fees are intentionally modest compared with complex digital standards, reflecting the lower technical and operational complexity of a mechanical interface.
+
+* **Member fee** — covers non-profit operating expenses (spec maintenance, website, registry, trademarks, governance) and ensures only serious manufacturers shape the long-term direction of the standard.
+* **Logo Licensee fee** — provides a low-barrier path for brands that need logo rights but not governance participation; still acts as a seriousness filter and contributes modestly toward trademark upkeep.
+
+=== How to Use the UES Mark: Step-by-Step
+
+The following flow describes how a manufacturer obtains and maintains the right to apply the UES mark to their products.
+
+==== 1. Build a conforming product
+
+Obtain the link:../spec/technical-spec.adoc[UES Technical Specification] and implement the interface geometry for your product type.
+
+==== 2. Self-certify conformance
+
+Run the conformance test suite defined in the specification against a representative production sample.
+No external laboratory is required.
+If the product fails, correct the design and re-test.
+Keep test records on file; the Association may request them.
+
+==== 3. Choose your path and pay the annual fee
+
+Download the Trademark/Logo Licence Agreement from the Association's website and complete the required fields (company name, country, product type, declared size code(s)).
+Choose one of two paths:
+
+* **Member** — logo rights on all declared compliant products, plus voting rights and participation in governance and working groups.
+* **Logo Licensee** — logo rights on declared compliant products; no voting rights or governance role.
+
+Pay the corresponding annual fee and submit the signed agreement to the Association.
+Upon acknowledgement, your logo rights are active.
+
+==== 4. Apply the mark and maintain compliance
+
+Once a member in good standing, apply the UES mark to compliant products per the Logo Usage Guidelines.
+Renew the annual membership fee each year to keep your rights active.
+Re-testing is only required if the interface geometry changes materially.
 
 === Risks and Mitigation
 
