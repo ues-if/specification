@@ -26,14 +26,14 @@ ADOC_PDF := $(shell command -v asciidoctor-pdf 2> /dev/null)
 ifndef ADOC_PDF
     ADOC_PDF = $(DOCKER_RUN) asciidoctor-pdf
 else
-    ADOC_PDF = asciidoctor
+    ADOC_PDF = asciidoctor-pdf
 endif
 
 RSVG := $(shell command -v rsvg-convert 2>/dev/null)
 ifndef RSVG
-    RSVG_CONVERT = $(DOCKER_RUN) rsvg-convert
+    RSVG_CONVERT := $(DOCKER_RUN) rsvg-convert
 else
-    RSVG_CONVERT = rsvg-convert
+    RSVG_CONVERT := rsvg-convert
 endif
 
 BROWSER = xdg-open
