@@ -29,12 +29,7 @@ else
     ADOC_PDF = asciidoctor-pdf
 endif
 
-RSVG := $(shell command -v rsvg-convert 2>/dev/null)
-ifndef RSVG
-    RSVG_CONVERT := $(DOCKER_RUN) rsvg-convert
-else
-    RSVG_CONVERT := rsvg-convert
-endif
+RSVG_CONVERT := $(shell rsvg-convert --version >/dev/null 2>&1 && echo rsvg-convert || echo '$(DOCKER_RUN) rsvg-convert')
 
 BROWSER = xdg-open
 
@@ -104,17 +99,17 @@ docs: $(DOCS_HTML)
 $(INDEX_HTML): $(INDEX) | $(BUILD_DIR)/images
 	@echo "Building $@ (v$(VERSION))..."
 	$(ADOC) $(ADOC_ATTRS) -o $@ $(INDEX)
-	@cp images/* $(BUILD_DIR)/images/
+	@cp -r images/* $(BUILD_DIR)/images/
 
 $(SPEC_HTML): $(SPEC) | $(BUILD_DIR)/spec $(BUILD_DIR)/images
 	@echo "Building $@ (v$(VERSION))..."
 	$(ADOC) $(ADOC_ATTRS) -o $@ $(SPEC)
-	@cp images/* $(BUILD_DIR)/images/
+	@cp -r images/* $(BUILD_DIR)/images/
 
 $(BUILD_DIR)/docs/%.html: docs/%.adoc | $(BUILD_DIR)/docs $(BUILD_DIR)/images
 	@echo "Building $@ (v$(VERSION))..."
 	$(ADOC) $(ADOC_ATTRS) -o $@ $<
-	@cp images/* $(BUILD_DIR)/images/
+	@cp -r images/* $(BUILD_DIR)/images/
 	@cp -r docs/diagrams $(BUILD_DIR)/images/diagrams
 
 # PDF generation rules
