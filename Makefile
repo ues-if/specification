@@ -18,10 +18,15 @@ DOCKER_RUN = docker run --rm -v $(PWD):/documents $(DOCKER_IMAGE)
 ADOC := $(shell command -v asciidoctor 2> /dev/null)
 ifndef ADOC
     ADOC = $(DOCKER_RUN) asciidoctor
-    ADOC_PDF = $(DOCKER_RUN) asciidoctor-pdf
 else
     ADOC = asciidoctor
-    ADOC_PDF = asciidoctor-pdf
+endif
+
+ADOC_PDF := $(shell command -v asciidoctor-pdf 2> /dev/null)
+ifndef ADOC_PDF
+    ADOC_PDF = $(DOCKER_RUN) asciidoctor-pdf
+else
+    ADOC_PDF = asciidoctor
 endif
 
 RSVG := $(shell command -v rsvg-convert 2>/dev/null)
@@ -39,7 +44,7 @@ BUILD_DIR = build
 # Source files
 INDEX = index.adoc
 SPEC = spec/technical-spec.adoc
-BUSINESS = docs/idea-and-business.adoc
+DOCS_ADOC = $(wildcard docs/*.adoc)
 
 # SVG logos and their PNG equivalents
 SVG_LOGOS = $(wildcard images/*.svg)
@@ -48,10 +53,10 @@ PNG_LOGOS = $(patsubst images/%.svg,$(BUILD_DIR)/images/%.png,$(SVG_LOGOS))
 # Output files
 INDEX_HTML = $(BUILD_DIR)/index.html
 SPEC_HTML = $(BUILD_DIR)/spec/technical-spec.html
-BUSINESS_HTML = $(BUILD_DIR)/docs/idea-and-business.html
+DOCS_HTML = $(patsubst docs/%.adoc,$(BUILD_DIR)/docs/%.html,$(DOCS_ADOC))
 
 SPEC_PDF = $(BUILD_DIR)/spec/technical-spec.pdf
-BUSINESS_PDF = $(BUILD_DIR)/docs/idea-and-business.pdf
+DOCS_PDF = $(patsubst docs/%.adoc,$(BUILD_DIR)/docs/%.pdf,$(DOCS_ADOC))
 
 # Targets
 .PHONY: all html pdf logos clean view help
@@ -72,9 +77,9 @@ help:
 	@echo "Individual targets:"
 	@echo "  make index      - Build main index.html"
 	@echo "  make spec       - Build technical specification"
-	@echo "  make business   - Build business model document"	@echo "  make logos      - Convert SVG logos to PNG"	@echo "  make cad        - Export CAD (STEP/STL) for all sizes"
+	@echo "  make docs       - Build all docs/ documents"	@echo "  make logos      - Convert SVG logos to PNG"	@echo "  make cad        - Export CAD (STEP/STL) for all sizes"
 
-html: $(INDEX_HTML) $(SPEC_HTML) $(BUSINESS_HTML) $(PNG_LOGOS)
+html: $(INDEX_HTML) $(SPEC_HTML) $(DOCS_HTML) $(PNG_LOGOS)
 	@echo "✓ HTML documentation generated successfully"
 
 logos: $(PNG_LOGOS)
@@ -85,7 +90,7 @@ $(BUILD_DIR)/images/%.png: images/%.svg | $(BUILD_DIR)/images
 	@echo "Converting $< → $@..."
 	$(RSVG_CONVERT) --zoom 4 $< -o $@
 
-pdf: $(SPEC_PDF) $(BUSINESS_PDF)
+pdf: $(SPEC_PDF) $(DOCS_PDF)
 	@echo "✓ PDF documentation generated successfully"
 
 # Individual HTML targets
@@ -93,7 +98,7 @@ index: $(INDEX_HTML)
 
 spec: $(SPEC_HTML)
 
-business: $(BUSINESS_HTML)
+docs: $(DOCS_HTML)
 
 # HTML generation rules
 $(INDEX_HTML): $(INDEX) | $(BUILD_DIR)/images
@@ -106,9 +111,9 @@ $(SPEC_HTML): $(SPEC) | $(BUILD_DIR)/spec $(BUILD_DIR)/images
 	$(ADOC) $(ADOC_ATTRS) -o $@ $(SPEC)
 	@cp images/* $(BUILD_DIR)/images/
 
-$(BUSINESS_HTML): $(BUSINESS) | $(BUILD_DIR)/docs $(BUILD_DIR)/images
+$(BUILD_DIR)/docs/%.html: docs/%.adoc | $(BUILD_DIR)/docs $(BUILD_DIR)/images
 	@echo "Building $@ (v$(VERSION))..."
-	$(ADOC) $(ADOC_ATTRS) -o $@ $(BUSINESS)
+	$(ADOC) $(ADOC_ATTRS) -o $@ $<
 	@cp images/* $(BUILD_DIR)/images/
 	@cp -r docs/diagrams $(BUILD_DIR)/images/diagrams
 
@@ -117,9 +122,10 @@ $(SPEC_PDF): $(SPEC) | $(BUILD_DIR)/spec
 	@echo "Building $@ (v$(VERSION))..."
 	$(ADOC_PDF) $(ADOC_ATTRS) -o $@ $(SPEC)
 
-$(BUSINESS_PDF): $(BUSINESS) | $(BUILD_DIR)/docs
+$(BUILD_DIR)/docs/%.pdf: docs/%.adoc | $(BUILD_DIR)/docs
+	@mkdir -p images/diagrams && cp -r docs/diagrams/. images/diagrams/
 	@echo "Building $@ (v$(VERSION))..."
-	$(ADOC_PDF) $(ADOC_ATTRS) -o $@ $(BUSINESS)
+	$(ADOC_PDF) $(ADOC_ATTRS) -o $@ $<
 
 # CAD export
 cad: | $(BUILD_DIR)/cad
