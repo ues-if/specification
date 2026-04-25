@@ -5,11 +5,11 @@
 :icons: font
 :imagesdir: ../images
 
-image::logo.svg[UES Logo,280,align="center"]
+image::logo-if.svg[UES Logo,280,align="center"]
 
 [abstract]
 --
-This document describes the concept behind Universal Eyeglass Socket, the market opportunity, business model, and the process for implementing a universal standard for interchangeable prescription lenses.
+Universal Eyeglass Socket - universal standard for interchangeable prescription lenses backed by a non-profit.
 --
 
 == The Core Idea
@@ -21,7 +21,7 @@ Today's eyewear market creates several problems for consumers:
 1. **High replacement costs**: When frames break, consumers must either:
    * Pay for a complete new pair (frames + new lenses)
    * Keep broken frames to preserve expensive prescription lenses
-   * Wait for lens transfer, which may not always be possible
+   * Wait for lens transfer, which is not possible when the frame model goes out of circulation
 
 2. **Lens-frame incompatibility**: Each frame requires custom-cut lenses, making it impossible to:
    * Own multiple frame styles for the same prescription
@@ -35,7 +35,7 @@ Today's eyewear market creates several problems for consumers:
 5. **Complex logistics**: Eyeglass must align costumer's wishes, frame brands and lens manufacturers:
 
 .Current user journey flow
-image::diagrams/current.drawio.png[Current user journey flow]
+image::diagrams/current.drawio.png[Current user journey flow,70%,align="center"]
 
 === Proposed Solution
 
@@ -49,27 +49,28 @@ Create an **industry-wide standard** for interchangeable prescription lenses int
 === How It Works
 
 .New user journey flow
-image::diagrams/new.drawio.png[New user journey flow]
+image::diagrams/new.drawio.png[New user journey flow,70%,align="center"]
 
 ==== For Consumers
 
 1. **Initial Measurement**: Visit an optometrist for:
    * Prescription measurement
-   * Pupillary distance (PD) measurement
-   * Face measurements to determine Eyeglass Socket size (UES-C-XS / UES-C-S / UES-C-M / UES-C-L)
+   * Pupillary distance (PD) measurement - recorded per UES size/shape chosen
 
-2. **Lens Purchase**: Order UES lenses from:
+2. **Choose Your Size & Shape**: Select a UES size and shape (e.g. UES-C-S) based on personal preference and face fit - not the prescription. Each consumer may own lenses in more than one size/shape.
+
+3. **Lens Purchase**: Order UES lenses (in your chosen size/shape) from:
    * Online retailers
    * Optical laboratories
    * Traditional optometrists
    * Direct from lens manufacturers
 
-3. **Frame Selection**: Choose any UES frame:
+4. **Frame Selection**: Choose any UES frame in your size/shape:
    * Buy multiple frames for different occasions
    * Replace broken frames without replacing lenses
    * Try fashion frames without commitment
 
-4. **At-Home Installation**: 
+5. **At-Home Installation**: 
    * Snap lenses into frames (no tools required)
    * Takes <30 seconds per lens
    * Visual confirmation of proper engagement
@@ -155,79 +156,46 @@ Based on research, partial implementations exist:
    * Creates legal uncertainty for new entrants
    * No one has published an open, royalty-free standard
 
-=== Market Opportunity
+=== Impact Opportunity
 
-==== Market Size
+==== Scale of the Problem
 
-* Global eyewear market: ~$140B (2025)
-* Prescription eyewear segment: ~$80B
-* Average replacement cycle: 2-3 years
-* Average frames-to-lenses cost ratio: 40:60
+An estimated **2.2 billion people** worldwide live with a vision impairment, of whom at least 1 billion have a condition that could be corrected with prescription eyewear but goes untreated.
+Cost and logistics - not clinical complexity - are the primary barriers.
 
-==== Target Segments
+* ~1 billion people lack access to affordable prescription eyewear
+* Uncorrected refractive errors are the leading cause of vision impairment globally
+* Average replacement cycle for eyewear: 2-3 years; for children, frames may need replacing annually due to growth or damage
+* In low- and middle-income countries, a single pair of custom glasses can represent weeks of income
 
-1. **Cost-Conscious Consumers** (Primary)
-   * Sensitive to replacement costs
-   * Value versatility (multiple frames)
-   * Comfortable with online purchasing
+==== Who Benefits
 
-2. **Fashion-Forward Users** (Secondary)
-   * Want multiple frame styles
-   * Willing to pay for flexibility
-   * Early adopters of new technology
+UES is an open infrastructure standard - like USB or Bluetooth, its value comes from universal adoption.
+Everyone in the eyewear ecosystem benefits when lenses and frames from any brand work together.
 
-3. **Active/Outdoor Users** (Tertiary)
-   * Need durable, replaceable solutions
-   * Existing sports eyewear familiarity
-   * Value quick replacement capability
+**Consumers** - any consumer, anywhere in the world:
 
-4. **Sustainability-Minded** (Emerging)
-   * Concerned about waste
-   * Prefer repair over replace
-   * Align with circular economy values
+* Buy frames and lenses from different brands without compatibility concerns
+* Replace a broken frame without replacing lenses, and vice versa
+* Own multiple frame styles for the same pair of lenses
+* Order replacement parts online without a new clinical visit
 
-5. **Children in Low-Income Families and Developing Countries** (High-Impact)
-   * Uncorrected vision is one of the leading causes of poor school performance in children
-   * A single optometry consultation is sufficient — lenses can be reused indefinitely as the child changes frames due to growth or damage
-   * NGOs, school programs, and public health systems can stock standard lenses for immediate distribution
-   * Dramatically lowers the cost-per-corrected-child compared to fully custom eyewear
+**Manufacturers**:
 
-==== Value Proposition for Humanitarian and Pediatric Use
+* Compete on design, materials, and quality - not on proprietary lock-in
+* Access a larger addressable market: any UES frame works with any UES lens
+* Lower barrier to entry for new brands
 
-Uncorrected refractive errors affect an estimated 1 billion children worldwide, with the majority in low- and middle-income countries.
-Cost and logistics are the primary barriers: a single pair of custom glasses is unaffordable for many families, and re-glazing when a child's frame breaks requires a new consultation and new cut lenses.
+**Optometrists and Optical Labs**:
 
-With UES:
+* Focus on clinical and professional services rather than frame sales
+* Simplified lens production with standardised sizes; reduced waste from mis-cuts
 
-* A child is measured once — the prescription determines the UES size.
-* Lenses are produced in batch at low cost and can be pre-positioned in schools or clinics.
-* When the frame breaks, only the frame is replaced — at a fraction of the total cost.
-* Donated or subsidised lens stock (stocked by size code) can serve many children with no individual manufacturing lead time.
+**Public Health and Humanitarian Programs**:
 
-This makes UES a natural fit for school eye-health programs, NGO distribution, and government public-health procurement.
-
-==== Value Proposition for Individual Consumers
-
-For a consumer with a $200 prescription:
-
-*Traditional Model*:
-[source]
-----
-Year 1: Frame ($100) + Lenses ($200) = $300
-Year 2: Frame breaks, replace ($100 + $200) = $300
-Total: $600
-----
-
-*UES Model*:
-[source]
-----
-Year 1: UES Frame ($80) + UES Lenses ($180) = $260
-Year 2: Frame breaks, replace frame only ($80) = $80
-Total: $340
-
-Savings: $260 (43%)
-PLUS: Option to own multiple frames for same lens cost
-----
+* Standard size codes allow pre-positioning of lens stock in schools, clinics, and disaster-relief supply chains
+* Donated or subsidised lenses serve many individuals without individual manufacturing lead time
+* Particularly impactful for children, who outgrow or damage frames frequently - a new frame does not require new lenses
 
 == Business Model
 
@@ -244,31 +212,32 @@ Any manufacturer may read, implement, and ship products based on it at no cost, 
 
 There are two paths to logo rights:
 
-**Logo Licensee — 250 €/year**
+**Logo Licensee - 250 €/year**
 
 * Right to use the UES logo and trademarks on compliant products, packaging, and marketing;
-* Listing of declared compliant products in the public compatibility registry;
 * Relationship is purely contractual via the Trademark/Logo Licence Agreement; no governance role.
 
-**Membership — 1,000 €/year**
+**Membership - 1,000 €/year**
 
 All rights of the Logo Licensee, plus:
 
-* Membership in the association;
-* Listing in the official compatibility registry as a member company.
+* Membership in the association.
 
 ==== The logo as a conformance mark
 
+.UES conformance mark to be used on compliant products
+image::logo-mark.svg[UES conformance mark,120,align="center"]
+
 The Association holds the trademark over the UES logo, registered as an EU trade mark (EUTM) through the EUIPO in the following Nice Classification classes:
 
-* **Class 9** — optical apparatus and instruments; spectacles, spectacle frames, lenses, and related eyewear components.
-* **Class 42** — technical standardisation services; testing and quality certification relating to eyewear conformance standards.
+* **Class 9** - optical apparatus and instruments; spectacles, spectacle frames, lenses, and related eyewear components.
+* **Class 42** - technical standardisation services; testing and quality certification relating to eyewear conformance standards.
 
-The logo functions as a **conformance mark** — it signals to consumers that a product has been made in conformance with the specification.
+The logo functions as a **conformance mark** - it signals to consumers that a product has been made in conformance with the specification.
 
 To use the mark, a manufacturer must:
 
-. Self-certify conformance by running the published test suite and keeping records;
+. Self-certify conformance by running the published conformity test and keeping records;
 . Join as a **Member** or register as a **Logo Licensee** by signing the Trademark/Logo Licence Agreement and paying the corresponding annual fee.
 
 There is no separate per-product or per-model logo fee under either path.
@@ -283,27 +252,24 @@ The Association may request self-test documentation or production samples at any
 |Who controls it
 
 |Specification (technical standard)
-|Public domain / open licence — anyone may implement freely
+|Public domain / open licence - anyone may implement freely
 
-|Conformance test suite
-|Published by the Association — defines what "compliant" means in practice
+|Conformance conformity test
+|Published by the Association - defines what "compliant" means in practice
 
 |Logo / conformance mark
 |Available to Members and Logo Licensees; requires self-certified conformance and signed Trademark/Logo Licence Agreement; revocable on non-conformance or lapsed fee
-
-|Compatibility registry
-|Published by the Association — keyed by brand and model name; no numeric manufacturer ID
 |===
 
 In plain terms: *build a conforming product, self-test it, sign the licence, choose your path (Member or Logo Licensee), use the mark.*
-The Association's role is to maintain the specification and test suite, hold the trademark registration, publish the compatibility registry, and act on credible reports of misuse of the mark.
+The Association's role is to maintain the specification and conformity test, hold the trademark registration, and act on credible reports of misuse of the mark.
 
 ==== Fee structure rationale
 
 Both fees are intentionally modest compared with complex digital standards, reflecting the lower technical and operational complexity of a mechanical interface.
 
-* **Member fee** — covers non-profit operating expenses (spec maintenance, website, registry, trademarks, governance) and ensures only serious manufacturers shape the long-term direction of the standard.
-* **Logo Licensee fee** — provides a low-barrier path for brands that need logo rights but not governance participation; still acts as a seriousness filter and contributes modestly toward trademark upkeep.
+* **Member fee** - covers non-profit operating expenses (spec maintenance, website, registry, trademarks, governance) and ensures only serious manufacturers shape the long-term direction of the standard.
+* **Logo Licensee fee** - provides a low-barrier path for brands that need logo rights but not governance participation; still acts as a seriousness filter and contributes modestly toward trademark upkeep.
 
 === How to Use the UES Mark: Step-by-Step
 
@@ -315,7 +281,7 @@ Obtain the link:../spec/technical-spec.adoc[UES Technical Specification] and imp
 
 ==== 2. Self-certify conformance
 
-Run the conformance test suite defined in the specification against a representative production sample.
+Run the conformance conformity test defined in the specification against a representative production sample.
 No external laboratory is required.
 If the product fails, correct the design and re-test.
 Keep test records on file; the Association may request them.
@@ -325,8 +291,8 @@ Keep test records on file; the Association may request them.
 Download the Trademark/Logo Licence Agreement from the Association's website and complete the required fields (company name, country, product type, declared size code(s)).
 Choose one of two paths:
 
-* **Member** — logo rights on all declared compliant products, plus voting rights and participation in governance and working groups.
-* **Logo Licensee** — logo rights on declared compliant products; no voting rights or governance role.
+* **Member** - logo rights on all declared compliant products, plus voting rights and participation in governance and working groups.
+* **Logo Licensee** - logo rights on declared compliant products; no voting rights or governance role.
 
 Pay the corresponding annual fee and submit the signed agreement to the Association.
 Upon acknowledgement, your logo rights are active.
@@ -341,7 +307,7 @@ Re-testing is only required if the interface geometry changes materially.
 
 ==== Patent Infringement
 
-*Impact:* High — could block the entire project.
+*Impact:* High - could block the entire project.
 
 Existing patents on interchangeable lens systems create legal uncertainty.
 A thorough freedom-to-operate (FTO) analysis must be conducted before publication.
@@ -350,7 +316,7 @@ Proactive defensive publication of the specification creates prior art and preve
 
 ==== Industry Resistance
 
-*Impact:* High — no adoption means failure.
+*Impact:* High - no adoption means failure.
 
 Large incumbents (Luxottica, Safilo) have no financial incentive to standardize and may actively resist.
 The strategy is to begin with independent frame and lens manufacturers who stand to gain from a level playing field.
@@ -359,14 +325,14 @@ An open, royalty-free model removes the main commercial objection.
 
 ==== Optical Quality Concerns
 
-*Impact:* Medium — could limit adoption or credibility.
+*Impact:* Medium - could limit adoption or credibility.
 
 Optometrists and lens manufacturers may argue that fixed sizes compromise prescription accuracy, particularly for high-power or custom base-curve requirements.
 Mitigation requires rigorous independent testing across a range of prescriptions, and early engagement with optometric associations to define acceptable tolerances within the specification.
 
 ==== Consumer Skepticism
 
-*Impact:* Medium — risks slow initial adoption.
+*Impact:* Medium - risks slow initial adoption.
 
 Consumers accustomed to fully custom lenses may distrust a standardized system.
 Pilot programs with money-back guarantees lower the perceived risk.
@@ -375,7 +341,7 @@ Clear installation demonstrations (video, in-store) reduce friction at the point
 
 ==== Manufacturing Complexity
 
-*Impact:* Low — may increase unit cost marginally.
+*Impact:* Low - may increase unit cost marginally.
 
 Introducing a new interface geometry adds tooling requirements for manufacturers.
 This is mitigated by involving manufacturers early in the specification process so tolerances are achievable with existing production lines.
@@ -383,7 +349,7 @@ The long-term volume benefits of batch production outweigh the initial tooling c
 
 ==== Competing Standards
 
-*Impact:* Medium — market fragmentation would undermine the network effect.
+*Impact:* Medium - market fragmentation would undermine the network effect.
 
 A rival proprietary standard from a large brand could split the market.
 First-mover advantage is critical: publishing an open specification quickly establishes prior art and a reference implementation.
