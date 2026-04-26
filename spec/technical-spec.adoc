@@ -9,13 +9,14 @@
 :revdate: 2026-04-25
 :revremark: Draft for public review
 :xrefstyle: full
+:imagesdir: ../images
 
 image::logo.svg[UES Logo,280,align="center"]
 
 [abstract]
 --
 This document is the normative technical specification for the Universal Eyeglass Socket (UES) interface.
-It defines the mechanical geometry of the lens bevel ridge, the frame rim bevel groove, lens sizes, bridge widths, material requirements, optical clear aperture, environmental durability requirements, conformance test procedures, and marking rules.
+It defines the mechanical geometry of the lens bevel ridge, the frame rim bevel groove, lens sizes, bridge widths, material requirements, environmental durability requirements, conformance test procedures, and marking rules.
 Any lens or frame rim that implements this specification and passes the tests herein may claim UES compliance.
 --
 
@@ -37,7 +38,7 @@ Logo and trademark rights are governed separately by the UES-IF Trademark/Logo L
 === Purpose
 
 This specification exists to enable a market in interchangeable prescription lenses.
-When every compliant lens and every compliant frame rim implement this single mechanical interface, a consumer can:
+When every compliant lens and every compliant frame rim implement this mechanical interface, a consumer can:
 
 * own multiple frames in one size and swap lenses between them at home without tools;
 * replace a broken frame without discarding functional lenses;
@@ -47,15 +48,13 @@ When every compliant lens and every compliant frame rim implement this single me
 
 This specification normatively defines:
 
-. The lens contour model — a normalized, looped cubic Bézier representation that defines any UES lens outline as a centered, unit-scale set of pairwise control points.
-. Shape C (Circular), the sole shape defined in this version, expressed as an ordered list of N = 4 pairwise Bézier control points at unit scale.
-. Four initial size codes (UES-C-XS through UES-C-L) that scale the unit shape to the physical lens diameter, together with the bridge widths paired with each size.
+. The lens contour model - a UES lens outline as a list of control points of a cubic Bézier curve.
+. Size codes (XS through L) that scale the unit shape to the physical lens diameter, together with the bridge widths paired with each size.
 . The bevel ridge on the lens edge and the matching bevel groove on the frame rim inner wall — the single mechanical feature that makes the standard work.
 . Lens edge geometry constraints (edge zone width, minimum edge thickness in the bevel zone).
 . Frame rim body geometry (rim channel width and depth, aperture shape).
 . Material requirements for the bevel zone of both product types.
 . Surface finish requirements in the bevel zone.
-. Optical clear aperture — the area that optical material must occupy.
 . Environmental and durability requirements (temperature, humidity, UV, insertion/removal cycle life).
 . Dimensional tolerances on all normative dimensions.
 . Conformance test procedures (self-tested; no external laboratory required).
@@ -65,7 +64,6 @@ The following are outside scope:
 
 * Optical prescription values, coatings, tints, and UV absorption — these remain entirely at the discretion of the lens manufacturer.
 * Frame materials, temple styles, nose pad design, hinge mechanisms, and all other frame geometry not at the rim aperture.
-* Additional shape families beyond Shape C (reserved for future editions; see <<appendix-b,Appendix B>>).
 
 === Normative References
 
@@ -167,22 +165,19 @@ Insertion force:: The maximum force required to press a compliant lens into a fu
 
 Nominal:: The target dimension to which tolerances apply.
 
-Optical clear aperture (OCA):: The circular region of the lens that shall carry optically functional material; defined separately per size code.
-
 Retention force:: The minimum force required to unseat a fully seated compliant lens from a compliant rim by applying a load perpendicular to the lens plane at the centre of the lens.
 
 Rim channel:: The annular recess in the frame rim that receives the lens edge including the bevel ridge; the bevel groove is cut into the inner wall of this channel.
 
-Size code:: A designator of the form UES-C-XX that uniquely identifies a standard lens shape scale and its associated bridge width.
+Size code:: A one or two letter identifier (e.g. "XS") of the lens diameter.
 
-Anchor point:: An on-curve point of a UES looped cubic Bézier contour; the curve passes through each anchor point in sequence.
+Shape code:: A one or two letter identifier (e.g. "C") of the lens contour shape.
 
-Handle pair:: The pair of off-curve Bézier control points for one segment of the loop: the outgoing handle H^+^ departing from anchor P~i~ and the incoming handle H^-^ arriving at anchor P~i+1~.
+Product code:: A designator of the form UES-TT-SS, where TT is a one- or two-letter shape-type identifier (e.g., C for Circular) and SS is a size code (e.g., XS, S, M, L), that uniquely identifies a lens shape and physical scale; two products are mechanically compatible if and only if they carry the same product code.
 
-Unit shape:: A lens contour expressed in normalized coordinates: centroid of the anchor points at the origin, maximum half-extent of the anchor coordinates equal to 1.
+Control point:: One of the ordered points P₀, P₁, … that define a UES looped cubic Bézier contour; see <<_lens_contour_model>>.
 
-Shape scale (s):: The positive real multiplier (mm) applied to all unit-shape coordinates to produce the physical lens contour.
-For Shape C (Circular), s equals the lens radius: s = diameter ÷ 2.
+Unit shape:: A lens contour expressed in normalized coordinates such that (a) the shape centroid is at the origin and (b) the maximum distance between any two points on the lens contour (the shape diameter) is exactly 1.
 
 == System Overview
 
@@ -210,192 +205,126 @@ The frame body material, temple mechanism, nose pads, and all other frame proper
 
 === Interchangeability Model
 
-A compliant lens of size code UES-C-XX SHALL mate with any compliant frame rim of the same size code.
-A compliant lens of size code UES-C-XX SHALL NOT be expected to mate with a frame rim of a different size code.
+A compliant lens of product code UES-TT-SS SHALL mate with any compliant frame rim of the same product code.
+A compliant lens of product code UES-TT-SS SHALL NOT be expected to mate with a frame rim of a different product code.
 
-[informative]
-Size compatibility is enforced by the lens diameter.
-A lens of size UES-C-M (diameter 61 mm) physically cannot seat in a rim aperture of size UES-C-S (aperture 56 mm) or vice versa.
-No electronic negotiation, keying, or pairing mechanism is needed or defined.
-
-NOTE: Any compliant lens ↔ Any compliant frame rim (same size code) — no pairing, no tools.
-
+[[_lens_contour_model]]
 == Lens Contour Model
 
 === Overview
 
-All UES lens outline shapes are defined as *looped cubic Bézier curves* in a canonical normalized coordinate system.
-This decouples shape geometry from physical size: the shape is specified once at unit scale (the unit shape), and the standard size codes in <<_standard_lens_sizes>> apply a uniform scale factor to produce physical dimensions.
-Any future shape family (see <<appendix-b,Appendix B>>) uses the same representation and the same size codes.
+All UES lens outline shapes are defined as *looped cubic Bézier curves* in a normalized coordinate system.
+This decouples shape geometry from physical size: the shape is specified once as a unit shape with a fixed normalized diameter of 1, and the size codes in <<_size_catalogue>> scale it by the lens diameter to produce physical dimensions.
 
 === Coordinate System and Normalization
 
-The canonical coordinate system for unit shapes is:
+The coordinate system for unit shapes is:
 
-* Origin at the geometric centroid of the anchor points.
+* Origin at the area centroid of the lens contour (the centroid of the region bounded by the looped cubic Bézier curve).
 * X-axis: horizontal, positive toward the temporal (right) side.
 * Y-axis: vertical, positive toward the superior (top) direction.
 
-A unit shape is normalized so that the maximum coordinate half-extent of the anchor points equals 1:
+A *unit shape* is a lens contour expressed in normalized coordinates such that:
 
-  max( |xᵢ|, |yᵢ| ) = 1   over all anchor points Pᵢ
+* The area centroid of the contour lies at the origin; and
+* The *shape diameter* - the maximum distance between any two points on the lens contour - is exactly 1.
 
-To convert a raw contour (e.g., digitised from a drawing) to a unit shape:
+Formally, for the unit-shape curve C(t), t ∈ [0, 1]:
 
-. Compute the centroid c of the N anchor points: cx = Σxᵢ / N, cy = Σyᵢ / N.
-. Translate all anchor and handle points: xᵢ ← xᵢ - cx, yᵢ ← yᵢ - cy.
-. Compute h = max over all anchor points of max(|xᵢ|, |yᵢ|).
-. Scale all anchor and handle points by 1 / h.
+  max_{t,s ∈ [0,1]} ‖C(t) - C(s)‖ = 1.
+
+A shape code identifies a particular unit shape via an ordered list of control points in this normalized coordinate system.
+
+.UES lens contour coordinate system and normalization
+image::diagrams/definition.drawio.png[UES lens contour coordinate system and normalization,600,align="center"]
 
 === Looped Cubic Bézier Representation
 
-A UES lens contour is defined by N anchor points P₀, P₁, …, P_{N-1} and N handle pairs.
-Each handle pair i consists of:
+A UES lens contour is defined by an ordered list of M = 3N control points P₀, P₁, …, P_{M−1}, forming N cubic Bézier segments.
 
-* H^+^~i~ — the outgoing control handle of segment i, associated with anchor P~i~.
-* H^-^~(i+1) mod N~ — the incoming control handle of segment i, associated with anchor P~(i+1) mod N~.
+Segment i (i = 0 … N−1) is the cubic Bézier curve:
 
-Segment i is the cubic Bézier curve from P~i~ to P~(i+1) mod N~ parameterized as:
+  Bᵢ(t) = (1−t)³ P_{3i}
+        + 3(1−t)² t  P_{3i+1}
+        + 3(1−t) t²  P_{3i+2}
+        + t³         P_{(3i+3) mod M},   t ∈ [0, 1]
 
-  Bᵢ(t) = (1-t)³ Pᵢ + 3(1-t)²t H⁺ᵢ + 3(1-t)t² H⁻ᵢ₊₁ + t³ Pᵢ₊₁,   t ∈ [0, 1]
+The control point sequence SHALL be ordered *counter-clockwise* when viewed from the front of the lens (positive-Y-superior convention).
 
-The curve is closed: segment N-1 connects P_{N-1} back to P₀.
+[informative]
+In a cubic Bézier segment, P_{3i} and P_{(3i+3) mod M} are the on-curve endpoints (the curve passes through them), and P_{3i+1} and P_{3i+2} are the off-curve handle points that shape the segment without being on the curve.
+
+*Looped:* The contour is closed.
+The last segment (i = N−1) ends at P_{(3N) mod M} = P₀ — no repeated point is stored; the closure is implicit in the modular indexing.
 
 === Physical Realisation
 
-To realise a unit shape at physical size, multiply every anchor and handle coordinate by the shape scale *s* (mm).
-For Shape C (Circular), s = diameter ÷ 2 (the radius in mm).
-The scale s is uniform across all coordinates; no per-axis stretching is applied.
-The size codes in <<_standard_lens_sizes>> each specify an s value; the same s applies to any shape family sharing that size code.
+To realise a unit shape at physical size, multiply every control point coordinate by the lens diameter *d* (mm):
+
+  (x_phys, y_phys) = (d · x_unit, d · y_unit).
+
+Because the unit shape has contour diameter 1 by definition, the physical contour diameter equals *d*.
 
 [[shape-catalogue]]
 === Shape Catalogue
+
+Each shape in the catalogue is defined by its shape code, a brief description, and an ordered list of M = 3N control points in the normalized coordinate system of <<_coordinate_system_and_normalization>>.
+The control points fully determine the unit shape; all other properties (physical dimensions, tolerances) follow from the Physical Realisation rules in <<_physical_realisation>>.
 
 [[shape-C]]
 ==== Shape C — Circular
 
 [informative]
-Shape C approximates a unit circle using N = 4 cubic Bézier segments.
-The optimal handle length for a 4-node closed Bézier circle is κ = 4(√2 - 1) ÷ 3 ≈ 0.5523, which limits the maximum radial deviation from a true circle to less than 0.03%.
+Shape C is a close approximation of a circle, defined by N = 4 cubic Bézier segments (M = 12 control points).
 
-The N = 4 anchor points and handle pairs, in the canonical normalized coordinate system, are:
+[[_size_catalogue]]
+== Size Catalogue
 
-.Shape C — unit-circle control points (s = 1, κ ≈ 0.5523)
-[cols="1,2,2,2", options="header"]
-|===
-|Segment i
-|Anchor P~i~
-|Outgoing handle H^+^~i~
-|Incoming handle H^-^~(i+1) mod 4~
+=== Size Codes
 
-|0 — temporal → superior
-|(1, 0)
-|(1, 0.5523)
-|(0.5523, 1)
-
-|1 — superior → nasal
-|(0, 1)
-|(-0.5523, 1)
-|(-1, 0.5523)
-
-|2 — nasal → inferior
-|(-1, 0)
-|(-1, -0.5523)
-|(-0.5523, -1)
-
-|3 — inferior → temporal
-|(0, -1)
-|(0.5523, -1)
-|(1, -0.5523)
-|===
-
-NOTE: Segment traversal is counter-clockwise when viewed from the front of the lens, consistent with the positive-Y-superior convention.
-At any scale s, the resulting curve is a circle of radius s; the lens body diameter is therefore 2s.
-
-[[_standard_lens_sizes]]
-== Standard Lens Sizes
-
-=== Size Classification (Circular)
-
-The UES Version 1 standard defines four size codes, each identified by the prefix *C-* and applied to Shape C (<<shape-C>>).
+Size codes specify the lens diameter and bridge width.
+A product code is formed by combining a shape code and a size code: UES-TT-SS (e.g., UES-C-M for shape C at size M).
 All dimensions are nominal; tolerances are defined in <<_dimensional_tolerances>>.
 
 [[size-table]]
-[cols="1,2,1,1,1,1", options="header"]
+[cols="1,1,1", options="header"]
 |===
 |Size Code
-|Target Users
-|Shape
-|Scale s (mm)
-|Lens Diameter 2s (mm)
+|Lens Diameter (mm)
 |Bridge Width (mm)
 
-|UES-C-XS
-|Children (ages 4–10)
-|<<shape-C,C>>
-|25.5
+|XS
 |51.0
 |15.0
 
-|UES-C-S
-|Small adults / youth (ages 11–16)
-|<<shape-C,C>>
-|28.0
+|S
 |56.0
 |17.0
 
-|UES-C-M
-|Average adults
-|<<shape-C,C>>
-|30.5
+|M
 |61.0
 |19.0
 
-|UES-C-L
-|Large adults
-|<<shape-C,C>>
-|33.5
+|L
 |67.0
 |21.0
 |===
 
-NOTE: Bridge width is measured between the inner nasal edges of the two rims at the datum plane, per ISO 8624 §5.
-For Shape C (circular), the datum plane coincides with the horizontal centreline.
-
 === Lens Contour Dimensions
 
-The physical lens contour for a size code is the unit shape (<<shape-catalogue>>) scaled uniformly by s.
-The outermost extent of the flat lens body edge (excluding the bevel ridge) is the *lens diameter* = 2s.
-The bevel ridge extends beyond this boundary by the bevel depth (1.0 mm), so the overall maximum extent including the ridge is: lens diameter + 2 × 1.0 mm.
-
-For Shape C (Circular), the lens body is a circle of radius s and diameter 2s.
-For future shape families, the same s applies; the physical extent in each axis is determined by the unit shape's coordinate range scaled by s.
+The physical lens contour for a product code is the unit shape (<<shape-catalogue>>) of the declared shape code, scaled uniformly by the lens diameter *d* of the declared size code.
+The outermost extent of the flat lens body edge (excluding the bevel ridge) is the *lens diameter* *d*.
+The bevel ridge extends beyond this boundary by the bevel depth (1.0 mm), so the overall maximum extent including the ridge is: *d* + 2 × 1.0 mm.
+The physical extent in each axis is determined by the unit shape's coordinate range scaled by *d*.
 
 NOTE: Frame rim aperture and rim channel dimensions are defined to accept the lens including the bevel ridge.
 See <<_frame_rim_geometry>>.
 
-=== Optical Clear Aperture Diameter
-
-For Shape C (Circular), the Optical Clear Aperture (OCA) diameter is:
-
-  OCA diameter = lens diameter - 3.0 mm = 2s - 3.0 mm
-
-This provides a 1.5 mm margin from the lens body edge to the OCA boundary on each side.
-OCA diameters per size code are listed in <<_optical_clear_aperture>>.
-
 === Bridge Width
 
 Bridge width is a property of the frame, not the lens.
-A compliant frame rim SHALL have a bridge width within the tolerance of the declared size code.
+A compliant frame rim SHALL have a bridge width within the tolerance of the declared product code.
 A compliant lens does not carry a bridge width dimension.
-
-=== Future Shape Families
-
-[informative]
-Future editions of this specification may add shape families to the Shape Catalogue (<<shape-catalogue>>), each with a new single-letter prefix (e.g., S for square-rounded, P for pilot/aviator).
-New shapes are defined by their own set of normalized anchor and handle points.
-The existing size codes and scale values in <<size-table>> apply unchanged to any future shape; a size code specifies a physical scale, not a shape.
-Additional shapes are not defined in Version 1 and are outside the scope of this specification.
 
 == Mechanical Specification
 
@@ -586,7 +515,7 @@ The rim channel SHALL be dimensioned to accept the lens including the full bevel
 
 ==== Rim Aperture Diameter
 
-The rim aperture diameter (the diameter of the opening that the lens occupies) SHALL equal the nominal lens body diameter of the declared size code within the tolerances of <<_dimensional_tolerances>>.
+The rim aperture diameter (the diameter of the opening that the lens occupies) SHALL equal the nominal lens body diameter of the declared product code within the tolerances of <<_dimensional_tolerances>>.
 The rim aperture diameter is measured from the inner edges of the rim channel, i.e., the diameter at the entrance plane of the channel, before the groove.
 
 ==== Frame Rim Face Flatness
@@ -660,53 +589,6 @@ Roughness is measured per ISO 4287 over a 2.5 mm evaluation length, stylus tip r
 
 NOTE: Smoother lens ridge flanks reduce friction during insertion, lower insertion force, and extend groove wear life.
 The asymmetric limits (lens smoother than rim) place incremental wear preferentially on the rim.
-
-[[_optical_clear_aperture]]
-== Optical Clear Aperture
-
-=== Definition
-
-The Optical Clear Aperture (OCA) is the circular zone within the lens that SHALL be occupied by optically functional material (prescription or plano optical element) and SHALL be free of:
-
-* Visible voids, inclusions, or bubbles ≥ 0.1 mm in diameter.
-* Grinding marks, pits, or scratches that reduce visible light transmission by more than 2% locally.
-* Any portion of the bevel ridge geometry (the ridge SHALL lie entirely outside the OCA boundary).
-
-=== OCA Diameters by Size Code
-
-For Shape C (Circular), the OCA diameter = lens diameter - 3.0 mm = 2s - 3.0 mm (see <<_standard_lens_sizes>>).
-
-[cols="1,1,1", options="header"]
-|===
-|Size Code
-|Scale s (mm)
-|OCA Diameter (mm)
-
-|UES-C-XS
-|25.5
-|48.0
-
-|UES-C-S
-|28.0
-|53.0
-
-|UES-C-M
-|30.5
-|58.0
-
-|UES-C-L
-|33.5
-|64.0
-|===
-
-The OCA boundary SHALL be concentric with the lens body within 0.5 mm.
-
-=== Minimum Thickness Within the OCA
-
-Within the OCA, the lens SHALL have a minimum thickness of 1.0 mm at the thinnest point.
-
-NOTE: The minimum thickness is a structural requirement to prevent breakage during normal use.
-Lens manufacturers SHALL verify compliance for high-prescription designs that approach the minimum.
 
 == Environmental and Durability Requirements
 
@@ -795,7 +677,7 @@ Compliance is assessed at 23 °C ± 2 °C, 50% ± 5% RH, with parts unconstraine
 |Measured per ISO 12870; excludes bevel ridge
 
 |Bridge width
-|per size code
+|per product code
 |± 0.20 mm
 |Measured per ISO 8624; frame only
 
@@ -892,11 +774,11 @@ Compliance is assessed at 23 °C ± 2 °C, 50% ± 5% RH, with parts unconstraine
 
 Insertion force is the force required to press a compliant lens into a fully seated position in a compliant rim.
 
-A compliant lens of any size code SHALL seat fully in a compliant rim of the same size code by applying a force no greater than:
+A compliant lens of any product code SHALL seat fully in a compliant rim of the same product code by applying a force no greater than:
 
 [cols="1,1", options="header"]
 |===
-|Size Code
+|Product Code
 |Maximum Insertion Force
 
 |UES-C-XS
@@ -925,7 +807,7 @@ A fully seated compliant lens SHALL require a force no less than the values belo
 
 [cols="1,1", options="header"]
 |===
-|Size Code
+|Product Code
 |Minimum Retention Force
 
 |UES-C-XS
@@ -969,7 +851,7 @@ Required test equipment:
 
 *Purpose:* Confirm that all nominal dimensions are within the tolerances of <<_dimensional_tolerances>>.
 
-*Sample size:* Five lenses and five frame rims per declared size code per production batch.
+*Sample size:* Five lenses and five frame rims per declared product code per production batch.
 
 *Procedure:*
 
@@ -994,7 +876,7 @@ Required test equipment:
 . Measure the rim channel axial width at four positions.
   All readings SHALL be ≥ nominal lens edge thickness + 0.20 mm.
 . Measure bridge width at the datum plane per ISO 8624.
-  Result SHALL be within ± 0.20 mm of nominal for the declared size code.
+  Result SHALL be within ± 0.20 mm of nominal for the declared product code.
 
 *Pass criterion:* All measurements within the tolerances of <<_dimensional_tolerances>> for all five samples.
 Any sample outside tolerance is non-conforming; the batch SHALL be investigated before release.
@@ -1004,18 +886,18 @@ Any sample outside tolerance is non-conforming; the batch SHALL be investigated 
 
 *Purpose:* Confirm the lens can be fully seated without exceeding the maximum insertion force.
 
-*Sample size:* Three lens-and-rim pairs per size code.
+*Sample size:* Three lens-and-rim pairs per product code.
 
 *Procedure:*
 
-. Prepare one compliant lens and one compliant frame rim of the same size code, freshly cleaned (isopropyl alcohol wipe, dry).
+. Prepare one compliant lens and one compliant frame rim of the same product code, freshly cleaned (isopropyl alcohol wipe, dry).
   No lubricant.
 . Mount the frame rim in the force gauge fixture with the rim aperture facing upward.
 . Centre the lens over the aperture, bevel ridge aligned with the groove.
 . Apply a steadily increasing perpendicular force to the lens centre using the force gauge, at a rate of 5-10 N/s, until the lens is fully seated (audible or tactile click, or flush seating confirmed).
 . Record the peak force during seating.
 
-*Pass criterion:* Peak force SHALL not exceed the value in <<_insertion_force>> for the declared size code for all three pairs.
+*Pass criterion:* Peak force SHALL not exceed the value in <<_insertion_force>> for the declared product code for all three pairs.
 
 NOTE: At temperatures below 10 °C, insertion force may increase due to material stiffening.
 Manufacturers SHOULD test at the lower end of the operating temperature range if the product is intended for cold-climate use.
@@ -1025,7 +907,7 @@ Manufacturers SHOULD test at the lower end of the operating temperature range if
 
 *Purpose:* Confirm the seated lens resists unseating with at least the minimum retention force.
 
-*Sample size:* Three lens-and-rim pairs per size code (may reuse pairs from Test 2).
+*Sample size:* Three lens-and-rim pairs per product code (may reuse pairs from Test 2).
 
 *Fixture:* A rigid plate with a circular aperture slightly smaller than the rim outer diameter, mounted horizontally so the rim is clamped against the plate and the lens hangs below.
 The force gauge pulls the lens downward from its centre.
@@ -1043,7 +925,7 @@ The force gauge pulls the lens downward from its centre.
 
 *Purpose:* Confirm the bevel ridge and bevel groove are continuous around the full perimeter.
 
-*Sample size:* 100% inspection in production; 3 samples per size code for initial qualification.
+*Sample size:* 100% inspection in production; 3 samples per product code for initial qualification.
 
 *Procedure:*
 
@@ -1058,7 +940,7 @@ The force gauge pulls the lens downward from its centre.
 
 *Purpose:* Confirm the lens front face is flush with the rim front face when fully seated.
 
-*Sample size:* Three lens-and-rim pairs per size code.
+*Sample size:* Three lens-and-rim pairs per product code.
 
 *Procedure:*
 
@@ -1073,7 +955,7 @@ The force gauge pulls the lens downward from its centre.
 
 *Purpose:* Confirm the bevel interface lasts at least 500 insertion/removal cycles.
 
-*Sample size:* One lens-and-rim pair per size code.
+*Sample size:* One lens-and-rim pair per product code.
 
 *Procedure:*
 
@@ -1095,7 +977,7 @@ The force gauge pulls the lens downward from its centre.
 
 *Purpose:* Confirm the assembly survives temperature cycling without loss of retention.
 
-*Sample size:* One lens-and-rim pair per size code.
+*Sample size:* One lens-and-rim pair per product code.
 
 *Procedure:*
 
@@ -1113,7 +995,7 @@ No visible cracks on the lens.
 
 *Purpose:* Confirm the assembly survives prolonged high humidity.
 
-*Sample size:* One lens-and-rim pair per size code.
+*Sample size:* One lens-and-rim pair per product code.
 
 *Procedure:*
 
@@ -1130,7 +1012,7 @@ No visible corrosion that would prevent re-seating.
 
 *Purpose:* Confirm the bevel zone survives UV exposure without dimensional degradation.
 
-*Sample size:* One lens and one rim per size code, un-mated.
+*Sample size:* One lens and one rim per product code, un-mated.
 
 *Procedure:*
 
@@ -1152,22 +1034,22 @@ No visible corrosion that would prevent re-seating.
 
 Every UES-compliant lens SHALL carry the following marking, laser-etched, silk-screened, pad-printed, or applied via a durable label:
 
-. The UES size code (e.g., *UES-C-M*), positioned in the edge zone on the nasal side of the lens, outside the OCA.
+. The UES product code (e.g., *UES-C-M*), positioned in the edge zone on the nasal side of the lens.
 . The manufacturer's name or registered trademark.
-. The applicable specification version (e.g., *UES v1*).
+. The applicable specification version.
 
 The marking SHALL be legible under 10x magnification.
-It SHALL NOT be placed within the OCA.
+It SHALL be positioned within the edge zone and SHALL NOT overlap the bevel ridge.
 It SHALL survive Test 8 (humidity) without becoming illegible.
 
 === Required Marking — Frames
 
 Every UES-compliant frame SHALL carry the following on the frame body:
 
-. The UES size code (e.g., *UES-C-M*).
-. The bridge width in mm (e.g., *19 mm*) if not deducible from the size code alone.
+. The UES product code (e.g., *UES-C-M*).
+. The bridge width in mm (e.g., *19 mm*) if not deducible from the product code alone.
 . The manufacturer's name or registered trademark.
-. The applicable specification version (e.g., *UES v1*).
+. The applicable specification version.
 
 The marking may be on a permanent label on the inner temple, on the nose bridge, or laser-etched on the rim body.
 
@@ -1224,11 +1106,11 @@ The Conformance Test Record SHALL include at minimum:
 |Product type
 |Lens or frame
 
-|Declared size code
+|Declared product code
 |UES-C-XS / UES-C-S / UES-C-M / UES-C-L
 
 |Specification version
-|UES v1 (or later edition against which tested)
+|Version of this specification against which tested
 
 |Test date
 |ISO 8601 date (YYYY-MM-DD)
@@ -1319,44 +1201,15 @@ The UES standard does not specify optical centration.
 Because lenses are standardised in size, the optician or lens laboratory can consistently calculate horizontal decentration relative to the lens geometric centre.
 For UES-C-M (diameter 61 mm, bridge 19 mm), the geometric centre of each lens sits at a monocular PD of: (bridge/2) + (lens diameter/2) = 9.5 + 30.5 = 40.0 mm from the midline.
 
-Manufacturers are encouraged to publish a centration chart for each size code listing the expected monocular PD for each standard bridge width.
+Manufacturers are encouraged to publish a centration chart for each product code listing the expected monocular PD for each standard bridge width.
 
 === A.5 Semi-Rimless and Three-Piece Frames
 
 [informative]
-Semi-rimless frames (where the lower half of the rim is not present) and three-piece designs (no rim, lens drilled for screws) are not directly compatible with the UES bevel interface and are outside the scope of Version 1.
-Future editions may define a three-piece UES fastener pattern compatible with the standard lens body diameter.
+Semi-rimless frames (where the lower half of the rim is not present) and three-piece designs (no rim, lens drilled for screws) are not directly compatible with the UES bevel interface and are outside the scope of this specification.
 
 [appendix]
-== Appendix B — Reserved Size Families
-
-[informative]
-The following shape families are reserved for future specification editions.
-Manufacturers SHALL NOT produce products labelled with these codes until the corresponding specification is formally published by UES-IF.
-
-[cols="1,2", options="header"]
-|===
-|Reserved Prefix
-|Intended Shape Family
-
-|UES-S-
-|Square with rounded corners (cat-eye, geometric)
-
-|UES-P-
-|Pilot / aviator (teardrop, double-bridge)
-
-|UES-R-
-|Rectangular (classic business / sport)
-
-|UES-O-
-|Oval (classic)
-
-|UES-C-XL
-|Extra-large circular (reserved; not defined in v1)
-|===
-
-[appendix]
-== Appendix C — Revision History
+== Appendix B — Revision History
 
 [cols="1,1,3", options="header"]
 |===
@@ -1370,11 +1223,11 @@ Manufacturers SHALL NOT produce products labelled with these codes until the cor
 
 |0.5
 |2026-01-15
-|Added OCA, material requirements, tolerance table, and marking section
+|Added material requirements, tolerance table, and marking section
 
 |0.9
 |2026-04-25
-|Draft for public review — added full test procedures, environmental and durability requirements, mechanical performance requirements (insertion/retention force), surface finish specification, design guidelines appendix, and reserved size families appendix
+|Draft for public review — added full test procedures, environmental and durability requirements, mechanical performance requirements (insertion/retention force), surface finish specification, and design guidelines appendix
 |===
 
 _See also link:../docs/idea-and-business.adoc[Idea & Business Model] for context and rationale, and link:../docs/plan.adoc[Plan of Action] for the Association roadmap._

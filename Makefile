@@ -110,7 +110,6 @@ $(BUILD_DIR)/docs/%.html: docs/%.adoc | $(BUILD_DIR)/docs $(BUILD_DIR)/images
 	@echo "Building $@ (v$(VERSION))..."
 	$(ADOC) $(ADOC_ATTRS) -o $@ $<
 	@cp -r images/* $(BUILD_DIR)/images/
-	@cp -r docs/diagrams $(BUILD_DIR)/images/diagrams
 
 # PDF generation rules
 $(SPEC_PDF): $(SPEC) | $(BUILD_DIR)/spec
@@ -118,7 +117,6 @@ $(SPEC_PDF): $(SPEC) | $(BUILD_DIR)/spec
 	$(ADOC_PDF) $(ADOC_ATTRS) -o $@ $(SPEC)
 
 $(BUILD_DIR)/docs/%.pdf: docs/%.adoc | $(BUILD_DIR)/docs
-	@mkdir -p images/diagrams && cp -r docs/diagrams/. images/diagrams/
 	@echo "Building $@ (v$(VERSION))..."
 	$(ADOC_PDF) $(ADOC_ATTRS) -o $@ $<
 
