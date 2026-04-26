@@ -15,15 +15,16 @@ Usage::
 
 from __future__ import annotations
 from dataclasses import dataclass
+from .spec import BEVEL_ZONE_WIDTH
 
 # ============================================================================
 # DEFAULT / REFERENCE VALUES
 # ============================================================================
 
 # Rim
-RIM_WIDTH          = 2.5   # mm — radial width of frame rim
-RIM_DEPTH          = 3.0   # mm — axial depth / thickness
-RIM_WALL_THICKNESS = 1.5   # mm — minimum wall (drives lens rim inner wall)
+RIM_WIDTH          = 2.5                        # mm — radial width of frame rim
+RIM_DEPTH          = BEVEL_ZONE_WIDTH + 0.20    # mm — axial depth = bevel zone + 0.10 mm clearance per side
+RIM_WALL_THICKNESS = 1.5                        # mm — minimum wall (drives lens rim inner wall)
 
 # Bridge
 BRIDGE_DEPTH      = 3.0   # mm — front-to-back depth of the bridge bar

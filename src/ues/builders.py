@@ -13,7 +13,7 @@ from build123d import *
 from .spec import (
     LensContour, CircularContour, RectangularContour, BezierContour,
     LensSizeSpec, LENS_SPECS,
-    BEVEL_DEPTH, BEVEL_WIDTH, GROOVE_CLEARANCE,
+    BEVEL_DEPTH, BEVEL_WIDTH, BEVEL_ZONE_WIDTH, GROOVE_CLEARANCE,
 )
 from .frames import FrameDesign, DEFAULT as DEFAULT_DESIGN
 
@@ -166,10 +166,13 @@ def create_reference_lens(size_code: str, lens_thickness: float = 2.0) -> Part:
     spec = LENS_SPECS[size_code]
     lens_wire = make_lens_wire(spec.contour)
     T         = lens_thickness
+    BZ        = BEVEL_ZONE_WIDTH / 2   # half-width of the standardised interface band
     D, W2, TIP_R, s, ux, uz_up, uz_dn = _bevel_tip_params()
     overhang  = 0.5
 
-    # Bevel cutter profile in local (u, z): u=0 at perimeter, u<0 inward
+    # Bevel cutter profile in local (u, z): u=0 at perimeter, u<0 inward.
+    # The cutter removes everything outside the fixed BZ band, leaving a
+    # cylindrical interface band of BEVEL_ZONE_WIDTH regardless of lens_thickness.
     p_up          = (ux * s,   uz_up * s)
     p_dn          = (ux * s,   uz_dn * s)
     mid           = (-TIP_R,   0)
@@ -181,11 +184,11 @@ def create_reference_lens(size_code: str, lens_thickness: float = 2.0) -> Part:
 
         with BuildSketch(profile_plane):
             with BuildLine():
-                Line((-D,        W2),         (-D,        T / 2))
-                Line((-D,        T / 2),      (+overhang, T / 2))
-                Line((+overhang, T / 2),      (+overhang, -T / 2))
-                Line((+overhang, -T / 2),     (-D,        -T / 2))
-                Line((-D,        -T / 2),     (-D,        -W2))
+                Line((-D,        W2),         (-D,        BZ))
+                Line((-D,        BZ),         (+overhang, BZ))
+                Line((+overhang, BZ),         (+overhang, -BZ))
+                Line((+overhang, -BZ),        (-D,        -BZ))
+                Line((-D,        -BZ),        (-D,        -W2))
                 Line((-D,        -W2),         p_dn)
                 ThreePointArc(p_dn, mid, p_up)
                 Line(p_up,                    (-D,        W2))

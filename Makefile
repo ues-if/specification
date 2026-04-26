@@ -39,6 +39,7 @@ BUILD_DIR = build
 # Source files
 INDEX = index.adoc
 SPEC = spec/technical-spec.adoc
+COMPLIANCE_TEST = spec/compliance-test.adoc
 DOCS_ADOC = $(wildcard docs/*.adoc)
 
 # SVG logos and their PNG equivalents
@@ -48,6 +49,7 @@ PNG_LOGOS = $(patsubst images/%.svg,$(BUILD_DIR)/images/%.png,$(SVG_LOGOS))
 # Output files
 INDEX_HTML = $(BUILD_DIR)/index.html
 SPEC_HTML = $(BUILD_DIR)/spec/technical-spec.html
+COMPLIANCE_TEST_HTML = $(BUILD_DIR)/spec/compliance-test.html
 DOCS_HTML = $(patsubst docs/%.adoc,$(BUILD_DIR)/docs/%.html,$(DOCS_ADOC))
 
 SPEC_PDF = $(BUILD_DIR)/spec/technical-spec.pdf
@@ -74,7 +76,7 @@ help:
 	@echo "  make spec       - Build technical specification"
 	@echo "  make docs       - Build all docs/ documents"	@echo "  make logos      - Convert SVG logos to PNG"	@echo "  make cad        - Export CAD (STEP/STL) for all sizes"
 
-html: $(INDEX_HTML) $(SPEC_HTML) $(DOCS_HTML) $(PNG_LOGOS)
+html: $(INDEX_HTML) $(SPEC_HTML) $(COMPLIANCE_TEST_HTML) $(DOCS_HTML) $(PNG_LOGOS)
 	@echo "✓ HTML documentation generated successfully"
 
 logos: $(PNG_LOGOS)
@@ -104,6 +106,11 @@ $(INDEX_HTML): $(INDEX) | $(BUILD_DIR)/images
 $(SPEC_HTML): $(SPEC) | $(BUILD_DIR)/spec $(BUILD_DIR)/images
 	@echo "Building $@ (v$(VERSION))..."
 	$(ADOC) $(ADOC_ATTRS) -o $@ $(SPEC)
+	@cp -r images/* $(BUILD_DIR)/images/
+
+$(COMPLIANCE_TEST_HTML): $(COMPLIANCE_TEST) | $(BUILD_DIR)/spec $(BUILD_DIR)/images
+	@echo "Building $@ (v$(VERSION))..."
+	$(ADOC) $(ADOC_ATTRS) -o $@ $(COMPLIANCE_TEST)
 	@cp -r images/* $(BUILD_DIR)/images/
 
 $(BUILD_DIR)/docs/%.html: docs/%.adoc | $(BUILD_DIR)/docs $(BUILD_DIR)/images

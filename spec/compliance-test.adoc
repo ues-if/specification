@@ -1,0 +1,316 @@
+= UES Compliance Test Procedures
+:doctype: article
+:toc: left
+:toclevels: 4
+:sectnums:
+:icons: font
+:imagesdir: ../images
+:revnumber: 0.9
+:revdate: 2026-04-25
+:revremark: Draft for public review
+:xrefstyle: full
+
+image::logo.svg[UES Logo,280,align="center"]
+
+[abstract]
+--
+This document defines the normative conformance test procedures and compliance declaration requirements for the Universal Eyeglass Socket (UES) interface.
+All dimensional and performance requirements referenced herein are defined in the link:technical-spec.adoc[UES Technical Specification].
+A manufacturer SHALL execute these tests on a representative production sample before claiming UES compliance.
+--
+
+''''
+
+*Specification Editors* +
+Universal Eyeglass Socket Implementation Forum (UES-IF) +
+Rua Elias Garcia 253, 4E, 2700-666 Amadora, Portugal
+
+*Copyright Notice* +
+Copyright © 2026 Universal Eyeglass Socket Implementation Forum.
+The technical content of this specification is published under the terms of the Creative Commons Attribution 4.0 International Licence (CC BY 4.0).
+Logo and trademark rights are governed separately by the UES-IF Trademark/Logo Licence Agreement.
+
+''''
+
+[[_conformance_test_procedures]]
+== Conformance Test Procedures
+
+This section defines the normative self-test procedures that a manufacturer SHALL execute on a representative production sample before claiming UES compliance.
+
+Test conditions unless otherwise stated: 23 °C ± 2 °C, 50% ± 5% RH.
+
+Required test equipment:
+
+* Calibrated digital calipers: resolution ≤ 0.01 mm, accuracy ± 0.02 mm.
+* Optical comparator or contact profilometer capable of measuring Ra to ± 0.05 µm.
+* Force gauge: capacity ≥ 50 N, resolution ≤ 0.5 N, accuracy ± 1%.
+* Fixture for retention force test (described in <<_test_retention>>).
+* UV test chamber (for UV durability test; per ISO 4892-3).
+* Temperature-controlled water baths and oven (for thermal tests).
+
+[[_test_dimensional]]
+=== Test 1 — Dimensional Verification
+
+*Purpose:* Confirm that all nominal dimensions are within the tolerances of xref:technical-spec.adoc#_dimensional_tolerances[Dimensional Tolerances].
+
+*Sample size:* Five lenses and five frame rims per declared product code per production batch.
+
+*Procedure:*
+
+. Condition all samples at 23 °C ± 2 °C for a minimum of 2 hours before measurement.
+. Measure the lens body diameter at four orthogonal orientations (0°, 45°, 90°, 135°) using calibrated calipers.
+  Record the mean and the max-min spread (roundness deviation).
+  Mean SHALL be within ± 0.10 mm of nominal.
+  Roundness deviation SHALL not exceed 0.10 mm.
+. Measure the bevel ridge depth at 12 equally-spaced positions around the perimeter using an optical comparator or calibrated profilometer cross-section.
+  All readings SHALL be within ± 0.05 mm of 1.00 mm.
+. Measure the bevel ridge opening width at the same 12 positions.
+  All readings SHALL be within ± 0.05 mm of 1.20 mm.
+. Measure the bevel ridge included angle at four positions (0°, 90°, 180°, 270°) using the profilometer cross-section.
+  All readings SHALL be within ± 1° of 120°.
+. Measure the bevel ridge apex radius at four positions.
+  All readings SHALL be ≥ 0.15 mm and ≤ 0.25 mm.
+. Measure the bevel ridge apex axial position at four positions relative to the geometric mid-plane of the lens edge.
+  All readings SHALL be within ± 0.10 mm of the mid-plane.
+. Repeat steps 3-7 for the frame rim groove, applying the groove rows of xref:technical-spec.adoc#_dimensional_tolerances[Dimensional Tolerances].
+. Measure the rim aperture diameter at four orientations.
+  Mean SHALL be within ± 0.10 mm of nominal.
+. Measure the rim channel axial width at four positions.
+  All readings SHALL be ≥ nominal lens edge thickness + 0.20 mm.
+. Measure bridge width at the datum plane per ISO 8624.
+  Result SHALL be within ± 0.20 mm of nominal for the declared product code.
+
+*Pass criterion:* All measurements within the tolerances of xref:technical-spec.adoc#_dimensional_tolerances[Dimensional Tolerances] for all five samples.
+Any sample outside tolerance is non-conforming; the batch SHALL be investigated before release.
+
+[[_test_installation]]
+=== Test 2 — Insertion Force Test
+
+*Purpose:* Confirm the lens can be fully seated without exceeding the maximum insertion force defined in xref:technical-spec.adoc#_insertion_force[Insertion Force].
+
+*Sample size:* Three lens-and-rim pairs per product code.
+
+*Procedure:*
+
+. Prepare one compliant lens and one compliant frame rim of the same product code, freshly cleaned (isopropyl alcohol wipe, dry).
+  No lubricant.
+. Mount the frame rim in the force gauge fixture with the rim aperture facing upward.
+. Centre the lens over the aperture, bevel ridge aligned with the groove.
+. Apply a steadily increasing perpendicular force to the lens centre using the force gauge, at a rate of 5-10 N/s, until the lens is fully seated (audible or tactile click, or flush seating confirmed).
+. Record the peak force during seating.
+
+*Pass criterion:* Peak force SHALL not exceed the value in xref:technical-spec.adoc#_insertion_force[Insertion Force] for the declared product code for all three pairs.
+
+NOTE: At temperatures below 10 °C, insertion force may increase due to material stiffening.
+Manufacturers SHOULD test at the lower end of the operating temperature range if the product is intended for cold-climate use.
+
+[[_test_retention]]
+=== Test 3 — Retention Force Test
+
+*Purpose:* Confirm the seated lens resists unseating with at least the minimum retention force defined in xref:technical-spec.adoc#_retention_force[Retention Force].
+
+*Sample size:* Three lens-and-rim pairs per product code (may reuse pairs from Test 2).
+
+*Fixture:* A rigid plate with a circular aperture slightly smaller than the rim outer diameter, mounted horizontally so the rim is clamped against the plate and the lens hangs below.
+The force gauge pulls the lens downward from its centre.
+
+*Procedure:*
+
+. Seat the lens fully in the rim per Test 2, then mount the rim rigidly in the retention fixture with the lens facing down.
+. Apply a centred perpendicular tensile force (pulling the lens downward, away from the rim) at a rate of 5-10 N/s using the force gauge.
+. Record the force at which the lens begins to unseat (first bevel ridge disengagement, detected by a force drop ≥ 10% from peak).
+
+*Pass criterion:* Unseating force SHALL meet or exceed the minimum in xref:technical-spec.adoc#_retention_force[Retention Force] for all three pairs.
+
+[[_test_continuity]]
+=== Test 4 — Bevel Continuity Inspection
+
+*Purpose:* Confirm the bevel ridge and bevel groove are continuous around the full perimeter.
+
+*Sample size:* 100% inspection in production; 3 samples per product code for initial qualification.
+
+*Procedure:*
+
+. Under bright directional illumination (minimum 1,000 lux), visually inspect the full perimeter of the bevel ridge on the lens for gaps, chips, tool marks, or discontinuities.
+. Measure any suspected gap with a calibrated optical comparator.
+  Any single gap > 0.10 mm arc length is a non-conformance.
+. Repeat for the bevel groove on the frame rim.
+
+*Pass criterion:* No gap > 0.10 mm arc length on any inspected surface.
+
+=== Test 5 — Seating Flush Check
+
+*Purpose:* Confirm the lens front face is flush with the rim front face when fully seated.
+
+*Sample size:* Three lens-and-rim pairs per product code.
+
+*Procedure:*
+
+. Seat the lens fully in the rim.
+. Using a depth gauge with a bridging foot, or a straightedge with feeler gauges, measure the step height between the lens front face and the rim front face at 12 equally-spaced positions around the perimeter.
+. Record the maximum positive value (lens proud of rim) and the maximum negative value (lens recessed relative to rim).
+
+*Pass criterion:* All readings SHALL be in the range -0.30 mm to +0.30 mm.
+
+[[_test_insertion_cycle]]
+=== Test 6 — Insertion/Removal Cycle Endurance
+
+*Purpose:* Confirm the bevel interface lasts at least 500 insertion/removal cycles.
+
+*Sample size:* One lens-and-rim pair per product code.
+
+*Procedure:*
+
+. Execute 500 complete insertion/removal cycles.
+  One cycle = seat the lens fully per Test 2, then remove by hand without tools (lever from the nasal or temporal edge with a fingernail if necessary).
+  Rate: minimum 1 cycle per minute; maximum 10 cycles per minute.
+. After 250 cycles, perform the bevel dimensional checks of Test 1 (steps 3-8 only) and record measurements.
+. After 500 cycles, perform Test 1 (full), Test 2 (insertion force), Test 3 (retention force), and Test 5 (flush seating).
+
+*Pass criterion:*
+
+* No bevel ridge depth reduction > 0.10 mm from initial measured value.
+* No groove opening width increase > 0.10 mm from initial measured value.
+* Retention force ≥ minimum from xref:technical-spec.adoc#_retention_force[Retention Force].
+* Insertion force ≤ maximum from xref:technical-spec.adoc#_insertion_force[Insertion Force].
+* Lens can be installed and removed by hand without tools.
+
+=== Test 7 — Thermal Shock
+
+*Purpose:* Confirm the assembly survives temperature cycling without loss of retention.
+
+*Sample size:* One lens-and-rim pair per product code.
+
+*Procedure:*
+
+. Seat the lens in the rim.
+. Perform five cycles:
+  .. Submerge in 5 °C ± 2 °C water for 30 minutes.
+  .. Transfer within 30 seconds to 55 °C ± 2 °C water for 30 minutes.
+. Remove; dry at 23 °C for 1 hour.
+. Perform Test 3 (retention force) and visually inspect the lens for cracks under 1,000 lux illumination.
+
+*Pass criterion:* Retention force ≥ minimum.
+No visible cracks on the lens.
+
+=== Test 8 — Humidity Exposure
+
+*Purpose:* Confirm the assembly survives prolonged high humidity.
+
+*Sample size:* One lens-and-rim pair per product code.
+
+*Procedure:*
+
+. Seat the lens in the rim.
+. Place the mated assembly in a humidity chamber at 40 °C ± 2 °C, 95% ± 2% RH for 240 hours.
+. Remove; condition at 23 °C for 2 hours.
+. Perform Test 3 (retention force) and visually inspect for corrosion or delamination.
+  Confirm the lens can be re-seated and removed by hand at least once.
+
+*Pass criterion:* Retention force ≥ minimum.
+No visible corrosion that would prevent re-seating.
+
+=== Test 9 — UV Durability
+
+*Purpose:* Confirm the bevel zone survives UV exposure without dimensional degradation.
+
+*Sample size:* One lens and one rim per product code, un-mated.
+
+*Procedure:*
+
+. Measure baseline bevel ridge depth (lens) and groove opening width (rim) per Test 1 at four positions.
+. Expose both specimens to 200 hours UV per ISO 4892-3 (UV-A 340 nm, 0.76 W/m²·nm).
+. Condition at 23 °C for 2 hours.
+. Repeat dimensional measurements at the same four positions.
+
+*Pass criterion:*
+
+* No bevel ridge depth reduction > 0.05 mm.
+* No groove opening width change > 0.05 mm.
+* No cracking or crazing of any bevel zone surface visible under 10x magnification.
+
+[[_compliance_declaration]]
+== Compliance Declaration
+
+=== Declaring Compliance
+
+A manufacturer declares a product UES-compliant by:
+
+. Executing all applicable conformance tests from <<_conformance_test_procedures>> on a representative sample of the product.
+. Completing and retaining a Conformance Test Record (CTR) as defined in <<_ctr>>.
+. Applying the required marking from xref:technical-spec.adoc#_marking_and_identification[Marking and Identification] to the product.
+
+No submission to UES-IF is required to declare compliance.
+No external laboratory is required.
+
+=== Re-testing Requirement
+
+Re-testing is required when any of the following changes are made to a compliant product:
+
+. Change in bevel zone material or material supplier.
+. Change in bevel ridge or groove geometry (tooling change).
+. Change in lens body diameter by more than 0.05 mm.
+. Change in surface finish process in the bevel zone.
+
+A cosmetic change (colour, coating tint, lens design outside the bevel zone, frame decoration) does NOT require re-testing.
+
+[[_ctr]]
+=== Conformance Test Record Format
+
+The Conformance Test Record SHALL include at minimum:
+
+[cols="1,3", options="header"]
+|===
+|Field
+|Content
+
+|Product name
+|Brand and model designation
+
+|Product type
+|Lens or frame
+
+|Declared product code
+|UES-C-XS / UES-C-S / UES-C-M / UES-C-L
+
+|Specification version
+|Version of this specification against which tested
+
+|Test date
+|ISO 8601 date (YYYY-MM-DD)
+
+|Tester name and role
+|Full name, job title, organisation
+
+|Test 1 result
+|Pass / Fail + tabulated measurements
+
+|Test 2 result (lenses and frames)
+|Pass / Fail + peak insertion force (N)
+
+|Test 3 result
+|Pass / Fail + minimum measured unseating force (N)
+
+|Test 4 result
+|Pass / Fail
+
+|Test 5 result
+|Pass / Fail + max step values (mm)
+
+|Test 6 result
+|Pass / Fail + post-cycle dimensional deltas (mm)
+
+|Test 7 result
+|Pass / Fail
+
+|Test 8 result
+|Pass / Fail
+
+|Test 9 result
+|Pass / Fail + dimensional deltas (mm)
+
+|Tester signature
+|Handwritten or qualified electronic signature
+|===
+
+CTRs SHALL be retained for a minimum of 5 years from the product's last date of manufacture and SHALL be made available to UES-IF upon reasonable request.
