@@ -266,6 +266,14 @@ The control points fully determine the unit shape.
 
 TODO SHAPES
 
+==== Progressive Lens Clearance
+
+[informative]
+Every shape in the UES catalogue is designed so that progressive (varifocal) prescription lenses can be surfaced within any UES aperture.
+Specifically, for every shape code and every size code, the vertical distance from the <<boxing_centre,boxing centre>> to the lowest point of the scaled aperture contour is at least *18.0 mm*.
+
+This property is verified for each shape at the time it is admitted to the catalogue.
+
 [[_size_catalogue]]
 === Size Catalogue
 

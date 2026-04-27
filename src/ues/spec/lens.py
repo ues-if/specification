@@ -139,3 +139,9 @@ BEVEL_ZONE_WIDTH    = 3.0   # mm — axial width of the standardised interface b
 # The groove is this much deeper and wider per side than the lens ridge,
 # ensuring a clearance fit for tool-free hand assembly.
 GROOVE_CLEARANCE    = 0.05  # mm
+
+# Minimum distance from the boxing centre (horizontal centreline) to the
+# bottom of the aperture, in physical (scaled) millimetres.
+# Required to accommodate progressive lens designs, which need sufficient
+# vertical clearance below the fitting/reference point.
+PROGRESSIVE_LENS_MIN_DROP = 18.0  # mm
