@@ -622,22 +622,22 @@ Compliance is assessed at 23 °C ± 2 °C, 50% ± 5% RH, with parts unconstraine
 |Tolerance
 |Notes
 
-|Lens body diameter (UES-C-XS)
+|Lens body diameter (XS)
 |51.0 mm
 |± 0.10 mm
 |Measured per ISO 12870; excludes bevel ridge; this is the flat land outer surface diameter that forms the sliding fit with the rim channel inner wall
 
-|Lens body diameter (UES-C-S)
+|Lens body diameter (S)
 |56.0 mm
 |± 0.10 mm
 |Measured per ISO 12870; excludes bevel ridge; flat land outer surface; sliding fit with rim channel inner wall
 
-|Lens body diameter (UES-C-M)
+|Lens body diameter (M)
 |61.0 mm
 |± 0.10 mm
 |Measured per ISO 12870; excludes bevel ridge; flat land outer surface; sliding fit with rim channel inner wall
 
-|Lens body diameter (UES-C-L)
+|Lens body diameter (L)
 |67.0 mm
 |± 0.10 mm
 |Measured per ISO 12870; excludes bevel ridge; flat land outer surface; sliding fit with rim channel inner wall
@@ -648,7 +648,7 @@ Compliance is assessed at 23 °C ± 2 °C, 50% ± 5% RH, with parts unconstraine
 |Measured per ISO 8624; frame only
 
 |Bevel ridge depth (radial)
-|1.00 mm
+|0.8392 mm
 |± 0.05 mm
 |Critical for retention; tighter than general tolerances
 
@@ -678,7 +678,7 @@ Compliance is assessed at 23 °C ± 2 °C, 50% ± 5% RH, with parts unconstraine
 |Maximum deviation from best-fit plane SHALL NOT exceed 0.05 mm over any 10 mm arc length
 
 |Bevel groove depth (radial)
-|1.05 mm
+|0.9258 mm
 |± 0.05 mm
 |Measured from rim inner wall surface to groove apex
 
@@ -701,26 +701,6 @@ Compliance is assessed at 23 °C ± 2 °C, 50% ± 5% RH, with parts unconstraine
 |Rim channel midpoint
 |± 0.10 mm
 |Centred on the axial midpoint of the rim channel; see <<_rim_channel_width>>
-
-|Rim aperture diameter (UES-C-XS)
-|51.0 mm
-|± 0.10 mm
-|Rim channel inner wall diameter; same nominal as lens body diameter; forms the sliding fit contact surface; measured at channel entrance plane before the bevel groove
-
-|Rim aperture diameter (UES-C-S)
-|56.0 mm
-|± 0.10 mm
-|Rim channel inner wall diameter; same nominal as lens body diameter; sliding fit contact surface
-
-|Rim aperture diameter (UES-C-M)
-|61.0 mm
-|± 0.10 mm
-|Rim channel inner wall diameter; same nominal as lens body diameter; sliding fit contact surface
-
-|Rim aperture diameter (UES-C-L)
-|67.0 mm
-|± 0.10 mm
-|Rim channel inner wall diameter; same nominal as lens body diameter; sliding fit contact surface
 
 |Bevel zone axial width
 |3.00 mm
@@ -754,19 +734,19 @@ A compliant lens of any product code SHALL seat fully in a compliant rim of the 
 
 [cols="1,1", options="header"]
 |===
-|Product Code
+|Size Code
 |Maximum Insertion Force
 
-|UES-C-XS
+|XS
 |12 N
 
-|UES-C-S
+|S
 |14 N
 
-|UES-C-M
+|M
 |16 N
 
-|UES-C-L
+|L
 |18 N
 |===
 
@@ -783,19 +763,19 @@ A fully seated compliant lens SHALL require a force no less than the values belo
 
 [cols="1,1", options="header"]
 |===
-|Product Code
+|Size Code
 |Minimum Retention Force
 
-|UES-C-XS
+|XS
 |20 N
 
-|UES-C-S
+|S
 |22 N
 
-|UES-C-M
+|M
 |25 N
 
-|UES-C-L
+|L
 |28 N
 |===
 
