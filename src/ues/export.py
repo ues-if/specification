@@ -22,16 +22,12 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from build123d import export_step, export_stl
 
-from ues.spec import LENS_SPECS, CircularContour
-from ues.builders import create_frame, create_reference_lens
+from ues.spec.lens import LENS_SPECS
+from ues.to_build123d.lens import create_reference_lens
+from ues.to_build123d.frame import create_frame
 
 
 def export_size(size_code: str, out_dir: Path) -> None:
-    spec = LENS_SPECS[size_code]
-    if not isinstance(spec.contour, CircularContour):
-        print(f"  Skipping {size_code} (non-circular, not yet finalised)")
-        return
-
     print(f"  Building {size_code} frame …", flush=True)
     frame = create_frame(size_code)
     export_step(frame, str(out_dir / f"ues-{size_code}-frame.step"))

@@ -7,16 +7,19 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 import ocp_vscode as ocp
 from build123d import Location, Plane
 
-from ues.frames import SHOWCASE, RIM_DEPTH
-from ues.spec import LENS_SPECS
-from ues.builders import create_frame, create_reference_lens, contour_half_width
+from ues.spec.frame import RIM_DEPTH
+from ues.spec.lens import LENS_SPECS
+from ues.frame_example import SHOWCASE
+from ues.to_build123d.contour import contour_half_width
+from ues.to_build123d.lens import create_reference_lens
+from ues.to_build123d.frame import create_frame
 
 # ── change these two lines to try different sizes / designs ──────────────────
 spec   = "UES-C-M"
 design = SHOWCASE
 # ─────────────────────────────────────────────────────────────────────────────
 
-rim_x     = LENS_SPECS[spec].bridge_width / 2 + contour_half_width(LENS_SPECS[spec].contour)
+rim_x     = LENS_SPECS[spec].bridge_width / 2 + contour_half_width(LENS_SPECS[spec])
 Zc        = design.rim_depth / 2   # groove centre — lens Z must match when seated
 
 frame      = create_frame(spec, design=design)

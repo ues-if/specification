@@ -1,30 +1,23 @@
 """
-Universal Eyeglass Socket — Frame design parameters
+Universal Eyeglass Socket — Reference frame design parameters
 
-This module owns every dimension that governs the *outer shape* of a UES-
-compatible frame.  The bevel/groove interface contract (BEVEL_*, GROOVE_*)
-lives in spec.py and is deliberately kept separate: any frame that honours
-those constants will accept every compliant lens, regardless of which
-FrameDesign drives the rim / bridge / temple aesthetics.
-
-Usage::
-
-    from ues.frames import SHOWCASE, FrameDesign
-    frame = create_frame("UES-C-M", design=SHOWCASE)
+All dimensions here are reference/example values, not normative.
+Normative frame-side constants (RIM_DEPTH, RIM_WALL_THICKNESS) live in
+ues.spec.frame.
 """
 
 from __future__ import annotations
 from dataclasses import dataclass
-from .spec import BEVEL_ZONE_WIDTH
+
+from ..spec.frame import RIM_DEPTH, RIM_WALL_THICKNESS  # normative minimums, used as defaults
+
 
 # ============================================================================
-# DEFAULT / REFERENCE VALUES
+# REFERENCE DIMENSIONS
 # ============================================================================
 
 # Rim
-RIM_WIDTH          = 2.5                        # mm — radial width of frame rim
-RIM_DEPTH          = BEVEL_ZONE_WIDTH + 0.20    # mm — axial depth = bevel zone + 0.10 mm clearance per side
-RIM_WALL_THICKNESS = 1.5                        # mm — minimum wall (drives lens rim inner wall)
+RIM_WIDTH          = 2.5   # mm — radial width of frame rim
 
 # Bridge
 BRIDGE_DEPTH      = 3.0   # mm — front-to-back depth of the bridge bar
@@ -41,8 +34,8 @@ TEMPLE_THICKNESS  = 2.2   # mm — front-to-back depth (constant along length)
 HINGE_PIN_DIAMETER = 2.0  # mm — diameter of the barrel pin (M2-compatible)
 HINGE_BARREL_OD    = 5.0  # mm — outer diameter of the hinge barrel
 
-# Legacy aliases (previously named without DEPTH/THICKNESS disambiguation)
-BRIDGE_HEIGHT = BRIDGE_DEPTH      # kept for any external callers
+# Legacy alias
+BRIDGE_HEIGHT = BRIDGE_DEPTH
 
 
 # ============================================================================
@@ -55,7 +48,7 @@ class FrameDesign:
     All geometry parameters that define the appearance of a UES frame.
 
     Changing these values creates a different visual / printability profile
-    while the bevel-groove interface (from spec.py) remains standardised.
+    while the bevel-groove interface (from ues.spec) remains standardised.
 
     Field notes
     -----------
@@ -78,12 +71,12 @@ class FrameDesign:
 
     # --- Rim ---
     rim_width: float = RIM_WIDTH
-    rim_depth: float = RIM_DEPTH
+    rim_depth: float = RIM_DEPTH          # default = normative minimum
 
     # --- Bridge ---
-    bridge_depth: float     = BRIDGE_DEPTH       # front-to-back depth of bar
-    bridge_thickness: float = BRIDGE_THICKNESS   # vertical thickness
-    bridge_arch_drop: float = BRIDGE_ARCH_DROP   # arch dip below attachment
+    bridge_depth: float     = BRIDGE_DEPTH
+    bridge_thickness: float = BRIDGE_THICKNESS
+    bridge_arch_drop: float = BRIDGE_ARCH_DROP
     nose_pad_bumps: bool    = True
 
     # --- Temple ---
@@ -101,7 +94,7 @@ class FrameDesign:
 # PREDEFINED DESIGNS
 # ============================================================================
 
-#: Exactly replicates the original reference constants — safe default.
+#: Exactly replicates the reference constants — safe default.
 DEFAULT = FrameDesign(name="Default")
 
 #: Slim, wire-like frame — minimal visual footprint.

@@ -148,6 +148,11 @@ Bevel ridge:: The V-shaped ridge formed continuously around the full perimeter o
 Bevel zone:: A fixed-width axial band around the full perimeter of the lens edge, centred on the lens mid-plane, within which the bevel ridge is formed; the flat land areas on each side of the ridge base lie on a common cylinder. Also, the corresponding annular region of the frame rim inner wall that carries the bevel groove.
 The bevel zone width is the same regardless of prescription-driven lens body thickness.
 
+[[boxing_centre]]
+Boxing centre:: The geometric centre of the minimum axis-aligned bounding rectangle enclosing the lens aperture contour, as defined in the boxing system of ISO 8624 §5.
+If A is the horizontal width and B is the vertical height of the bounding rectangle, the boxing centre is the point at horizontal distance A/2 from each vertical side and vertical distance B/2 from each horizontal side.
+It is distinct from the optical centre and from the fitting/reference point; the signed horizontal distance from the boxing centre to the fitting/reference point is the decentration Dec.
+
 Bridge width:: The clear distance between the inner nasal edges of the two lens rims, measured horizontally at the datum plane defined in ISO 8624 §5.
 
 Clearance fit:: An assembly condition in which the groove dimensions exceed the ridge dimensions by a defined amount, ensuring the lens can be inserted and removed by hand. In the UES interface, this applies to the V-groove/ridge pair only; the outer cylindrical surface of the lens edge is a sliding fit against the rim channel inner wall.
@@ -178,7 +183,10 @@ Product code:: A designator of the form UES-TT-SS, where TT is a one- or two-let
 
 Control point:: One of the ordered points P₀, P₁, … that define a UES looped cubic Bézier contour; see <<_contour_model>>.
 
-Unit shape:: An aperture contour expressed in normalized coordinates such that (a) the shape centroid is at the origin and (b) the maximum distance between any two points on the contour (the shape diameter) is exactly 1.
+[[effective_diameter]]
+Effective diameter (ED):: The lens blank size metric defined in ISO 8624 using the boxing system: stem:[\mathrm{ED} = \sqrt{\left(\frac{A}{2} + \mathrm{Dec}\right)^2 + \left(\frac{B}{2}\right)^2}], where A is the horizontal width and B is the vertical height of the minimum axis-aligned bounding rectangle of the lens aperture contour, and Dec is the horizontal decentration (signed distance from the <<boxing_centre,boxing centre>> to the fitting/reference point along the x-axis).
+
+Unit shape:: An aperture contour expressed in normalized coordinates such that (a) the boxing centre is at the origin (Dec = 0) and (b) the effective diameter ED (see <<effective_diameter>>, ISO 8624) is exactly 1.
 
 == System Overview
 
@@ -212,24 +220,20 @@ A compliant lens of product code UES-TT-SS SHALL NOT be expected to mate with a 
 
 All UES aperture shapes are defined as *looped cubic Bézier curves* in a normalized coordinate system.
 This single contour governs both the lens body outline and the frame rim aperture opening.
-This decouples shape geometry from physical size: the shape is specified once as a unit shape with a fixed normalized diameter of 1, and the size codes in <<_size_catalogue>> scale it by the aperture diameter to produce physical dimensions.
+This decouples shape geometry from physical size: the shape is specified once as a unit shape with a fixed normalized effective diameter (ED) of 1, and the size codes in <<_size_catalogue>> scale it by the aperture ED to produce physical dimensions.
 
 === Coordinate System and Normalization
 
 The coordinate system for unit shapes is:
 
-* Origin at the area centroid of the aperture contour (the centroid of the region bounded by the looped cubic Bézier curve).
+* Origin at the <<boxing_centre,boxing centre>> of the aperture contour (ISO 8624 §5 boxing system).
 * X-axis: horizontal, positive toward the temporal (right) side.
 * Y-axis: vertical, positive toward the superior (top) direction.
 
 A *unit shape* is an aperture contour expressed in normalized coordinates such that:
 
-* The area centroid of the contour lies at the origin; and
-* The *shape diameter* - the maximum distance between any two points on the contour - is exactly 1.
-
-Formally, for the unit-shape curve C(t), t ∈ [0, 1]:
-
-  max_{t,s ∈ [0,1]} ‖C(t) - C(s)‖ = 1.
+* The <<boxing_centre,boxing centre>> of the contour lies at the origin (Dec = 0); and
+* The *effective diameter* ED (see <<effective_diameter>>, ISO 8624) is 1.
 
 A shape code identifies a particular unit shape via an ordered list of control points in this normalized coordinate system.
 
