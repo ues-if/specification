@@ -183,10 +183,9 @@ Product code:: A designator of the form UES-TT-SS, where TT is a one- or two-let
 
 Control point:: One of the ordered points P₀, P₁, … that define a UES looped cubic Bézier contour; see <<_contour_model>>.
 
-[[effective_diameter]]
 Effective diameter (ED):: The lens blank size metric defined in ISO 8624 using the boxing system: stem:[\mathrm{ED} = \sqrt{\left(\frac{A}{2} + \mathrm{Dec}\right)^2 + \left(\frac{B}{2}\right)^2}], where A is the horizontal width and B is the vertical height of the minimum axis-aligned bounding rectangle of the lens aperture contour, and Dec is the horizontal decentration (signed distance from the <<boxing_centre,boxing centre>> to the fitting/reference point along the x-axis).
 
-Unit shape:: An aperture contour expressed in normalized coordinates such that (a) the boxing centre is at the origin (Dec = 0) and (b) the effective diameter ED (see <<effective_diameter>>, ISO 8624) is exactly 1.
+Unit shape:: An aperture contour expressed in normalized coordinates such that (a) the boxing centre is at the origin (Dec = 0) and (b) the effective diameter (ED) is equal to 1.
 
 == System Overview
 
@@ -238,7 +237,7 @@ A *unit shape* is an aperture contour expressed in normalized coordinates such t
 A shape code identifies a particular unit shape via an ordered list of control points in this normalized coordinate system.
 
 .UES aperture contour coordinate system and normalization
-image::diagrams/definition.drawio.png[UES aperture contour coordinate system and normalization,600,align="center"]
+image::diagrams/coordinates.drawio.png[UES aperture contour coordinate system and normalization,600,align="center"]
 
 === Looped Cubic Bézier Representation
 
@@ -269,7 +268,7 @@ TODO SHAPES
 ==== Progressive Lens Clearance
 
 [informative]
-Every shape in the UES catalogue is designed so that progressive (varifocal) prescription lenses can be surfaced within any UES aperture.
+Every shape in the UES catalogue is designed so that progressive prescription lenses can be surfaced within any UES aperture.
 Specifically, for every shape code and every size code, the vertical distance from the <<boxing_centre,boxing centre>> to the lowest point of the scaled aperture contour is at least *18.0 mm*.
 
 This property is verified for each shape at the time it is admitted to the catalogue.
