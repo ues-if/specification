@@ -316,7 +316,8 @@ image::diagrams/bevel-lens-side.drawio.png[Lens Bevel Ridge Cross-Section,600,al
 === Edge Face Perpendicularity
 
 The outer cylindrical face of the lens edge (the surface on which the bevel ridge is formed) SHALL be perpendicular to the lens plane within 2°.
-Deviation is acceptable only if it does not interfere with the bevel groove contact described in <<_bevel_groove>>.
+
+NOTE: [informative] This 2° limit is chosen such that bevel groove contact per <<_bevel_groove>> remains achievable under worst-case tolerance stack-up.
 
 [[_bevel_ridge]]
 === Bevel Ridge
@@ -352,7 +353,7 @@ A symmetrical V-shaped ridge SHALL run continuously around the full perimeter of
 
 |Flank planarity
 |—
-|Each flank face SHALL be planar to within 0.05 mm over the full perimeter arc
+|Maximum deviation from best-fit plane SHALL NOT exceed 0.05 mm over any 10 mm arc length
 |===
 
 The ridge flanks are planar and symmetric about the lens mid-plane.
@@ -393,7 +394,8 @@ image::diagrams/bevel-frame-side.drawio.png[Frame Channel Cross-Section,600,alig
 === Inner Wall Perpendicularity
 
 The inner wall of the rim channel (the surface on which the bevel groove is formed) SHALL be perpendicular to the rim plane within 2°.
-Deviation is acceptable only if it does not interfere with the bevel groove contact described in <<_bevel_groove>>.
+
+NOTE: [informative] This 2° limit is chosen such that bevel groove contact per <<_bevel_groove>> remains achievable under worst-case tolerance stack-up.
 
 [[_bevel_groove]]
 === Bevel Groove
@@ -474,7 +476,7 @@ The lens ridge SHALL NOT be a press fit (interference fit) in the groove.
 
 |Ridge flank vs. groove flank (per flank, minimum)
 |0.00 mm
-|Worst-case tolerances; flanks in full contact; still insertable by hand; no interference
+|Worst-case tolerances; flanks in full contact; no interference; this condition SHALL still meet the insertion force limits in <<_insertion_force>>
 
 |Ridge flank vs. groove flank (per flank, maximum)
 |0.15 mm
@@ -675,7 +677,7 @@ Compliance is assessed at 23 °C ± 2 °C, 50% ± 5% RH, with parts unconstraine
 |Bevel ridge flank planarity
 |0.00 mm
 |≤ 0.05 mm
-|Each flank face SHALL be planar to within 0.05 mm over the full perimeter arc
+|Maximum deviation from best-fit plane SHALL NOT exceed 0.05 mm over any 10 mm arc length
 
 |Bevel groove depth (radial)
 |1.05 mm
