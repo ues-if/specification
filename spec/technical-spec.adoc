@@ -343,7 +343,7 @@ A symmetrical V-shaped ridge SHALL run continuously around the full perimeter of
 |Description
 
 |Depth
-|1.00 mm
+|0.8392 mm
 |Radial distance from the flat outer boundary of the lens body to the apex of the ridge, measured perpendicular to the lens axis
 
 |Width at base
@@ -370,10 +370,7 @@ A symmetrical V-shaped ridge SHALL run continuously around the full perimeter of
 The ridge flanks are planar and symmetric about the lens mid-plane.
 The apex is rounded with a 0.20 mm radius tangent arc to both flanks.
 Flank surfaces SHALL be smooth to Ra ≤ 0.4 µm (see <<_surface_finish>>).
-The bevel ridge protrudes 1.0 mm radially beyond the lens body edge, giving an overall maximum diameter of *d* + 2.0 mm including the ridge.
-
-.Top view of the lens contour (size dependent) plus bevel ridge (fixed dimensions)
-image::diagrams/bevel-top.drawio.png[Top view of the lens contour (size dependent) plus bevel ridge (fixed dimensions),600,align="center"]
+The bevel ridge protrudes 0.8392 mm radially beyond the lens body edge, giving an overall maximum diameter of *d* + 1.6784 mm including the ridge.
 
 NOTE: The 120° included angle maximises self-centering force during insertion while allowing manual release without the ridge plastically deforming the groove.
 Narrower angles increase retention but may require tools to release; wider angles reduce retention below the minimum defined in <<_retention_force>>.
@@ -423,9 +420,9 @@ The groove dimensions are derived from the lens ridge dimensions plus a defined 
 |Notes
 
 |Depth
-|1.00 mm
-|1.05 mm
-|+0.05 mm clearance; groove extends deeper into the rim wall to ensure ridge does not bottom out on groove apex
+|0.8392 mm
+|0.9258 mm
+|resulting from the +0.05 mm clearance on the flanks.
 
 |Opening width
 |1.20 mm
@@ -447,16 +444,6 @@ The groove dimensions are derived from the lens ridge dimensions plus a defined 
 |Mid-depth of rim wall
 |Groove centred on the axial midpoint of the rim channel; see <<_rim_channel_width>>
 |===
-
-NOTE: The 0.05 mm per-flank clearance is the single governing assembly parameter.
-All groove dimensions are derived from the lens ridge dimensions plus this value.
-Do not independently tighten groove tolerances beyond those in <<_dimensional_tolerances>> without validating against the full tolerance stack.
-
-The 0.05 mm per-flank clearance produces a nominal air gap that:
-
-* allows hand insertion of a cold lens into a cold rim (no thermal interference);
-* accommodates thermal expansion from -20 °C to +60 °C for common lens and rim materials;
-* provides predictable contact force along both flanks simultaneously (the V geometry centres the lens axially).
 
 === Assembly Clearance and Fit
 
