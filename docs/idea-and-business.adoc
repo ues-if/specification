@@ -34,22 +34,16 @@ Today's eyewear market creates several problems for consumers:
 
 5. **Complex logistics**: Eyeglass must align costumer's wishes, frame brands and lens manufacturers:
 
-.Current user journey flow
-image::diagrams/current.drawio.png[Current user journey flow,70%,align="center"]
-
 === Proposed Solution
 
 Create an **industry-wide standard** for interchangeable prescription lenses interfaces that:
 
-* Use standardized lens sizes (UES-C-XS, UES-C-S, UES-C-M, UES-C-L) and shape (circular, rounded square)
+* Use standardized lens sizes (XS, S, M, L) and shape (circular, rounded square)
 * Employ a tool-free snap-fit mounting system
 * Work with any Standards Glasses-compliant frame
 * Can be ordered online and installed at home
 
 === How It Works
-
-.New user journey flow
-image::diagrams/new.drawio.png[New user journey flow,70%,align="center"]
 
 .User journey on 3 common situations in both UES and non-UES setup: sight problem, lens problem, frames problem
 image::diagrams/flows.drawio.png[User journey on 3 common situations,70%,align="center"]
