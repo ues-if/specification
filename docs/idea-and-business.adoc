@@ -51,6 +51,9 @@ Create an **industry-wide standard** for interchangeable prescription lenses int
 .New user journey flow
 image::diagrams/new.drawio.png[New user journey flow,70%,align="center"]
 
+.User journey on 3 common situations in both UES and non-UES setup: sight problem, lens problem, frames problem
+image::diagrams/flows.drawio.png[User journey on 3 common situations,70%,align="center"]
+
 ==== For Consumers
 
 1. **Initial Measurement**: Visit an optometrist for:
