@@ -6,35 +6,6 @@ An open, royalty-free standard for interchangeable prescription eyeglass lenses.
 
 This repository contains a multi-document AsciiDoc specification for the **Universal Eyeglass Socket** initiative—a proposal to create industry-wide standardized, interchangeable prescription lenses with fixed sizes that work across compatible frames.
 
-### Core Concept
-
-- **4 Standard Sizes**: XS (kids), S (small adults), M (average adults), L (large adults)
-- **Universal Compatibility**: One set of prescription lenses works with any compliant frame
-- **Tool-Free Installation**: Snap-fit mounting system for at-home lens replacement
-- **Reduced Waste & Cost**: Replace broken frames without replacing expensive prescription lenses
-- **Open Standard**: Royalty-free specification for industry-wide adoption
-
-## Documentation Structure
-
-The project is organized into three main documents:
-
-1. **[Technical Specification](spec/technical-spec.adoc)** (`spec/technical-spec.adoc`)
-   - Physical dimensions for four standard lens sizes
-   - Optical parameters and reference points
-   - Mechanical interface (snap-fit mounting system)
-   - Quality, safety, and compliance requirements
-   - Testing procedures and certification
-
-2. **[Idea & Business Model](docs/idea-and-business.adoc)** (`docs/idea-and-business.adoc`)
-   - Problem statement and proposed solution
-   - Market analysis and opportunity
-   - Business models (open standard vs. proprietary)
-   - Implementation roadmap
-   - Financial considerations
-
-3. **[Main Index](index.adoc)** (`index.adoc`)
-   - Project overview and navigation
-
 ## Building the Documentation
 
 ### Prerequisites

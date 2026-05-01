@@ -18,17 +18,11 @@ This documentation is organized into three main sections:
 <<spec/technical-spec.adoc#,Technical Specification>>::
 The complete technical specification defining the physical, optical, and mechanical standards for standardized lens modules.
 
-<<docs/idea-and-business.adoc#,Idea & Business Model>>::
+<<docs/ues-if.adoc#,UES Implementation forum>>::
 The concept, market analysis, and business process surrounding the eyeglass socket initiative.
 
 <<docs/plan.adoc#,Plan>>::
 Action plan
-
-== Quick Links
-
-* link:spec/technical-spec.adoc[Read the Full Specification]
-* link:docs/idea-and-business.adoc[Understand the Concept]
-* link:docs/plan.adoc[Understand the Concept]
 
 == Current Status
 
