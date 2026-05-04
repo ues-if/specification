@@ -126,6 +126,11 @@ $(BUILD_DIR)/docs/sizes-rationale.html: $(SIZES_RATIONALE_ADOC) docs/sizes-ratio
 	$(ADOC) $(ADOC_ATTRS) -o $@ $<
 	@cp -r images/* $(BUILD_DIR)/images/
 
+$(BUILD_DIR)/docs/sizes-rationale.html: $(SIZES_RATIONALE_ADOC) docs/sizes-rationale-hypothesis.adoc docs/sizes-rationale-sources.adoc | $(BUILD_DIR)/docs $(BUILD_DIR)/images
+	@echo "Building $@ (v$(VERSION))..."
+	$(ADOC) $(ADOC_ATTRS) -o $@ $<
+	@cp -r images/* $(BUILD_DIR)/images/
+
 $(BUILD_DIR)/docs/%.html: docs/%.adoc | $(BUILD_DIR)/docs $(BUILD_DIR)/images
 	@echo "Building $@ (v$(VERSION))..."
 	$(ADOC) $(ADOC_ATTRS) -o $@ $<
