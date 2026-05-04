@@ -273,11 +273,11 @@ All dimensions are nominal.
 |Bridge Width (mm)
 
 |XS
-|51.0
+|43.0
 |15.0
 
 |S
-|56.0
+|47.0
 |17.0
 |===
 
@@ -343,7 +343,7 @@ A symmetrical V-shaped ridge SHALL run continuously around the full perimeter of
 The ridge normal SHALL NOT bend based on the contour's curvature and SHALL be co-planar with the xy plane.
 
 .Cross section view of the bevel ridge
-image::ridge-top.svg[Lens Bevel Ridge Top View,600,align="center"]
+image::diagrams/ridge-top.svg[Lens Bevel Ridge Top View,600,align="center"]
 
 [[_frame_rim_geometry]]
 == Frame Rim Geometry

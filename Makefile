@@ -52,6 +52,9 @@ SPEC_HTML = $(BUILD_DIR)/spec/technical-spec.html
 COMPLIANCE_TEST_HTML = $(BUILD_DIR)/spec/compliance-test.html
 DOCS_HTML = $(patsubst docs/%.adoc,$(BUILD_DIR)/docs/%.html,$(DOCS_ADOC))
 
+# Generated adoc (produced by Python before asciidoctor runs)
+SIZES_RATIONALE_ADOC = docs/sizes-rationale.adoc
+
 SPEC_PDF = $(BUILD_DIR)/spec/technical-spec.pdf
 DOCS_PDF = $(patsubst docs/%.adoc,$(BUILD_DIR)/docs/%.pdf,$(DOCS_ADOC))
 
@@ -78,6 +81,11 @@ help:
 
 html: $(INDEX_HTML) $(SPEC_HTML) $(COMPLIANCE_TEST_HTML) $(DOCS_HTML) $(PNG_LOGOS)
 	@echo "✓ HTML documentation generated successfully"
+
+# Generate sizes-rationale.adoc from Python analysis
+$(SIZES_RATIONALE_ADOC): src/size_analysis/main.py src/size_analysis/optimizer.py src/size_analysis/eu_population.py src/size_analysis/ipd_model.py src/size_analysis/categories.py src/size_analysis/constraint.py src/size_analysis/frame_model.py src/size_analysis/population_model.py docs/sizes-rationale-hypothesis.adoc docs/sizes-rationale-sources.adoc
+	@echo "Generating $@..."
+	PYTHONPATH=src python src/size_analysis/main.py
 
 logos: $(PNG_LOGOS)
 	@echo "✓ SVG logos converted to PNG"
@@ -112,6 +120,11 @@ $(COMPLIANCE_TEST_HTML): $(COMPLIANCE_TEST) | $(BUILD_DIR)/spec $(BUILD_DIR)/spe
 	@echo "Building $@ (v$(VERSION))..."
 	$(ADOC) $(ADOC_ATTRS) -o $@ $(COMPLIANCE_TEST)
 	@cp -r spec/diagrams/. $(BUILD_DIR)/spec/diagrams/
+
+$(BUILD_DIR)/docs/sizes-rationale.html: $(SIZES_RATIONALE_ADOC) docs/sizes-rationale-hypothesis.adoc docs/sizes-rationale-sources.adoc | $(BUILD_DIR)/docs $(BUILD_DIR)/images
+	@echo "Building $@ (v$(VERSION))..."
+	$(ADOC) $(ADOC_ATTRS) -o $@ $<
+	@cp -r images/* $(BUILD_DIR)/images/
 
 $(BUILD_DIR)/docs/%.html: docs/%.adoc | $(BUILD_DIR)/docs $(BUILD_DIR)/images
 	@echo "Building $@ (v$(VERSION))..."

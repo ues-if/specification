@@ -1,0 +1,18 @@
+== Sources
+
+[bibliography]
+* [[[S1]]] Eurostat demo_pjan — Population on 1 January by age, EU27_2020, 2023. +
+  https://doi.org/10.2908/DEMO_PJAN
+* [[[S8]]] Optica Kenya — Eyeglasses Frame Size Chart. +
+  https://optica.africa/blogs/news/know-your-eyeglass-frame-size-chart-to-get-a-frame-that-suits-your-face
+* [[[S9]]] Banton Frameworks — How are glasses measured? +
+  https://www.bantonframeworks.co.uk/blogs/eye-care/frame-dimensions
+* [[[S10]]] Fesharaki H et al. "Normal Interpupillary Distance Values in an Iranian Population." +
+  _J Ophthalmic Vis Res._ 2012;7(3):231-234. PMC3520592. +
+  https://pmc.ncbi.nlm.nih.gov/articles/PMC3520592/
+* [[[S11]]] Dodgson NA, Woods AJ, Merritt JO, Benton SA, Bolas MT. +
+  "Variation and extrema of human interpupillary distance." +
+  In: _Stereoscopic Displays and Virtual Reality Systems XI_, Proc. SPIE 5291; 2004:36–46. +
+  https://doi.org/10.1117/12.529999
+* [[[S12]]] Kevin Paisley Optometrists — Frame Size Guide. +
+  https://kevinpaisley.com.au/frame-size-guide/

@@ -1,0 +1,136 @@
+== Hypothesis
+
+A small set of standardised eyeglass frame sizes—two for children and three for
+adults—can cover the vast majority of the EU27 population.
+This analysis combines Eurostat 2023 demographic data <<S1>> with peer-reviewed
+interpupillary distance (IPD) research <<S10>> <<S11>> to derive optimal frame
+sizes (bridge + lens width) that maximise population coverage.
+
+=== Notation and terminology
+
+[horizontal]
+IPD (interpupillary distance)::
+  The distance in millimetres between the centres of a person's pupils.
+  This is a fixed biological measurement of an individual.
+
+D (lens width)::
+  The horizontal width of one lens in the boxing system (ISO 8624), in mm.
+  First number in the standard frame notation, e.g. *51*-18-140.
+
+B (bridge width)::
+  The distance between the two lenses across the nose bridge, in mm.
+  Second number in the standard frame notation, e.g. 51-*18*-140.
+
+pd (frame fitting PD)::
+  The total fitting distance of a frame: pd = D + B. For a single person, ideal fit is when pd = IPD.
+
+X (fitting tolerance)::
+  Half-width of the acceptance window: X = 4 mm. A frame is considered a
+  good fit when |IPD - pd| ≤ X.
+
+S (size set)::
+  A collection of k frame specs chosen from the candidate set.  The goal of
+  the optimisation is to find S that maximises population coverage f(S).
+
+f(S) (coverage objective)::
+  The total weighted population covered by size set S.
+ f(S) = Σᵢ popᵢ · P(∃ s ∈ S : |IPDᵢ - pd(s)| ≤ X).
+
+Frame spec notation::
+  Frames are identified by their (D, B) pair, written D-B (e.g. *44-16*
+  denotes lens 44 mm, bridge 16 mm, pd = 60 mm).
+
+=== Methodology
+
+The analysis proceeds in four steps:
+
+1. *Generate candidate frames.* Enumerate all (lens, bridge) integer pairs within
+   practical bounds (lens 38-62 mm, bridge 10-24 mm) filtered to a realistic
+   lens:bridge ratio of 2.5-3.0.  Where multiple pairs share the same total
+   fitting PD (lens + bridge), keep only the one whose ratio is closest to the
+   ideal value of 2.75, reducing the search space to one representative per
+   fitting point.
+
+2. *Build the population model.* Load Eurostat 2023 per-single-year-of-age,
+   sex-stratified headcounts <<S1>> for all EU27 countries.  Aggregate these
+   counts into the IPD groups for which measured distributions are available
+   (four 3-year child bands, ages 5-16; one adult band, 18+), separately for
+   males and females.
+
+3. *Maximise coverage.* Evaluate every combination of k frames drawn from the
+   candidate set (exhaustive $\binom{n}{k}$ enumeration). For each combination,
+   compute the weighted union coverage $f(S)$ (see <<_coverage_model,Coverage
+   model>> below) and select the set that maximises it.
+
+4. *Two-phase children + adults.* Run the optimiser first on children-only groups
+   to find the best 2-frame pair.  Pin those two sizes and re-run the optimiser
+   across all age groups to find the best remaining sizes for adults, ensuring
+   that the final set covers children as well as possible while still being
+   globally optimal for the adult population.
+
+=== Coverage model
+
+A frame covers a person when |IPD - (B+D)| ≤ X, where B is bridge width,
+D is lens width, and X = 4 mm is the fitting tolerance.
+For a group with a Normal IPD distribution, the covered fraction is:
+
+  coverage(B+D) = CDF(B+D + X) - CDF(B+D - X)
+
+Lens width and bridge width are free parameters; only their sum B+D enters
+the optimisation.
+
+For a set S of frames the union coverage is the probability that at least one
+frame fits, computed exactly by merging the overlapping tolerance windows
+[pd - X, pd + X] into disjoint intervals before integrating the Normal CDF:
+
+  f(S) = Σᵢ popᵢ · P(∃ s ∈ S : |IPDᵢ - pd(s)| ≤ X)
+
+=== Candidate frame space
+
+Lens width D ranges from 38 mm to 62 mm and bridge width B from 10 mm to
+24 mm <<S8>> <<S9>> <<S12>>.  Only pairs satisfying 2.5 ≤ D/B ≤ 3.0 are
+retained, matching the proportions seen on standard adult and children's frames.
+
+Because the coverage formula depends solely on the sum pd = D + B, two frames
+with the same pd are interchangeable from an optimisation standpoint.
+For each distinct pd value the single frame whose D/B ratio is closest to the
+ideal of 2.75 is kept, yielding one candidate per fitting point and eliminating
+redundant combinations from the exhaustive search.
+
+=== Population model
+
+[horizontal]
+Children (ages 5–10):: IPD distributions from Fledelius & Stubgaard 1986 <<S11>>,
+sex-stratified by 3-year age bands (5–7, 8–10).  The XS and S children's
+sizes are optimised for these two bands only.
+Older children (ages 11–16):: The remaining two Fledelius bands (11–13,
+14–16) are present in the IPD model and are covered by the adult sizes in
+the overall optimisation, but they do not drive the dedicated children's
+pair selection.
+Adults (ages 18+):: Normal IPD distributions from the ANSUR database <<S11>>
+(Dodgson 2004; n = 1 771 male, n = 2 205 female).
+Population counts:: Eurostat 2023 per-single-year-of-age, sex-stratified
+headcounts <<S1>>, aggregated to match the age bands above.
+Sex split:: 51 % female / 49 % male across EU27 <<S1>>.
+
+Ages 0–4 are intentionally excluded from this analysis.  No peer-reviewed
+IPD data are available for this group, and the frame geometry required
+differs substantially from school-age children.  A dedicated *XXS* size for
+under-5s may be introduced in a future extension of this specification.
+
+=== Optimisation algorithm
+
+For a fixed k, all $\binom{n}{k}$ subsets of the candidate set are evaluated and
+ranked by $f(S)$.  The exhaustive search is tractable because deduplication by pd
+keeps the candidate count small.
+
+For the two-phase constrained solution:
+
+. The exhaustive search is first run over child groups only (ages 5-16) with
+  k = 2, producing the pair that maximises child coverage.
+. Those two frames are pinned as background coverage.  The search is then re-run
+  over *all* age groups with k equal to the number of remaining sizes, with the
+  pinned frames contributing their coverage to every combination evaluated.
+
+This guarantees the children's sizes are globally optimal for children, while
+the adult sizes fill the remaining coverage gaps as efficiently as possible.

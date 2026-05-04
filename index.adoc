@@ -24,6 +24,9 @@ The concept, market analysis, and business process surrounding the eyeglass sock
 <<docs/plan.adoc#,Plan>>::
 Action plan
 
+<<docs/sizes-rationale.adoc#,Frame Size Optimisation>>::
+Statistical analysis deriving optimal standardised frame sizes for the EU27 population.
+
 == Current Status
 
 [WARNING]
