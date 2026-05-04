@@ -148,6 +148,11 @@ Bevel ridge:: The V-shaped ridge formed continuously around the full perimeter o
 Bevel zone:: A fixed-width axial band around the full perimeter of the lens edge, centred on the lens mid-plane, within which the bevel ridge is formed; the flat land areas on each side of the ridge base lie on a common cylinder. Also, the corresponding annular region of the frame rim inner wall that carries the bevel groove.
 The bevel zone width is the same regardless of prescription-driven lens body thickness.
 
+[[boxing_a_dimension]]
+Boxing width (A):: The horizontal width of the minimum axis-aligned bounding rectangle enclosing the lens aperture contour, as defined in the boxing system of ISO 8624 §5.
+This is the *lens size number stamped on spectacle temples* (the "D" value in everyday parlance and optical trade literature).
+See also: <<effective_diameter,Effective diameter (ED)>>.
+
 [[boxing_centre]]
 Boxing centre:: The geometric centre of the minimum axis-aligned bounding rectangle enclosing the lens aperture contour, as defined in the boxing system of ISO 8624 §5.
 If A is the horizontal width and B is the vertical height of the bounding rectangle, the boxing centre is the point at horizontal distance A/2 from each vertical side and vertical distance B/2 from each horizontal side.
@@ -175,7 +180,7 @@ Retention force:: The minimum force required to unseat a fully seated compliant 
 
 Rim channel:: The annular recess in the frame rim that receives the lens edge including the bevel ridge; the bevel groove is cut into the inner wall of this channel.
 
-Size code:: A one or two letter identifier (e.g. "XS") of the lens diameter.
+Size code:: A one or two letter identifier (e.g. "XS") of the lens boxing width A (see <<boxing_a_dimension>>).
 
 Shape code:: A one or two letter identifier (e.g. "C") of the lens contour shape.
 
@@ -183,9 +188,11 @@ Product code:: A designator of the form UES-TT-SS, where TT is a one- or two-let
 
 Control point:: One of the ordered points P₀, P₁, … that define a UES looped cubic Bézier contour; see <<_contour_model>>.
 
-Effective diameter (ED):: The lens blank size metric defined in ISO 8624 using the boxing system: stem:[\mathrm{ED} = \sqrt{\left(\frac{A}{2} + \mathrm{Dec}\right)^2 + \left(\frac{B}{2}\right)^2}], where A is the horizontal width and B is the vertical height of the minimum axis-aligned bounding rectangle of the lens aperture contour, and Dec is the horizontal decentration (signed distance from the <<boxing_centre,boxing centre>> to the fitting/reference point along the x-axis).
+[[effective_diameter]]
+Effective diameter (ED):: The lens blank size metric defined in ISO 8624 using the boxing system: stem:[\mathrm{ED} = \sqrt{\left(\frac{A}{2} + \mathrm{Dec}\right)^2 + \left(\frac{B}{2}\right)^2}], where A is the <<boxing_a_dimension,boxing width>>, B is the vertical height of the minimum axis-aligned bounding rectangle, and Dec is the horizontal decentration.
+Do not confuse ED with the UES size parameter, which is the boxing width A (see <<size-table>>).
 
-Unit shape:: An aperture contour expressed in normalized coordinates such that (a) the boxing centre is at the origin (Dec = 0) and (b) the effective diameter (ED) is equal to 1.
+Unit shape:: An aperture contour expressed in normalized coordinates such that (a) the boxing centre is at the origin (Dec = 0) and (b) the <<boxing_a_dimension,boxing width A>> is equal to 1.
 
 == System Overview
 
@@ -219,7 +226,7 @@ A compliant lens of product code UES-TT-SS SHALL NOT be expected to mate with a 
 
 All UES aperture shapes are defined as *looped cubic Bézier curves* in a normalized coordinate system.
 This single contour governs both the lens body outline and the frame rim aperture opening.
-This decouples shape geometry from physical size: the shape is specified once as a unit shape with a fixed normalized effective diameter (ED) of 1, and the size codes in <<_size_catalogue>> scale it by the aperture ED to produce physical dimensions.
+This decouples shape geometry from physical size: the shape is specified once as a unit shape with a normalised <<boxing_a_dimension,boxing width A>> of 1, and the size codes in <<_size_catalogue>> scale it by the aperture boxing width A to produce physical dimensions.
 
 === Coordinate System and Normalization
 
@@ -232,7 +239,7 @@ The coordinate system for unit shapes is:
 A *unit shape* is an aperture contour expressed in normalized coordinates such that:
 
 * The <<boxing_centre,boxing centre>> of the contour lies at the origin (Dec = 0); and
-* The *effective diameter* ED (see <<effective_diameter>>, ISO 8624) is 1.
+* The <<boxing_a_dimension,boxing width *A*>> is 1 (i.e. the horizontal bounding-box extent is exactly 1).
 
 A shape code identifies a particular unit shape via an ordered list of control points in this normalized coordinate system.
 
@@ -283,7 +290,7 @@ All dimensions are nominal; tolerances are defined in <<_dimensional_tolerances>
 [cols="1,1,1", options="header"]
 |===
 |Size Code
-|Lens Diameter (mm)
+|Boxing Width A (mm)
 |Bridge Width (mm)
 
 |XS
@@ -308,8 +315,8 @@ All dimensions are nominal; tolerances are defined in <<_dimensional_tolerances>
 [[_lens_outline]]
 === Lens Edge Outline
 
-The physical edge outline (without the ridge) of the lens is derived from the unit shape of the declared shape code (see <<shape-catalogue>>) and the lens diameter D of the declared size code (see <<size-table>>) as follows: 
-multiply the x- and y-coordinates of every control point in the unit shape by D (in millimetres).
+The physical edge outline (without the ridge) of the lens is derived from the unit shape of the declared shape code (see <<shape-catalogue>>) and the boxing width A of the declared size code (see <<size-table>>) as follows:
+multiply the x- and y-coordinates of every control point in the unit shape by A (in millimetres).
 
 The lens body SHALL conform to this scaled outline within the tolerances defined in <<_dimensional_tolerances>>.
 
@@ -622,25 +629,26 @@ Compliance is assessed at 23 °C ± 2 °C, 50% ± 5% RH, with parts unconstraine
 |Tolerance
 |Notes
 
-|Lens body diameter (XS)
+|Lens boxing width A (XS)
 |51.0 mm
 |± 0.10 mm
-|Measured per ISO 12870; excludes bevel ridge; this is the flat land outer surface diameter that forms the sliding fit with the rim channel inner wall
+|Horizontal bounding-box width of the lens aperture contour (the temple "D" value), measured per ISO 12870 boxing system; excludes bevel ridge.
+This is the sliding-fit surface that radially centres the lens in the rim channel.
 
-|Lens body diameter (S)
+|Lens boxing width A (S)
 |56.0 mm
 |± 0.10 mm
-|Measured per ISO 12870; excludes bevel ridge; flat land outer surface; sliding fit with rim channel inner wall
+|As above; nominal value for size S.
 
-|Lens body diameter (M)
+|Lens boxing width A (M)
 |61.0 mm
 |± 0.10 mm
-|Measured per ISO 12870; excludes bevel ridge; flat land outer surface; sliding fit with rim channel inner wall
+|As above; nominal value for size M.
 
-|Lens body diameter (L)
+|Lens boxing width A (L)
 |67.0 mm
 |± 0.10 mm
-|Measured per ISO 12870; excludes bevel ridge; flat land outer surface; sliding fit with rim channel inner wall
+|As above; nominal value for size L.
 
 |Bridge width
 |per product code

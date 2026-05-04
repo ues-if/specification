@@ -2,7 +2,15 @@
 Universal Eyeglass Socket — Contour specification
 
 Defines the BezierContour type and the ISO 8624 boxing-system helpers used
-to normalise raw control-point coordinates to a unit shape (ED = 1).
+to normalise raw control-point coordinates to a unit shape (A = 1), where
+A is the horizontal boxing width (the lens-size dimension marked on spectacle
+temples per ISO 8624 §5).
+
+NOTE on ED vs A:
+  A  — horizontal boxing width; the "lens size" number on the temple.
+  ED — effective diameter per ISO 8624: ED = sqrt((A/2)^2 + (B/2)^2).
+       ED is smaller than A for any non-degenerate shape and is used for
+       lens blank selection, NOT as the UES size parameter.
 """
 
 from __future__ import annotations
@@ -34,9 +42,11 @@ def _effective_diameter(x_min: float, x_max: float,
     """Effective diameter (ED) per ISO 8624 boxing system.
 
     ED = sqrt((A/2 + dec)^2 + (B/2)^2)
-    where A = bbox width, B = bbox height, dec = horizontal decentration
-    (signed distance from the boxing centre to the fitting/reference point).
-    For unit shapes dec = 0.0, since the origin IS the boxing centre.
+    where A = bbox width, B = bbox height, dec = horizontal decentration.
+
+    NOTE: ED is NOT the UES size parameter.  The UES size parameter is the
+    boxing width A.  ED is provided here for informative use (e.g. lens blank
+    selection); it is smaller than A for any non-degenerate shape.
     """
     a_half = (x_max - x_min) / 2
     b_half = (y_max - y_min) / 2
@@ -60,9 +70,11 @@ class BezierContour:
     ) -> None:
         x_min, x_max, y_min, y_max = _bbox(control_points)
         cx, cy = _boxing_centre(x_min, x_max, y_min, y_max)
-        ed = _effective_diameter(x_min, x_max, y_min, y_max, dec=0.0)
+        # Normalise so that the boxing width A = 1 (the UES size parameter).
+        # Dividing by A (= x_max - x_min) centres the shape so x ∈ [−0.5, 0.5].
+        a = x_max - x_min   # boxing width A of the raw shape
+        k = 1.0 / a
         sy = -1.0 if flip_y else 1.0
-        k = 1.0 / ed
         object.__setattr__(self, 'points', tuple(
             ((x - cx) * k, sy * (y - cy) * k) for x, y in control_points
         ))

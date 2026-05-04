@@ -25,15 +25,18 @@ class SizeCode(enum.Enum):
 
 @dataclass(frozen=True)
 class SizeSpec:
-    effective_diameter: float  # mm — ED per ISO 8624; scale multiplier applied to the unit shape
-    bridge: float              # mm — bridge width per ISO 8624
+    boxing_width: float  # mm — boxing width A per ISO 8624 §5; the lens-size number stamped on
+                         #       the spectacle temple.  This is the scale multiplier applied to the
+                         #       unit shape (which has A = 1).  NOT the same as ED (effective
+                         #       diameter); ED = sqrt((A/2)^2 + (B/2)^2) < A for any real shape.
+    bridge: float        # mm — bridge width per ISO 8624
 
 
 SIZE_CATALOGUE: dict[SizeCode, SizeSpec] = {
-    SizeCode.XS: SizeSpec(51.0, 15.0),
-    SizeCode.S:  SizeSpec(56.0, 17.0),
-    SizeCode.M:  SizeSpec(61.0, 19.0),
-    SizeCode.L:  SizeSpec(67.0, 21.0),
+    SizeCode.XS: SizeSpec(boxing_width=51.0, bridge=15.0),
+    SizeCode.S:  SizeSpec(boxing_width=56.0, bridge=17.0),
+    SizeCode.M:  SizeSpec(boxing_width=61.0, bridge=19.0),
+    SizeCode.L:  SizeSpec(boxing_width=67.0, bridge=21.0),
 }
 
 
@@ -89,9 +92,9 @@ class LensSpec:
     size_code: SizeCode
 
     @property
-    def effective_diameter(self) -> float:
-        """Effective diameter (ED) in mm per ISO 8624."""
-        return SIZE_CATALOGUE[self.size_code].effective_diameter
+    def boxing_width(self) -> float:
+        """Boxing width A in mm (the lens-size number on the temple, per ISO 8624 §5)."""
+        return SIZE_CATALOGUE[self.size_code].boxing_width
 
     @property
     def bridge_width(self) -> float:
@@ -100,14 +103,14 @@ class LensSpec:
 
     @property
     def shape(self) -> BezierContour:
-        """Unit shape (ED = 1) from the shape catalogue."""
+        """Unit shape (A = 1) from the shape catalogue."""
         return SHAPE_CATALOGUE[self.shape_code]
 
     @property
     def points(self) -> tuple[tuple[float, float], ...]:
-        """Physical Bézier control points: unit shape scaled by ED."""
-        d = SIZE_CATALOGUE[self.size_code].effective_diameter
-        return tuple((x * d, y * d) for x, y in self.shape.points)
+        """Physical Bézier control points: unit shape scaled by boxing width A."""
+        a = SIZE_CATALOGUE[self.size_code].boxing_width
+        return tuple((x * a, y * a) for x, y in self.shape.points)
 
 
 LENS_SPECS: dict[str, LensSpec] = {
