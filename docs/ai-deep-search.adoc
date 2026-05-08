@@ -1,0 +1,1420 @@
+= Publicly Available Human Interpupillary Distance (IPD) Datasets and Studies
+:toc:
+:toclevels: 3
+:sectnums:
+
+== Executive Summary
+
+I found a small but useful public evidence base for measured interpupillary distance (IPD / PD) in human populations.
+
+The strongest sources are concentrated in four clusters:
+
+* Military / ergonomic anthropometry
+* Respirator-fit and occupational head-and-face surveys
+* Clinical / ophthalmic normative studies
+* A small number of reusable open datasets
+
+The most reusable machine-readable resources I could verify are:
+
+* ANSUR II public release
+* Taiwan PLOS One respirator-fit supplementary dataset
+
+Most other sources are either article-level summary statistics or projects whose data are only partially open, commercial, or tool-mediated rather than directly downloadable.
+
+Across the catalogue, adult male means usually sit in the mid-60 mm range and adult female means in the low-60 mm range. However, differences are affected by:
+
+* Sampling frame
+* Ethnicity
+* Age
+* Measurement method
+* Far vs near IPD
+* Binocular vs monocular PD
+
+Small cross-study differences should not be over-interpreted unless the measurement method and recruitment frame are comparable.
+
+Coverage is best for adults in:
+
+* United States
+* China
+* Malaysia
+* Iran
+* Turkey
+* Pakistan
+* South Africa
+
+Coverage is weaker for:
+
+* Latin America
+* Oceania
+* Europe outside selected optometric / anthropometric datasets
+* Children under 5
+* Public raw datasets with direct IPD variables
+
+A methodological point matters: some sources report far binocular IPD, some report near and far IPD, some distinguish binocular vs monocular PD, and anthropometric surveys sometimes label the same construct "interpupillary breadth."
+
+In this document, "interpupillary breadth" is treated as equivalent to binocular IPD only where the source explicitly defines it as the distance between the two pupils.
+
+== Search Method
+
+Sources searched included:
+
+* PubMed / PubMed Central
+* Government anthropometry repositories
+* Open-access journal sites
+* Occupational health and respirator-fit studies
+* Anthropometric project pages
+* 3D face / headform datasets
+
+Search terms included:
+
+* interpupillary distance
+* inter-pupillary distance
+* pupillary distance
+* interpupillary breadth
+* pupilometer / pupillometer
+* autorefractor / autorefractometer
+* anthropometric survey
+* head and face anthropometry
+* respirator fit
+* workers
+* children
+* craniofacial anthropometry
+
+Inclusion criteria:
+
+* Human participants
+* Directly measured IPD / PD, or explicit IPD variable
+* Clear enough metadata to identify population, sample size, and measurement method
+
+Excluded:
+
+* Studies reporting only inner canthal distance
+* Studies reporting only outer canthal distance
+* Sources where IPD had to be inferred without clear pupil landmarks
+* Papers with insufficient accessible metadata
+
+== Reusable Data Resources
+
+[cols="1,2,1,1,2,2", options="header"]
+|===
+|Resource
+|Description
+|Region
+|Sample
+|Measurement Method
+|Access
+
+|ANSUR II 2012
+|Public anthropometric survey of U.S. Army personnel. Includes "interpupillary breadth."
+|United States
+|6,068 adults; 1,986 female, 4,082 male
+|Pupillometer
+|Open public CSV release
+
+|SizeChina
+|3D anthropometric Chinese head and face project. Includes facial measurements and scan-derived landmarks.
+|China
+|Over 1,700 scans overall; one paper reports 772 adult females
+|3D scanning and landmark-based measurement
+|Public project info; raw access less clear
+
+|Mid-Taiwan respirator-user anthropometric dataset
+|PLOS One respirator-fit anthropometric study with downloadable supporting dataset.
+|Taiwan
+|206 adults; ages 21-30; 101 male, 105 female
+|Traditional anthropometry + Supore Digital PD-6 meter
+|Open supplementary XLSX
+|===
+
+=== ANSUR II 2012
+
+Primary source:
+
+* https://www.openlab.psu.edu/ansur2/
+
+Dataset type:
+
+* Government / military anthropometric microdata
+
+Population:
+
+* U.S. Army personnel
+* Adult men and women
+
+Sample size:
+
+* 6,068 total
+* 1,986 female
+* 4,082 male
+
+Relevant variable:
+
+* interpupillary breadth
+
+Definition:
+
+* Distance between the two pupils
+
+Units:
+
+* Report gives cm and inches
+* Convert to mm for most use cases
+
+Collection dates:
+
+* October 2010 to April 2012
+
+Key IPD summary:
+
+* Female mean: approximately 61.7 mm
+* Male mean: approximately 64.0 mm
+
+Strengths:
+
+* Public machine-readable CSVs
+* Large sample
+* Detailed anthropometric metadata
+* Good starting point for synthetic population modeling
+
+Limitations:
+
+* Military sample, not general civilian population
+* Body-size distribution reflects Army personnel
+* Adult-only
+
+Recommended use:
+
+* VR / AR hardware design
+* Eyewear sizing
+* Ergonomics
+* Synthetic population generation
+* Face / avatar parameter priors
+
+=== SizeChina
+
+Primary sources:
+
+* https://wdo.org/site-project/sizechina/
+* https://sizechina.com/pdf/TMCE_2010-chinese_face_3D_anthropometric_analysis.pdf
+* https://apps.apple.com/in/app/sizechina/id1481186588
+
+Dataset type:
+
+* 3D head and face anthropometry project
+
+Population:
+
+* Chinese adults
+
+Sample:
+
+* Project page reports over 1,700 scans
+* A paper subset analysed 772 adult females
+
+Measurement method:
+
+* 3D scan-derived facial anthropometry
+* Landmark-based measurements
+
+Relevant measurement:
+
+* Interpupillary breadth
+
+Key result from female subset:
+
+* Female mean interpupillary breadth: 65.56 mm
+
+Strengths:
+
+* Useful for 3D design
+* Head and face shape focused
+* Relevant to product design and facial fit
+
+Limitations:
+
+* Public raw-data download route is not clear
+* More tool-mediated than dataset-download oriented
+* Licence terms for raw data are not obvious
+* Some public results are subset-based
+
+Recommended use:
+
+* 3D face / headform design
+* Helmet / headset design
+* Chinese population design reference
+* Shape-model constraints
+
+=== Mid-Taiwan Respirator-User Dataset
+
+Primary source:
+
+* https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0188638
+
+Supplementary dataset:
+
+* https://doi.org/10.1371/journal.pone.0188638.s002
+
+Dataset type:
+
+* Open-access study with supplementary participant-level dataset
+
+Population:
+
+* Central Taiwan respirator users / young adults
+
+Sample:
+
+* 206 participants
+* Ages 21-30
+* 101 male
+* 105 female
+
+Measurement method:
+
+* Traditional anthropometry
+* Supore Digital PD-6 meter for IPD
+
+Relevant variable:
+
+* Binocular IPD
+
+Strengths:
+
+* Open supplementary XLSX
+* Participant-level data
+* Explicit measurement method
+* Useful for respirator / mask / face-fit design
+
+Limitations:
+
+* Small sample
+* Young adults only
+* Regional sample
+* Not nationally representative
+
+Recommended use:
+
+* Mask / respirator design
+* Asian young-adult face-fit modeling
+* Validation against ANSUR II or other datasets
+
+== Peer-Reviewed Population Studies
+
+[cols="1,1,1,1,2,2", options="header"]
+|===
+|Study
+|Region
+|Sample
+|Age
+|Method
+|Key IPD Result
+
+|U.S. respirator users
+|United States
+|3,997 traditional measurements; 1,013 also 3D scanned
+|Adults
+|Traditional anthropometry + 3D scan subset
+|Male mean about 64.5 mm; female mean about 61.9 mm
+
+|Chinese workers
+|China
+|3,000 workers; 2,026 male, 974 female
+|18-66
+|Traditional anthropometry; pupilometer for IPD
+|Male mean 64.2 mm; female mean 61.0 mm
+
+|Malaysia multi-ethnic Asian population
+|Malaysia
+|3,324 adults
+|18+
+|Direct measurement + 2D photogrammetry
+|Male mean 64.9 mm; female mean 62.2 mm
+
+|Iranian population
+|Iran
+|1,500 participants; 947 adults
+|5-80
+|Autorefractometer
+|Adult mean 62.1 mm; women 61.1 mm; men 63.6 mm
+
+|Turkish population
+|Turkey
+|756 healthy subjects
+|20-89
+|Autorefractometer
+|Overall mean 62.5 mm; range 49-76 mm
+
+|Pakistani population
+|Pakistan
+|499 participants
+|15+
+|Plastic rule, reconfirmed by autorefractometer
+|Overall mean 61.8 mm
+
+|Chinese children
+|China
+|10,171 children
+|5-17
+|Caliper
+|IPD increases with age; males larger than females
+
+|Black South African sample
+|South Africa
+|386 participants
+|20-80
+|Clinical distance and near IPD measurement
+|Distance IPD mean 67.2 mm; near IPD mean 64.2 mm
+|===
+
+=== Head-and-Face Anthropometric Survey of U.S. Respirator Users
+
+Primary source:
+
+* CDC-hosted article / PDF
+
+Region:
+
+* United States
+
+Sample:
+
+* 3,997 participants with traditional measurements
+* 1,013 participants also 3D scanned
+
+Population:
+
+* Adult respirator users
+* Sampled across age, sex, and race / ethnicity strata
+
+Measurement method:
+
+* Traditional facial anthropometry
+* 3D scanning subset
+
+Relevant measure:
+
+* Binocular interpupillary distance
+
+Key result:
+
+* Male mean: approximately 64.5 mm
+* Female mean: approximately 61.9 mm
+
+Strengths:
+
+* Large adult sample
+* Occupationally relevant
+* Designed for respirator fit and face-size panels
+* Includes race / ethnicity stratification
+
+Limitations:
+
+* Volunteer occupational sample
+* Weighted to represent U.S. workforce, not general national population
+* Raw microdata not clearly linked from article
+
+Recommended use:
+
+* Respirator / mask design
+* Face-fit panel construction
+* Occupational safety product design
+
+=== Head-and-Face Anthropometric Survey of Chinese Workers
+
+Primary source:
+
+* CDC-hosted article / PDF
+
+Region:
+
+* China
+
+Sample:
+
+* 3,000 workers
+* 2,026 male
+* 974 female
+
+Age:
+
+* 18-66
+
+Measurement method:
+
+* Traditional anthropometry
+* Pupilometer for IPD
+
+Key result:
+
+* Male mean: 64.2 +- 2.7 mm
+* Female mean: 61.0 +- 3.5 mm
+
+Strengths:
+
+* Large sample
+* Explicit occupational face-fit motivation
+* Weighted to national workforce
+
+Limitations:
+
+* Worker sample, not household sample
+* Raw microdata not clearly public
+* Adult occupational population only
+
+Recommended use:
+
+* Respirator design
+* Asian workforce anthropometry
+* Comparative ergonomic modeling
+
+=== Malaysian Multi-Ethnic Asian Population Study
+
+Primary source:
+
+* https://www.frontiersin.org/journals/public-health/articles/10.3389/fpubh.2022.972249/full
+
+Region:
+
+* Malaysia
+
+Sample:
+
+* 3,324 adults
+* Weighted male: 1,556
+* Weighted female: 1,768
+
+Age:
+
+* 18+
+
+Measurement method:
+
+* Direct caliper measurements
+* 2D photogrammetry
+* IPD from 2D images
+
+Study frame:
+
+* NHMS 2020
+
+Key result:
+
+* Male mean IPD: 64.9 mm
+* Female mean IPD: 62.2 mm
+
+Strengths:
+
+* Multi-ethnic Asian sample
+* National health survey context
+* Stronger population sampling than many clinic studies
+
+Limitations:
+
+* IPD derived from 2D photogrammetry
+* Article notes lack of 3D stereophotogrammetry
+* Raw head-face microdata not obviously downloadable
+
+Recommended use:
+
+* Multi-ethnic Southeast Asian design reference
+* Respirator / mask / eyewear sizing
+* National population estimate
+
+=== Iranian Population Study
+
+Primary source:
+
+* https://pubmed.ncbi.nlm.nih.gov/23330061/
+
+Region:
+
+* Iran
+
+Sample:
+
+* 1,500 participants
+* 910 female
+* 590 male
+* 947 adults over 19
+
+Age:
+
+* 5-80
+
+Measurement method:
+
+* Topcon RMA-3000 autorefractometer
+
+Relevant measure:
+
+* Distance IPD
+
+Collection dates:
+
+* 2008-2010
+
+Key result:
+
+* Adult overall mean: 62.1 +- 3.7 mm
+* Adult women: 61.1 +- 3.5 mm
+* Adult men: 63.6 +- 3.9 mm
+
+Strengths:
+
+* Broad age range
+* Includes children and adults
+* Clear clinical measurement method
+
+Limitations:
+
+* Hospital outpatient population
+* Not a household probability sample
+* Raw data not linked
+
+Recommended use:
+
+* Middle Eastern clinical norms
+* Ophthalmic reference
+* Age-related IPD modeling
+
+=== Turkish Population Study
+
+Primary source:
+
+* https://pubmed.ncbi.nlm.nih.gov/26346840/
+
+Region:
+
+* Turkey
+
+Sample:
+
+* 756 healthy subjects
+
+Age:
+
+* 20-89
+
+Measurement method:
+
+* Topcon RM-8800 autorefractometer
+
+Relevant measure:
+
+* Far IPD
+
+Key result:
+
+* Overall mean: 62.5 +- 4.1 mm
+* Range: 49-76 mm
+
+Strengths:
+
+* Healthy adult sample
+* Broad adult age range
+* Uses standardized clinical instrument
+
+Limitations:
+
+* Not a national probability sample
+* Full article access may vary
+* Raw data not public
+
+Recommended use:
+
+* Turkish adult ophthalmic reference
+* Clinical baseline
+* Regional comparison
+
+=== Pakistani Population Study
+
+Primary source:
+
+* https://www.pjms.org.pk/index.php/pjms/article/view/288
+
+Region:
+
+* Pakistan
+
+Sample:
+
+* 499 participants
+* 272 male
+* 227 female
+
+Age groups:
+
+* 15-24
+* 25-44
+* 45-64
+* 65+
+
+Mean age:
+
+* 39.3 +- 14.5 years
+
+Measurement method:
+
+* Plastic rule
+* Reconfirmed by autorefractometer
+* Same researcher measured to reduce observer error
+
+Relevant measure:
+
+* Binocular IPD
+
+Key result:
+
+* Overall mean: 61.8 +- 6.2 mm
+
+Strengths:
+
+* Open-access article
+* Includes age and sex groups
+* Practical clinical measurement approach
+
+Limitations:
+
+* Outpatient sample from Karachi
+* Not national random sample
+* Manual ruler component increases operator dependence
+
+Recommended use:
+
+* Pakistani clinical norms
+* South Asian comparative reference
+* Spectacle-fitting assumptions
+
+=== Chinese Children IPD Growth Study
+
+Primary source:
+
+* https://pubmed.ncbi.nlm.nih.gov/11864395/
+
+Region:
+
+* China
+
+Sample:
+
+* 10,171 children
+
+Age:
+
+* 5-17
+
+Measurement method:
+
+* Caliper
+
+Key findings:
+
+* IPD positively correlated with age
+* Males had larger IPD than females
+* Two growth spurts were reported
+* Adult-level IPD was reached around mid-adolescence
+
+Strengths:
+
+* Very large pediatric sample
+* Direct measurement
+* Useful for child spectacle / headset design
+
+Limitations:
+
+* Raw data not found
+* Full tables not easily accessible from abstract
+* Four-city sample rather than national sample
+
+Recommended use:
+
+* Pediatric eyewear design
+* Children’s VR / AR constraints
+* Growth curve estimation
+
+=== Black South African Population Study
+
+Primary source:
+
+* https://avehjournal.org/index.php/aveh/article/download/582/1449
+
+Region:
+
+* South Africa
+
+Sample:
+
+* 386 participants
+* 214 female
+* 172 male
+
+Age:
+
+* 20-80
+
+Mean age:
+
+* 48.86 +- 15.2
+
+Measurement:
+
+* Distance and near IPD
+
+Key result:
+
+* Distance IPD mean: 67.2 +- 3.0 mm
+* Near IPD mean: 64.2 +- 3.0 mm
+* Female distance mean: 66.5 mm
+* Male distance mean: 68.0 mm
+
+Strengths:
+
+* Reports both near and distance IPD
+* Useful African reference point
+* Open PDF
+
+Limitations:
+
+* Practice-based single-site sample
+* Not necessarily representative of all Black South Africans
+* Raw data not shared
+
+Recommended use:
+
+* African population comparison
+* Near vs distance IPD assumptions
+* Optometry and eyewear design
+
+== Measurement Methods and Comparability
+
+IPD values are not directly interchangeable across all studies.
+
+Important distinctions:
+
+* Far IPD vs near IPD
+* Binocular IPD vs monocular PD
+* Anatomical pupil center vs corneal reflex
+* Manual ruler vs pupillometer vs autorefractometer
+* Direct anthropometry vs 2D photogrammetry vs 3D scan landmarks
+
+[cols="1,2,2,2", options="header"]
+|===
+|Method
+|Strengths
+|Cautions
+|Expected Use
+
+|Digital pupillometer
+|Purpose-built, fast, repeatable
+|Device family matters
+|Best field benchmark
+
+|Autorefractometer
+|Standard clinical workflow, scalable
+|Usually distance IPD only; often clinic-based
+|Clinical norms
+
+|Manual ruler / Viktorin method
+|Cheap, universal
+|Operator dependent
+|Routine optics, less good for fine comparisons
+
+|Caliper / direct anthropometry
+|Traditional anthropometric method
+|Observer technique matters
+|Field surveys
+
+|2D photogrammetry
+|Scalable, low-contact
+|Dimension-specific validation needed
+|Large surveys
+
+|3D scan-derived landmarks
+|Rich geometry, reusable shape data
+|Landmarking protocol matters
+|Design and headform generation
+|===
+
+== Practical Interpretation
+
+For open adult microdata:
+
+* Start with ANSUR II.
+
+For open participant-level Asian face-fit data:
+
+* Use the Taiwan PLOS One supplementary dataset.
+
+For national or semi-national adult estimates:
+
+* Malaysia NHMS-based study is especially useful.
+
+For pediatric IPD:
+
+* Chinese children study is large, but not raw-data accessible.
+
+For 3D product design:
+
+* SizeChina, CAESAR, DINED, and FaceBase-type resources may be useful, but access and licensing vary.
+
+== Coverage Strength
+
+[source,mermaid]
+----
+flowchart LR
+    A[Coverage strength]
+    A --> B[Adults 18-65: strong]
+    A --> C[Older adults 65+: moderate]
+    A --> D[Children 5-17: moderate]
+    A --> E[Preschool under 5: sparse]
+    A --> F[North America: strong]
+    A --> G[East Asia: strong]
+    A --> H[South Asia / Middle East: moderate]
+    A --> I[Sub-Saharan Africa: sparse]
+    A --> J[Latin America / Oceania: very sparse]
+----
+
+== Coverage Gaps
+
+The main gaps are:
+
+* Very few open raw IPD datasets
+* Many studies are open-access but only provide summary statistics
+* Sampling frames are often biased toward:
+** Workers
+** Military personnel
+** Optometry patients
+** Single clinics
+** Students
+* Limited data for children under 5
+* Sparse coverage for:
+** Latin America
+** Oceania
+** Much of Africa
+** General European civilian populations
+* Measurement methods are inconsistent
+
+== Access Guide
+
+[cols="1,2,2", options="header"]
+|===
+|Resource
+|Access
+|Notes
+
+|ANSUR II
+|https://www.openlab.psu.edu/ansur2/
+|Open CSV files; best immediate microdata source
+
+|Taiwan PLOS One dataset
+|https://doi.org/10.1371/journal.pone.0188638.s002
+|Open supplementary XLSX
+
+|Malaysia study
+|https://www.frontiersin.org/journals/public-health/articles/10.3389/fpubh.2022.972249/full
+|Open article; raw data not obviously posted
+
+|Pakistan study
+|https://www.pjms.org.pk/index.php/pjms/article/view/288
+|Open article; summary statistics
+
+|South Africa study
+|https://avehjournal.org/index.php/aveh/article/download/582/1449
+|Open PDF; data sharing not available
+
+|Iran study
+|https://pubmed.ncbi.nlm.nih.gov/23330061/
+|PubMed record; article mirrored in PMC / ResearchGate
+
+|Turkey study
+|https://pubmed.ncbi.nlm.nih.gov/26346840/
+|PubMed record; summary available
+
+|Chinese children study
+|https://pubmed.ncbi.nlm.nih.gov/11864395/
+|Large pediatric study; raw data not found
+
+|SizeChina
+|https://wdo.org/site-project/sizechina/
+|Useful design resource; raw access unclear
+|===
+
+== Suggested Data Model
+
+For a repository catalogue, use a structure like:
+
+[source,yaml]
+----
+datasets:
+  - name: ANSUR II
+    region: United States
+    population: U.S. Army adults
+    sample_size: 6068
+    sex_breakdown:
+      female: 1986
+      male: 4082
+    age_range: adult
+    measurement_name: interpupillary breadth
+    measurement_method: pupillometer
+    unit: mm
+    access: open_csv
+    url: https://www.openlab.psu.edu/ansur2/
+    limitations:
+      - military sample
+      - not general civilian population
+
+  - name: Mid-Taiwan Respirator Anthropometric Dataset
+    region: Taiwan
+    population: young adult respirator users
+    sample_size: 206
+    age_range: 21-30
+    measurement_name: binocular IPD
+    measurement_method: digital PD meter
+    unit: mm
+    access: open_supplementary_xlsx
+    url: https://doi.org/10.1371/journal.pone.0188638.s002
+    limitations:
+      - small sample
+      - young adults only
+      - regional sample
+----
+
+== Recommended Workflow
+
+If you need measured IPD distributions for software, eyewear, VR, or synthetic face generation:
+
+. Download ANSUR II.
+. Extract the interpupillary breadth column.
+. Convert units to mm if necessary.
+. Separate by sex and any demographic fields available.
+. Fit distributions:
+.. Gaussian
+.. KDE
+.. Gaussian mixture model
+. Validate means against external studies:
+.. U.S. respirator users
+.. Chinese workers
+.. Malaysia NHMS
+.. Iran / Turkey / Pakistan clinical studies
+. For children, use literature-derived age curves rather than adult datasets.
+. Do not mix near and far IPD without correction.
+
+== Typical Adult IPD Ranges
+
+Approximate values from the reviewed sources:
+
+[cols="1,1,1", options="header"]
+|===
+|Group
+|Typical Mean
+|Typical Range
+
+|Adult male
+|63-66 mm
+|58-72 mm
+
+|Adult female
+|60-64 mm
+|54-70 mm
+
+|Mixed adult population
+|62-65 mm
+|49-76 mm
+
+|Children
+|Age dependent
+|Approximately 40-60+ mm
+|===
+
+== Terminology
+
+=== IPD
+
+Interpupillary distance. Distance between the centers of the pupils.
+
+=== PD
+
+Pupillary distance. Often used clinically, especially in optics.
+
+=== Binocular PD
+
+Total distance between the two pupils.
+
+=== Monocular PD
+
+Distance from nose bridge / facial midline to one pupil.
+
+=== Near IPD
+
+IPD measured for near fixation. Usually smaller than distance IPD because of convergence.
+
+=== Distance / Far IPD
+
+IPD measured for far fixation.
+
+=== Interpupillary Breadth
+
+Anthropometric term often equivalent to binocular IPD when explicitly defined as distance between pupils.
+
+=== Inner Canthal Distance
+
+Distance between inner eye corners. Not equivalent to IPD.
+
+=== Outer Canthal Distance
+
+Distance between outer eye corners. Not equivalent to IPD.
+
+== Final Notes
+
+The open-data shortlist is short:
+
+* ANSUR II
+* Taiwan PLOS One supplementary dataset
+
+Most other useful sources are summary-statistic studies. They are still valuable, especially for checking whether a synthetic or design distribution is plausible across population groups.
+
+For design work, the safest approach is to store source-specific metadata and never treat all IPD values as one interchangeable global measurement.
+
+== Additional Sources and Datasets Discovered
+
+=== FaceBase 3D Facial Norms Database
+
+Resource:
+* [FaceBase 3D Facial Norms Database](https://www.facebase.org/resources/human/facial_norms/?utm_source=chatgpt.com)
+
+FaceBase is one of the most important craniofacial morphology repositories currently available. It contains:
+
+* 3D facial landmark coordinates
+* Craniofacial anthropometric measurements
+* 3D meshes
+* Summary statistics by age and sex
+* Controlled-access individual-level data
+
+The system allows querying:
+
+* Age groups
+* Sex
+* Ancestry
+* Anthropometric variables
+
+The database is based on:
+
+* Digital stereophotogrammetry
+* 3D facial surface imaging
+
+Important details:
+
+* Many measurements are derived from 3D landmark geometry rather than manual caliper measurements
+* Some individual-level data requires controlled access approval
+* Summary statistics are publicly accessible
+
+FaceBase reports:
+
+* 29 predefined inter-landmark distances
+* Downloadable statistical summaries
+* Landmark coordinates for custom distance derivation
+
+Useful for:
+
+* Statistical facial modeling
+* Avatar generation
+* Face reconstruction
+* VR headset fitting
+* Synthetic human generation
+* Medical craniofacial research
+
+Sources:
+:contentReference[oaicite:1]{index=1}
+
+=== FaceBase Human Morphometrics Repository
+
+Resource:
+* [FaceBase Human Resources](https://www.facebase.org/resources/human/?utm_source=chatgpt.com)
+
+This broader repository contains:
+
+* Facial scans
+* Morphometric datasets
+* Craniofacial measurements
+* Genomic associations
+* Human facial landmark datasets
+
+Scale:
+
+* 30,000+ participants across FaceBase
+* 200,000+ files
+* 1,100+ datasets
+
+Useful because:
+
+* Some datasets expose raw landmark coordinates
+* IPD can be directly measured from landmarks
+* Many datasets include demographic metadata
+
+Access:
+
+* Public summaries available
+* Individual-level data usually requires request approval
+
+Sources:
+:contentReference[oaicite:3]{index=3}
+
+=== TEyeD Dataset
+
+Resource:
+* TEyeD: Over 20 million real-world eye images
+
+Paper:
+* https://arxiv.org/abs/2007.05868
+
+What it contains:
+
+* 20+ million eye-region images
+* 2D and 3D pupil annotations
+* Eyelid and iris landmarks
+* 3D eyeball models
+* Gaze vectors
+
+Potential IPD relevance:
+
+* Contains binocular eye tracking geometry
+* Can potentially derive IPD-like metrics
+* Useful for eye-tracking and VR research
+
+Limitations:
+
+* Not designed as an anthropometric IPD dataset
+* Requires geometric reconstruction
+* Mostly eye-region data rather than full craniofacial scans
+
+Sources:
+:contentReference[oaicite:4]{index=4}
+
+=== OpenEDS Dataset
+
+Resource:
+* OpenEDS: Open Eye Dataset
+
+Paper:
+* https://arxiv.org/abs/1905.03702
+
+Contains:
+
+* 252k+ eye images
+* Pixel-level annotations
+* Stereo eye-camera captures
+* Corneal topography point clouds
+
+Population:
+
+* 152 participants
+
+Potential use:
+
+* Eye geometry estimation
+* VR eye-tracking systems
+* Deriving binocular geometry
+
+Limitations:
+
+* Small participant count
+* Not intended as a population anthropometry dataset
+* Requires custom processing for IPD extraction
+
+Sources:
+:contentReference[oaicite:5]{index=5}
+
+=== Learning Anthropometry from Rendered Humans Dataset
+
+Paper:
+* https://arxiv.org/abs/2101.02515
+
+Contains:
+
+* 4,149 body scans
+* Anthropometric measurements
+* 200 RGB-image subjects with measured ground truth
+
+Potential relevance:
+
+* Human anthropometry estimation from images
+* Could support synthetic IPD estimation pipelines
+
+Limitations:
+
+* Primarily body anthropometry
+* Facial/IPD variables are not guaranteed public
+* More relevant for machine-learning anthropometry
+
+Sources:
+:contentReference[oaicite:6]{index=6}
+
+== Newly Identified Dataset Categories
+
+The web search revealed several broader categories of resources beyond traditional anthropometric surveys.
+
+=== Category 1: Direct Anthropometric IPD Datasets
+
+These contain explicit measured IPD variables.
+
+Best examples:
+
+* ANSUR II
+* Taiwan respirator dataset
+* Chinese worker survey
+* Malaysia NHMS study
+
+Advantages:
+
+* Direct measurements
+* Easier statistical analysis
+* Reliable population distributions
+
+Disadvantages:
+
+* Fewer publicly downloadable datasets
+* Often limited demographics
+
+=== Category 2: 3D Craniofacial Morphology Repositories
+
+These contain:
+
+* 3D meshes
+* Landmarks
+* Facial geometry
+
+Best examples:
+
+* FaceBase
+* SizeChina
+
+Advantages:
+
+* Extremely rich geometric data
+* Allows arbitrary derived measurements
+* Better for realistic human modeling
+
+Disadvantages:
+
+* Access restrictions
+* Large files
+* More processing required
+
+=== Category 3: Eye-Tracking / VR Eye Datasets
+
+These focus on:
+
+* Eye geometry
+* Pupil tracking
+* Gaze estimation
+
+Best examples:
+
+* OpenEDS
+* TEyeD
+
+Advantages:
+
+* Massive eye-region image volumes
+* Useful for eye tracking and VR
+
+Disadvantages:
+
+* Weak demographic coverage
+* IPD usually indirect
+* Requires reconstruction pipelines
+
+== Best Overall Sources by Use Case
+
+[cols="1,2,2", options="header"]
+|===
+|Use Case
+|Best Dataset
+|Reason
+
+|Direct population IPD statistics
+|ANSUR II
+|Large open dataset with direct IPD variable
+
+|Asian population face fitting
+|Taiwan respirator dataset
+|Open participant-level data
+
+|3D face generation
+|FaceBase
+|High-quality 3D morphology
+
+|VR headset design
+|ANSUR II + FaceBase
+|Good balance of statistics and geometry
+
+|Synthetic humans / avatars
+|FaceBase + SizeChina
+|Rich landmark and mesh data
+
+|Eye tracking
+|OpenEDS / TEyeD
+|Large-scale eye datasets
+
+|Children IPD modeling
+|Chinese pediatric study
+|Very large sample size
+|===
+
+== Important Observation
+
+The strongest newly discovered resource is clearly FaceBase.
+
+Why:
+
+* Large-scale craniofacial repository
+* Public summaries
+* Individual-level controlled-access data
+* Landmark coordinates
+* 3D meshes
+* Anthropometric variables
+* Research-grade metadata
+
+FaceBase is likely the closest thing to a modern reusable craniofacial "ground truth" ecosystem for IPD-adjacent measurements currently available publicly.
+
+== Important Caveat
+
+Many repositories do NOT expose a variable literally named:
+
+* interpupillary_distance
+
+Instead, IPD may need to be computed from:
+
+* Pupil landmarks
+* Eye center coordinates
+* 3D landmark geometry
+* Inter-landmark Euclidean distances
+
+Therefore, many modern datasets are:
+
+* geometry-first
+rather than
+* scalar-measurement-first
+
+This is especially true for:
+
+* 3D stereophotogrammetry datasets
+* Mesh repositories
+* Computer vision datasets
+* VR eye-tracking datasets
+
+== Suggested Additional Search Targets
+
+Potential future searches:
+
+* UK Biobank craniofacial imaging
+* DINED face anthropometry
+* CAESAR raw facial landmark datasets
+* NIH craniofacial repositories
+* NIOSH respirator fit panels
+* MorphoSource facial scans
+* FLAME / Basel Face Model training datasets
+* LYHM face dataset
+* Florence 3D Face Dataset
+* Bosphorus 3D Face Database
+* FRGC v2 facial scans

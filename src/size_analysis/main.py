@@ -74,10 +74,14 @@ class SizeHypothesis:
 
 
 def _is_child_group(cat: Category) -> bool:
-    # Only the 5–7 and 8–10 Fledelius bands (category ages 5 and 8).
-    # Ages 11–16 are covered incidentally by the adult sizes.
-    # Ages 0–4 have no IPD data; a future XXS size is planned for that group.
-    return isinstance(cat.age, int) and 5 <= cat.age <= 10
+    # Only the 5-7 and 8-10 Fledelius bands.
+    # Ages 11-17 are covered incidentally by the adult sizes.
+    # Ages 0-4 have no IPD data; a future XXS size is planned for that group.
+    if isinstance(cat.age, int):
+        return 5 <= cat.age <= 10
+    if isinstance(cat.age, tuple):
+        return cat.age[0] <= 10 and cat.age[1] >= 5
+    return False
 
 
 # ============================================================================

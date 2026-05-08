@@ -34,18 +34,27 @@ _ipd_fledelius = [
     (">55",   61, 55, 68,  65, 58, 73),
 ]
 
+
+def _parse_age_band(label: str) -> tuple[int, int]:
+    if label.startswith(">"):
+        lower = int(label[1:])
+        return lower, 99  # Arbitrary large upper bound
+
+    lower, upper = label.split("-")
+    return int(lower), int(upper)
+
 MODEL = IPDModel(
     # Fledelius & Stubgaard 1986 (children, ages 5–16)
     groups={
         **{
-            Category(sex=Sex.FEMALE, age=int(age.split('-')[0])): Normal(
+            Category(sex=Sex.FEMALE, age=_parse_age_band(age)): Normal(
                 mean=mean,
                 standard_deviation=(max_val - min_val) / 4,  # Approximately 95% of data within mean ± 2*stddev
             )
             for age, mean, min_val, max_val, _, _, _ in _ipd_fledelius[:4]
         },
         **{
-            Category(sex=Sex.MALE, age=int(age.split('-')[0])): Normal(
+            Category(sex=Sex.MALE, age=_parse_age_band(age)): Normal(
                 mean=mean,
                 standard_deviation=(max_val - min_val) / 4,  # Approximately 95% of data within mean ± 2*stddev
             )
