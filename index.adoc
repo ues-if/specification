@@ -24,6 +24,9 @@ The concept, market analysis, and business process surrounding the eyeglass sock
 <<docs/plan.adoc#,Plan>>::
 Action plan
 
+<<docs/business.adoc#,Business Model>>::
+Pilot business model for Reframe Kids, a UES-compliant kids' frames brand, to validate consumer demand for universal interchangeable lenses.
+
 == Current Status
 
 [WARNING]

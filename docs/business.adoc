@@ -1,0 +1,117 @@
+= Reframe Kids: UES Kids Frames Pilot - Business Model & Go-To-Market
+:toc: left
+:toclevels: 3
+:sectnums:
+:icons: font
+
+[abstract]
+--
+Pilot business model for **Reframe Kids**, a UES-compliant kids' frames brand, to validate consumer demand for universal interchangeable lenses.
+--
+
+== 1. Context and Hypothesis
+
+=== 1.1 Strategic Role of Kids Segment
+
+The global kids eyewear segment is a multi-tens-of-billions market with high growth (around 10% CAGR through 2030), and Europe is already the largest revenue region.
+Children break and outgrow frames more often than adults, which amplifies the pain of replacing complete pairs when only frames or only lenses are the problem.
+Parents also already face frequent replacement cycles, and some reimbursement schemes (e.g. UK NHS vouchers) explicitly recognise the high rate of loss/damage in children's glasses.
+
+*Hypothesis*: **Reframe Kids**, a UES-compliant kids frame brand that separates lenses from frames and makes frame replacement cheap, fast, and fun, will:
+- Lower total cost of ownership for parents over 2-3 years.
+- Make breakage and style changes much less painful.
+- Demonstrate clear consumer pull that can later convince large lens and frame players.
+
+=== 1.2 Positioning within UES
+
+This kids frames pilot is:
+- The **first commercial implementation** of UES on the frame side.
+- Optimised for **durability + low cost + style rotation**, not luxury fashion.
+- Designed to be **copyable by others**: success is measured by standard adoption, not moat strength.
+
+The company operates as a for-profit that:
+- Produces frames through a partner manufacturer, using the open UES specification.
+- Sells the frames on optical retail channels and through school partnerships.
+
+== 2. Value Proposition (Kids / Parents)
+
+=== 2.1 Problems for Parents and Kids
+
+For children 5-10, current prescription glasses have recurring issues:
+- Frames break frequently during play and sports.
+- Kids' tastes change (colour, style, characters), forcing frame+lens replacement.
+- Prescriptions may change while frames are still fine, or vice-versa.
+- Replacement logistics are slow and often require a full visit; some warranties cover only limited damage or only a single replacement.
+
+=== 2.2 UES-based Solution
+
+We launch Reframe Kids, frames with:
+- Standard UES lens interface (UES-C-XS and UES-C-S) for children between 5 and 10 years old
+- Snap-in lenses: parents can install lenses at home in under a minute with clear visual confirmation.
+
+Benefits for parents:
+- When frames break, they buy only a low-cost frame; lenses are reused.
+- The child can have 2-3 frames in different colours/styles for the same lenses.
+- If prescription changes, only lenses change; existing frames remain valid.
+- Potential to pre-buy spare frames for peace of mind (school, grandparents' house, sports kit bag).
+
+Benefits for kids:
+- Less drama when glasses break - backup frame already at home at low cost.
+- Ability to change style or colour without needing new lenses.
+- If glasses break at school, the child can swap to a spare frame right there and then, without waiting for a parent or an optician appointment.
+
+== 3. Business Model
+
+=== 3.1 Target Customer and Persona
+
+Primary customer: **Parent of a child 5-10 with a stable or slowly changing prescription** sensitive to:
+- Cost of frequent replacements.
+- Hassle of repeated optician visits.
+- Child's emotional attachment to specific frames/looks.
+
+Early geographic focus for pilot:
+- **Portugal (Amadora)** as the launch market and pilot region.
+
+=== 3.2 Offering and Revenue Streams
+
+Reframe Kids sells frames:
+
+- Product: UES-compliant kids frames (2 sizes, multiple colours, some themed drops).
+- Price point: target retail 25-40 EUR per frame.
+- Key feature: "lens-compatible forever" as long as UES standard is maintained.
+
+=== 3.3 Cost Structure
+
+Main cost drivers:
+- Design and tooling for UES-compliant child frames (2 base sizes).
+- Manufacturing (plastic injection / 3D printing for early runs, then scaled).
+- Marketing, especially parent trust building and optometrist outreach.
+- UES participation: annual Member or Logo Licensee fee (modest vs total budget).
+
+=== 3.4 Go-to-Market Options
+
+We consider two complementary channels:
+
+**Optometrist / clinic partners**
+   - Provide physical fitting and professional trust.
+   - Sell our frames with UES message: "If these frames break, just replace the frame; lenses stay."
+   - Spread on frame sales.
+
+**School partnerships**
+   - Donate a stock of UES-compliant spare frames (in the two pilot sizes) to participating schools.
+   - Schools keep the frames in the nurse's office or administration desk.
+   - When a child breaks their glasses during the school day, staff snap the existing lenses into a spare frame immediately — the child is back to full vision in minutes, without waiting for a parent or a same-day optician visit.
+   - Promoted to parents as a safety and convenience benefit: "Reframe Kids frames are available at your child's school. Breakage no longer means a lost school day."
+   - Frames given to schools act as a marketing touchpoint: parents who see the swap happen first-hand become the strongest word-of-mouth advocates.
+
+== 4. Pilot Design
+
+=== 4.1 Objectives and Metrics
+
+The pilot's main objective is *hypothesis validation*, not short-term profit.
+
+Key questions:
+- can frame manufacturers produce UES frame with the specification alone?
+- can lens manufacturers produce UES lenses that fit securely in the frames?
+- Will parents understand and value lens-frame decoupling?
+- Can 2 sizes cover the majority of 5-10 year olds?
