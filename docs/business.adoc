@@ -104,9 +104,24 @@ We consider two complementary channels:
    - Promoted to parents as a safety and convenience benefit: "Reframe Kids frames are available at your child's school. Breakage no longer means a lost school day."
    - Frames given to schools act as a marketing touchpoint: parents who see the swap happen first-hand become the strongest word-of-mouth advocates.
 
-== 4. Pilot Design
+== 4. Institutional Support
 
-=== 4.1 Objectives and Metrics
+=== 4.1 Amadora Inova
+
+**Amadora Inova** is a public entity linked to the Câmara Municipal de Amadora.
+Following an initial call in May 2026, they expressed interest in supporting the Reframe Kids pilot.
+
+Their support covers three areas:
+
+- **CEO/COO search**: Help finding a founding executive to bootstrap the company.
+- **Institutional access for the social project**: Support in engaging schools and other institutions as part of the school partnership channel (see section 3.4).
+- **Company formation support**: Guidance and assistance in setting up the legal entity.
+
+Amadora Inova expects the company to be headquartered in Amadora.
+
+== 5. Pilot Design
+
+=== 5.1 Objectives and Metrics
 
 The pilot's main objective is *hypothesis validation*, not short-term profit.
 
