@@ -49,59 +49,22 @@ When every compliant lens and every compliant frame rim implement this mechanica
 This specification normatively defines:
 
 . The contour model - a UES aperture outline as a list of control points of a cubic Bézier curve, shared by both lens body and frame rim aperture.
-. Size codes (XS through L) that scale the unit shape to the physical lens diameter, together with the bridge widths paired with each size.
-. The bevel ridge on the lens edge and the matching bevel groove on the frame rim inner wall — the single mechanical feature that makes the standard work.
-. Lens edge geometry constraints (bevel zone width, edge face perpendicularity in the bevel zone).
-. Frame rim body geometry (rim channel width and depth, aperture shape).
+. Size codes (XS and S) that scale:
+.. the box size
+.. the bridge width of the frame
+.. the horizontal and vertical curvature of the aperture contour
+. The bevel ridge on the lens edge and the matching bevel groove on the frame rim inner wall
+. The clearance on the frame to allow lens with different thickness to fit without prescription-specific rim geometry
 . Material requirements for the bevel zone of both product types.
 . Surface finish requirements in the bevel zone.
 . Environmental and durability requirements (temperature, humidity, UV, insertion/removal cycle life).
-. Dimensional tolerances on all normative dimensions.
 
 NOTE: Conformance test procedures and compliance declaration requirements are defined in the companion link:compliance-test.adoc[UES Compliance Test Procedures] document.
 
 The following are outside scope:
 
-* Optical prescription values, coatings, tints, and UV absorption — these remain entirely at the discretion of the lens manufacturer.
+* Optical prescription values, coatings, tints, and UV absorption - these remain entirely at the discretion of the lens manufacturer.
 * Frame materials, temple styles, nose pad design, hinge mechanisms, and all other frame geometry not at the rim aperture.
-
-=== Normative References
-
-The following documents are referenced normatively.
-The edition in effect on the date of this specification applies unless a specific edition is cited.
-
-[cols="1,4", options="header"]
-|===
-|Identifier
-|Document
-
-|ISO 8624
-|Ophthalmic optics — Spectacle frames — Measuring system and terminology
-
-|ISO 12870
-|Ophthalmic optics — Spectacle frames — Requirements and test methods
-
-|ISO 14889
-|Ophthalmic optics — Spectacle lenses — Fundamental requirements for uncut finished lenses
-
-|ISO 21987
-|Ophthalmic optics — Mounted spectacle lenses
-
-|EN ISO 7998
-|Ophthalmic optics — Spectacle frames — Lists of equivalent and related terms
-
-|ISO 4287
-|Geometrical Product Specifications — Surface texture: Profile method — Terms, definitions and surface texture parameters
-
-|ISO 4892-3
-|Plastics — Methods of exposure to laboratory light sources — Part 3: Fluorescent UV lamps
-
-|ISO 179-1
-|Plastics — Determination of Charpy impact properties — Part 1: Non-instrumented impact test
-
-|ASTM F735
-|Standard Test Method for Abrasion Resistance of Transparent Plastics and Coatings Using the Oscillating Sand Method
-|===
 
 === Conventions
 
@@ -136,7 +99,6 @@ Dimensions are in millimetres (mm) unless otherwise stated.
 Angles are in degrees (°).
 Forces are in Newtons (N).
 Temperatures are in degrees Celsius (°C).
-All tolerances are bilateral (± value) unless otherwise stated.
 Surface roughness is in micrometres (µm).
 
 === Terms and Definitions
@@ -162,7 +124,7 @@ Bridge width:: The clear distance between the inner nasal edges of the two lens 
 
 Clearance fit:: An assembly condition in which the groove dimensions exceed the ridge dimensions by a defined amount, ensuring the lens can be inserted and removed by hand. In the UES interface, this applies to the V-groove/ridge pair only; the outer cylindrical surface of the lens edge is a sliding fit against the rim channel inner wall.
 
-Sliding fit:: An assembly condition in which two mating cylindrical surfaces share the same nominal diameter, with tolerances set so that the parts can slide together without force but with negligible radial play. In the UES interface, the lens flat land outer surface slides against the rim channel inner wall, providing radial centring.
+Sliding fit:: An assembly condition in which two mating cylindrical surfaces share the same nominal diameter, so that the parts can slide together without force but with negligible radial play. In the UES interface, the lens flat land outer surface slides against the rim channel inner wall, providing radial centring.
 
 Compliant lens:: A lens that satisfies all normative requirements of this specification for the lens role.
 
@@ -170,11 +132,9 @@ Compliant frame rim:: A frame rim that satisfies all normative requirements of t
 
 Datum plane:: The vertical plane parallel to the lens front surface, passing through the horizontal centreline of the lens, as defined in ISO 8624.
 
-Fully seated:: The condition in which the bevel ridge apex contacts the bevel groove apex along the entire perimeter and the lens front surface is flush with the frame rim front face, within the tolerances of this specification.
+Fully seated:: The condition in which the bevel ridge apex contacts the bevel groove apex along the entire perimeter and the lens front surface is flush with the frame rim front face.
 
 Insertion force:: The maximum force required to press a compliant lens into a fully seated position in a compliant rim.
-
-Nominal:: The target dimension to which tolerances apply.
 
 Retention force:: The minimum force required to unseat a fully seated compliant lens from a compliant rim by applying a load perpendicular to the lens plane at the centre of the lens.
 
@@ -184,7 +144,7 @@ Size code:: A one or two letter identifier (e.g. "XS") of the lens boxing width 
 
 Shape code:: A one or two letter identifier (e.g. "C") of the lens contour shape.
 
-Product code:: A designator of the form UES-TT-SS, where TT is a one- or two-letter shape-type identifier (e.g., C for Circular) and SS is a size code (e.g., XS, S, M, L), that uniquely identifies a lens shape and physical scale; two products are mechanically compatible if and only if they carry the same product code.
+Product code:: A designator of the form UES-TT-SS, where TT is a one- or two-letter shape-type identifier (e.g., C for Circular) and SS is a size code (e.g., XS, S), that uniquely identifies a lens shape and physical scale; two products are mechanically compatible if and only if they carry the same product code.
 
 Control point:: One of the ordered points P₀, P₁, … that define a UES looped cubic Bézier contour; see <<_contour_model>>.
 
@@ -206,7 +166,7 @@ It is intentionally defined as a single, simple V-bevel feature so that:
 * installation requires no tools, no adhesive, and no fasteners;
 * the interface self-centres the lens during installation by the geometry of the V-groove.
 
-=== Product Types
+=== Products impacted
 
 This specification governs two parts of two product types:
 
@@ -284,7 +244,7 @@ This property is verified for each shape at the time it is admitted to the catal
 === Size Catalogue
 
 Size codes specify the lens diameter and bridge width.
-All dimensions are nominal; tolerances are defined in <<_dimensional_tolerances>>.
+All dimensions are nominal.
 
 [[size-table]]
 [cols="1,1,1", options="header"]
@@ -300,15 +260,47 @@ All dimensions are nominal; tolerances are defined in <<_dimensional_tolerances>
 |S
 |56.0
 |17.0
-
-|M
-|61.0
-|19.0
-
-|L
-|67.0
-|21.0
 |===
+
+[[_aperture_curvature]]
+=== Aperture Curvature
+
+The UES aperture contour is not flat; it lies on an ellipsoidal surface whose curvature is fixed for each size code.
+Two radii, measured from the midpoint of the bridge, define this surface:
+
+Centre of curvature:: The single reference point from which both Rx and Ry are measured.
+It is located at the midpoint of the bridge, in the datum plane (the vertical plane at the horizontal centreline of the lenses).
+Because both radii share this point, the aperture surface of each lens is a patch of an ellipsoidal surface centred at the bridge midpoint, so the lens pair follows the curvature of the wearer's face.
+
+Rx (horizontal radius):: Distance from the centre of curvature to the aperture surface, measured in the horizontal plane.
+A smaller Rx produces a more pronounced temporal wrap.
+
+Ry (vertical radius):: Distance from the centre of curvature to the aperture surface, measured in the vertical plane through the centre of curvature.
+A smaller Ry produces a more pronounced vertical (pantoscopic) wrap.
+
+NOTE: [informative] Curvature is size-code dependent because a larger aperture subtends a greater arc of the face; fixing the radii per size code keeps the lateral and vertical wrap angles consistent across frame sizes.
+
+[[curvature-table]]
+[cols="1,1,1", options="header"]
+|===
+|Size Code
+|Rx (mm)
+|Ry (mm)
+
+|XS
+|TODO
+|TODO
+
+|S
+|TODO
+|TODO
+|===
+
+The lens body SHALL be curved to match Rx and Ry for its declared size code.
+The frame rim aperture SHALL present the same Rx and Ry for its declared size code, so that the lens edge lies flush against the rim channel inner wall around the full perimeter.
+
+NOTE: [informative] Rx and Ry are measured from the shared centre of curvature at the bridge midpoint.
+The local radius of curvature of the rim channel inner wall varies around the perimeter because the aperture is not circular; the values in <<curvature-table>> are the principal-plane radii from the bridge midpoint and serve as the reference for tooling setup and measurement.
 
 == Lens Edge Geometry
 
@@ -318,69 +310,16 @@ All dimensions are nominal; tolerances are defined in <<_dimensional_tolerances>
 The physical edge outline (without the ridge) of the lens is derived from the unit shape of the declared shape code (see <<shape-catalogue>>) and the boxing width A of the declared size code (see <<size-table>>) as follows:
 multiply the x- and y-coordinates of every control point in the unit shape by A (in millimetres).
 
-The lens body SHALL conform to this scaled outline within the tolerances defined in <<_dimensional_tolerances>>.
-
-[[_bevel_zone_width]]
-=== Bevel Zone Width
-
-The lens edge SHALL present a fixed-width axial band — the bevel zone — of nominal axial width *3.00 mm* continuously around the full perimeter, centred on the lens mid-plane.
-Within the bevel zone, the flat land areas on each side of the bevel ridge base SHALL lie on a common cylinder (constant radius from the lens axis).
-
-The flat lands on each side of the 1.20 mm ridge base are each nominally 0.90 mm wide (= (3.00 − 1.20) / 2).
-
-.Lens Bevel Ridge Cross-Section
-image::diagrams/bevel-lens-side.drawio.png[Lens Bevel Ridge Cross-Section,600,align="center"]
-
-=== Edge Face Perpendicularity
-
-The outer cylindrical face of the lens edge (the surface on which the bevel ridge is formed) SHALL be perpendicular to the lens plane within 2°.
-
-NOTE: [informative] This 2° limit is chosen such that bevel groove contact per <<_bevel_groove>> remains achievable under worst-case tolerance stack-up.
+The lens body SHALL conform to this scaled outline.
 
 [[_bevel_ridge]]
 === Bevel Ridge
 
-A symmetrical V-shaped ridge SHALL run continuously around the full perimeter of the lens edge.
+A symmetrical V-shaped ridge SHALL run continuously around the full perimeter of the lens contour.
+The ridge normal SHALL NOT bend based on the contour's curvature and SHALL be co-planar with the xy plane.
 
-.Lens Bevel Ridge Cross-Section Parameters
-[cols="2,1,3", options="header"]
-|===
-|Parameter
-|Nominal Value
-|Description
-
-|Depth
-|0.8392 mm
-|Radial distance from the flat outer boundary of the lens body to the apex of the ridge, measured perpendicular to the lens axis
-
-|Width at base
-|1.20 mm
-|Chord width of the ridge at the level of the flat lens body outer boundary (the opening of the V)
-
-|Included angle
-|120°
-|Angle between the two flank faces of the V; each flank is 60° from the plane containing the lens axis
-
-|Apex position — axial
-|Centred on edge mid-plane
-|The apex SHALL lie within ± 0.1 mm of the geometric mid-plane of the lens edge measured in the bevel zone
-
-|Apex radius
-|0.20 mm
-|Tangent arc rounding both flanks at the tip of the ridge; prevents stress concentration; the arc SHALL be tangent to both flanks
-
-|Flank planarity
-|—
-|Maximum deviation from best-fit plane SHALL NOT exceed 0.05 mm over any 10 mm arc length
-|===
-
-The ridge flanks are planar and symmetric about the lens mid-plane.
-The apex is rounded with a 0.20 mm radius tangent arc to both flanks.
-Flank surfaces SHALL be smooth to Ra ≤ 0.4 µm (see <<_surface_finish>>).
-The bevel ridge protrudes 0.8392 mm radially beyond the lens body edge, giving an overall maximum diameter of *d* + 1.6784 mm including the ridge.
-
-NOTE: The 120° included angle maximises self-centering force during insertion while allowing manual release without the ridge plastically deforming the groove.
-Narrower angles increase retention but may require tools to release; wider angles reduce retention below the minimum defined in <<_retention_force>>.
+.Cross section view of the bevel ridge
+image::diagrams/ridge-top.svg[Lens Bevel Ridge Top View,600,align="center"]
 
 [[_frame_rim_geometry]]
 == Frame Rim Geometry
@@ -391,7 +330,22 @@ Narrower angles increase retention but may require tools to release; wider angle
 The shape of the rim aperture opening SHALL conform to the scaled contour of the declared product code: the same unit shape (see <<shape-catalogue>>) scaled by the lens diameter D of the declared size code (see <<size-table>>).
 
 The rim aperture diameter is measured at the entrance plane of the rim channel, before the groove.
-The rim aperture SHALL conform to this outline within the tolerances defined in <<_dimensional_tolerances>>.
+The rim aperture SHALL conform to this outline.
+
+[[_bevel_zone_width]]
+=== Bevel Zone Width
+
+The lens edge SHALL present a fixed-width axial band — the bevel zone — of nominal axial width *3.00 mm* continuously around the full perimeter, centred on the lens mid-plane.
+Within the bevel zone, the flat land areas on each side of the bevel ridge base SHALL lie on a common cylinder (constant radius from the lens axis).
+
+The flat lands on each side of the 2.64 mm ridge base are each nominally 0.18 mm wide (= (3.00 − 2.64) / 2).
+
+.Lens Bevel Ridge Cross-Section
+image::diagrams/bevel-lens-side.drawio.png[Lens Bevel Ridge Cross-Section,600,align="center"]
+
+=== Edge Face Perpendicularity
+
+The outer cylindrical face of the lens edge (the surface on which the bevel ridge is formed) SHALL be perpendicular to the lens plane within 2°.
 
 [[_rim_channel_width]]
 === Rim Channel Width
@@ -405,391 +359,3 @@ NOTE: The 3.20 mm channel width equals the lens bevel zone width (3.00 mm) plus 
 
 .Frame Channel Cross-Section
 image::diagrams/bevel-frame-side.drawio.png[Frame Channel Cross-Section,600,align="center"]
-
-=== Inner Wall Perpendicularity
-
-The inner wall of the rim channel (the surface on which the bevel groove is formed) SHALL be perpendicular to the rim plane within 2°.
-
-NOTE: [informative] This 2° limit is chosen such that bevel groove contact per <<_bevel_groove>> remains achievable under worst-case tolerance stack-up.
-
-[[_bevel_groove]]
-=== Bevel Groove
-
-A V-shaped groove SHALL be present continuously around the full inner wall of the frame rim aperture.
-The groove dimensions are derived from the lens ridge dimensions plus a defined assembly clearance.
-
-.Bevel Groove Cross-Section Parameters
-[cols="2,1,1,3", options="header"]
-|===
-|Parameter
-|Lens Ridge (nominal)
-|Groove (nominal)
-|Notes
-
-|Depth
-|0.8392 mm
-|0.9258 mm
-|resulting from the +0.05 mm clearance on the flanks.
-
-|Opening width
-|1.20 mm
-|1.30 mm
-|+0.05 mm per flank (total +0.10 mm); provides insertion clearance
-
-|Included angle
-|120°
-|120°
-|Flanks parallel to lens ridge flanks; no angular clearance
-
-|Apex radius
-|0.20 mm
-|0.20 mm
-|Hard contact reference at apex; retained to aid self-centering and prevent stress concentration in the rim
-
-|Axial position
-|Lens mid-plane
-|Mid-depth of rim wall
-|Groove centred on the axial midpoint of the rim channel; see <<_rim_channel_width>>
-|===
-
-=== Assembly Clearance and Fit
-
-The UES interface uses two distinct fit types acting simultaneously:
-
-* *Sliding fit* — the flat land areas on the lens edge (at the nominal lens body diameter d) bear against the inner wall of the rim channel. This is the radial centring mechanism: the lens is located in the aperture by this cylindrical contact, not by the V-groove.
-* *Clearance fit* — the V-ridge on the lens sits inside the V-groove on the rim with a defined flank clearance. This is the axial retention mechanism: the flanks resist any force pushing the lens out of the plane.
-
-The lens ridge SHALL NOT be a press fit (interference fit) in the groove.
-
-[cols="2,1,3", options="header"]
-|===
-|Parameter
-|Value
-|Description
-
-|Lens flat land vs. rim channel inner wall (radial)
-|0 mm nominal
-|Sliding fit; provides radial centring; lens outer surface and rim channel wall share the same nominal diameter d
-
-|Lens edge end face vs. rim channel side wall (axial)
-|0.10 mm per side
-|Air gap; lens end face does not contact the rim channel side wall
-
-|Ridge flank vs. groove flank (per flank, nominal)
-|0.05 mm
-|Air gap at nominal; flanks carry load only under axial force
-
-|Ridge flank vs. groove flank (per flank, minimum)
-|0.00 mm
-|Worst-case tolerances; flanks in full contact; no interference; this condition SHALL still meet the insertion force limits in <<_insertion_force>>
-
-|Ridge flank vs. groove flank (per flank, maximum)
-|0.15 mm
-|Worst-case tolerances; retention force still above minimum defined in <<_retention_force>>
-
-|Ridge apex vs. groove apex (radial)
-|0.05 mm
-|Air gap; ridge shall not bottom out on groove floor
-|===
-
-=== Frame Rim Face Flatness
-
-The front face of the frame rim (the surface visible from the front) SHALL be planar to within 0.30 mm over the aperture diameter.
-This planarity ensures that a fully seated lens front face is flush with the rim front face.
-
-[[_materials]]
-== Material Requirements
-
-=== Lens Edge Bevel Zone Material
-
-The material forming the bevel ridge SHALL:
-
-* Have a Shore D hardness ≥ 70 (or equivalent for the material class) to prevent permanent deformation of the ridge under insertion force.
-* Have a Charpy unnotched impact strength ≥ 5 kJ/m² (ISO 179-1) so the ridge does not fracture during insertion or removal at temperatures down to -20 °C.
-* Not exhibit cold flow (creep) that reduces bevel ridge depth by more than 0.05 mm after 1,000 hours at 60 °C under a lateral force of 5 N.
-
-NOTE: Common lens materials that satisfy these requirements include CR-39 (allyl diglycol carbonate), polycarbonate (PC), Trivex, and high-index glass.
-
-=== Frame Rim Bevel Groove Material
-
-The material forming the bevel groove SHALL:
-
-* Have a Shore D hardness ≥ 60 (lower than lens to place incremental wear preferentially on the rim, which is the less costly element to replace).
-* Have sufficient elasticity to allow hand flexing of the rim sufficient for manual lens installation and removal.
-* Not exhibit cold flow that narrows the groove opening width by more than 0.05 mm after 1,000 hours at 60 °C under a lateral force of 5 N.
-
-NOTE: Common frame rim materials that satisfy these requirements include acetate (cellulose acetate), nylon (PA), nylon-glass fibre composite, titanium alloy (for metal rims with grooved wire), and spring steel wire.
-
-=== Prohibited Materials and Treatments
-
-The following SHALL NOT be applied within the bevel zone on either the lens ridge or the groove:
-
-* Soft elastomeric coatings with Shore A hardness < 50.
-* Lubricants containing solvents that attack polycarbonate (ketones, esters, chlorinated solvents).
-* Adhesives or bonding agents (the interface is mechanical only).
-
-[[_surface_finish]]
-=== Surface Finish Requirements
-
-[cols="2,1,1", options="header"]
-|===
-|Surface
-|Ra (µm) — normative limit
-|Rz (µm) — informative
-
-|Lens bevel ridge flanks
-|≤ 0.4
-|≤ 2.0
-
-|Lens bevel ridge apex arc
-|≤ 0.8
-|≤ 4.0
-
-|Lens flat edge outer boundary
-|≤ 1.6
-|≤ 8.0
-
-|Frame rim groove flanks
-|≤ 0.8
-|≤ 4.0
-
-|Frame rim groove apex
-|≤ 0.8
-|≤ 4.0
-|===
-
-Roughness is measured per ISO 4287 over a 2.5 mm evaluation length, stylus tip radius 2 µm.
-
-NOTE: Smoother lens ridge flanks reduce friction during insertion, lower insertion force, and extend groove wear life.
-The asymmetric limits (lens smoother than rim) place incremental wear preferentially on the rim.
-
-== Environmental and Durability Requirements
-
-=== Temperature
-
-==== Operating Temperature Range
-
-A fully mated lens-and-rim assembly SHALL meet all retention force requirements of <<_retention_force>> throughout the operating temperature range of -20 °C to +60 °C.
-
-==== Storage Temperature Range
-
-A lens or frame rim, un-mated, SHALL survive storage at -30 °C to +80 °C for up to 72 hours with no dimensional change exceeding 0.05 mm on any normative bevel dimension, measured after return to 23 °C ± 2 °C.
-
-==== Thermal Shock
-
-A mated assembly SHALL survive five cycles of:
-
-. Immersion in water at 5 °C ± 2 °C for 30 minutes.
-. Transfer within 30 seconds to water at 55 °C ± 2 °C for 30 minutes.
-
-After completion, the assembly SHALL meet the minimum retention force of <<_retention_force>> and the lens SHALL show no visible cracks under 1,000 lux illumination.
-
-=== Humidity
-
-A mated assembly SHALL survive 240 hours at 40 °C and 95% relative humidity (non-condensing) with no loss of retention force below the minimum defined in <<_retention_force>> and no visible corrosion, delamination, or warping that would prevent re-seating.
-
-=== Ultraviolet Exposure
-
-A lens and a frame rim SHALL each survive 200 hours of UV exposure per ISO 4892-3 (fluorescent UV lamps, UV-A 340 nm, irradiance 0.76 W/m²·nm) with no:
-
-* Loss of bevel ridge depth exceeding 0.05 mm.
-* Loss of groove opening width exceeding 0.05 mm.
-* Cracking or crazing of any bevel zone surface.
-
-=== Insertion and Removal Cycle Life
-
-The bevel interface SHALL be rated for a minimum of 500 insertion and removal cycles (one cycle = full installation to fully seated + full removal).
-
-After 500 cycles, the assembly SHALL:
-
-. Pass the retention force test.
-. Show no bevel ridge depth reduction exceeding 0.10 mm.
-. Show no groove opening width increase exceeding 0.10 mm.
-. Allow the lens to be installed and removed by hand without tools.
-
-NOTE: 500 cycles is the baseline.
-A manufacturer MAY claim a higher cycle rating (e.g., "UES 2000-cycle rated") if the product passes the endurance test at the higher cycle count.
-
-=== Drop and Impact (Informative)
-
-[informative]
-UES-compliant lenses and rims are not required to pass a drop or ballistic impact test as part of this specification; such requirements are governed by national eyewear safety standards (e.g., EN ISO 16321, ANSI Z87.1).
-Manufacturers are encouraged to test their products to the applicable safety standard independently of UES compliance.
-
-[[_dimensional_tolerances]]
-== Dimensional Tolerances
-
-All tolerances in this table are bilateral (± value) unless otherwise specified.
-Compliance is assessed at 23 °C ± 2 °C, 50% ± 5% RH, with parts unconstrained (not mated).
-
-[cols="3,1,1,2", options="header"]
-|===
-|Dimension
-|Nominal
-|Tolerance
-|Notes
-
-|Lens boxing width A (XS)
-|51.0 mm
-|± 0.10 mm
-|Horizontal bounding-box width of the lens aperture contour (the temple "D" value), measured per ISO 12870 boxing system; excludes bevel ridge.
-This is the sliding-fit surface that radially centres the lens in the rim channel.
-
-|Lens boxing width A (S)
-|56.0 mm
-|± 0.10 mm
-|As above; nominal value for size S.
-
-|Lens boxing width A (M)
-|61.0 mm
-|± 0.10 mm
-|As above; nominal value for size M.
-
-|Lens boxing width A (L)
-|67.0 mm
-|± 0.10 mm
-|As above; nominal value for size L.
-
-|Bridge width
-|per product code
-|± 0.20 mm
-|Measured per ISO 8624; frame only
-
-|Bevel ridge depth (radial)
-|0.8392 mm
-|± 0.05 mm
-|Critical for retention; tighter than general tolerances
-
-|Bevel ridge opening width
-|1.20 mm
-|± 0.05 mm
-|Critical for fit; tighter than general tolerances
-
-|Bevel ridge included angle
-|120°
-|± 1°
-|Measured over the full flank length
-
-|Bevel ridge apex radius
-|0.20 mm
-|± 0.05 mm
-|Minimum 0.15 mm; sharp apex prohibited
-
-|Bevel ridge apex axial position
-|Mid-plane
-|± 0.10 mm
-|Relative to geometric mid-plane of lens edge in bevel zone
-
-|Bevel ridge flank planarity
-|0.00 mm
-|≤ 0.05 mm
-|Maximum deviation from best-fit plane SHALL NOT exceed 0.05 mm over any 10 mm arc length
-
-|Bevel groove depth (radial)
-|0.9258 mm
-|± 0.05 mm
-|Measured from rim inner wall surface to groove apex
-
-|Bevel groove opening width
-|1.30 mm
-|± 0.05 mm
-|Measured at the entrance level of the groove
-
-|Bevel groove included angle
-|120°
-|± 1°
-|Shall match lens ridge angle; no angular clearance intended
-
-|Bevel groove apex radius
-|0.20 mm
-|± 0.05 mm
-|
-
-|Bevel groove axial position
-|Rim channel midpoint
-|± 0.10 mm
-|Centred on the axial midpoint of the rim channel; see <<_rim_channel_width>>
-
-|Bevel zone axial width
-|3.00 mm
-|± 0.10 mm
-|Measured on the lens edge; the axial band within which the ridge is centred and the flat lands lie on a common cylinder
-
-|Rim channel axial width
-|3.20 mm
-|+0.10 / -0.00 mm
-|One-sided; channel SHALL never be narrower than 3.20 mm; see <<_rim_channel_width>>
-
-|Bevel ridge continuity (max gap)
-|0.00 mm
-|≤ 0.10 mm arc
-|Any single gap > 0.10 mm arc constitutes a non-conformance
-
-|Bevel groove continuity (max gap)
-|0.00 mm
-|≤ 0.10 mm arc
-|
-|===
-
-== Mechanical Performance Requirements
-
-[[_insertion_force]]
-=== Insertion Force
-
-Insertion force is the force required to press a compliant lens into a fully seated position in a compliant rim.
-
-A compliant lens of any product code SHALL seat fully in a compliant rim of the same product code by applying a force no greater than:
-
-[cols="1,1", options="header"]
-|===
-|Size Code
-|Maximum Insertion Force
-
-|XS
-|12 N
-
-|S
-|14 N
-
-|M
-|16 N
-
-|L
-|18 N
-|===
-
-NOTE: Forces scale with perimeter length.
-The limits above correspond to approximately 75 N/m of bevel perimeter.
-The insertion force test procedure is defined in the link:compliance-test.adoc[UES Compliance Test Procedures].
-
-[[_retention_force]]
-=== Retention Force
-
-Retention force is the minimum force required to unseat a fully seated compliant lens by applying a centralised normal load perpendicular to the lens plane.
-
-A fully seated compliant lens SHALL require a force no less than the values below to unseat, measured per the link:compliance-test.adoc[UES Compliance Test Procedures]:
-
-[cols="1,1", options="header"]
-|===
-|Size Code
-|Minimum Retention Force
-
-|XS
-|20 N
-
-|S
-|22 N
-
-|M
-|25 N
-
-|L
-|28 N
-|===
-
-NOTE: The minimum retention force is set high enough that a lens will not unseat when the frame is dropped face-down from 1 m, but low enough to be overcome by hand during intentional removal.
-
-=== Seating Flush Requirement
-
-When fully seated, the lens front face SHALL be flush with the frame rim front face within ± 0.30 mm across the full rim perimeter.
-A lens recessed more than 0.30 mm or proud more than 0.30 mm of the rim front face is non-conforming.
