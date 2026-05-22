@@ -58,6 +58,7 @@ DOCS_PDF = $(patsubst docs/%.adoc,$(BUILD_DIR)/docs/%.pdf,$(DOCS_ADOC))
 # Targets
 .PHONY: all html pdf logos clean view help
 
+
 all: html
 
 help:
@@ -74,7 +75,7 @@ help:
 	@echo "Individual targets:"
 	@echo "  make index      - Build main index.html"
 	@echo "  make spec       - Build technical specification"
-	@echo "  make docs       - Build all docs/ documents"	@echo "  make logos      - Convert SVG logos to PNG"	@echo "  make cad        - Export CAD (STEP/STL) for all sizes"
+	@echo "  make docs       - Build all docs/ documents"	@echo "  make logos      - Convert SVG logos to PNG"
 
 html: $(INDEX_HTML) $(SPEC_HTML) $(COMPLIANCE_TEST_HTML) $(DOCS_HTML) $(PNG_LOGOS)
 	@echo "✓ HTML documentation generated successfully"
@@ -126,15 +127,6 @@ $(SPEC_PDF): $(SPEC) | $(BUILD_DIR)/spec
 $(BUILD_DIR)/docs/%.pdf: docs/%.adoc | $(BUILD_DIR)/docs
 	@echo "Building $@ (v$(VERSION))..."
 	$(ADOC_PDF) $(ADOC_ATTRS) -o $@ $<
-
-# CAD export
-cad: | $(BUILD_DIR)/cad
-	@echo "Exporting CAD (v$(VERSION))..."
-	python src/ues/export.py $(BUILD_DIR)/cad
-	@echo "✓ CAD exported to $(BUILD_DIR)/cad"
-
-$(BUILD_DIR)/cad:
-	@mkdir -p $(BUILD_DIR)/cad
 
 # Create build directories
 $(BUILD_DIR):

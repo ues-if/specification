@@ -3,8 +3,7 @@ Universal Eyeglass Socket — Reference frame design
 
 Defines the FrameDesign dataclass and three reference design instances
 (DEFAULT, MINIMAL, SHOWCASE).  None of these are normative — they are
-provided as starting points and for use by the reference CAD builders in
-ues.to_build123d.
+provided as starting points for frame design.
 
 The normative frame-side interface constants (RIM_DEPTH, RIM_WALL_THICKNESS)
 live in ues.spec.frame.
