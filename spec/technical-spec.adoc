@@ -107,7 +107,7 @@ Bevel groove:: The V-shaped groove present continuously around the full inner (a
 
 Bevel ridge:: The V-shaped ridge formed continuously around the full perimeter of the edge of a UES-compliant lens; the male mating feature of the interface.
 
-Bevel zone:: A fixed-width axial band around the full perimeter of the lens edge, centred on the lens mid-plane, within which the bevel ridge is formed; the flat land areas on each side of the ridge base lie on a common cylinder. Also, the corresponding annular region of the frame rim inner wall that carries the bevel groove.
+Bevel zone:: A fixed-width axial band around the full perimeter of the lens edge, centred on the lens mid-plane, within which the bevel ridge is formed; the flat land areas on each side of the ridge base lie on a common surface of constant offset from the aperture contour, following the aperture curvature of the declared size code. Also, the corresponding annular region of the frame rim inner wall that carries the bevel groove.
 The bevel zone width is the same regardless of prescription-driven lens body thickness.
 
 [[boxing_a_dimension]]
@@ -134,10 +134,6 @@ Datum plane:: The vertical plane parallel to the lens front surface, passing thr
 
 Fully seated:: The condition in which the bevel ridge apex contacts the bevel groove apex along the entire perimeter and the lens front surface is flush with the frame rim front face.
 
-Insertion force:: The maximum force required to press a compliant lens into a fully seated position in a compliant rim.
-
-Retention force:: The minimum force required to unseat a fully seated compliant lens from a compliant rim by applying a load perpendicular to the lens plane at the centre of the lens.
-
 Rim channel:: The annular recess in the frame rim that receives the lens edge including the bevel ridge; the bevel groove is cut into the inner wall of this channel.
 
 Size code:: A one or two letter identifier (e.g. "XS") of the lens boxing width A (see <<boxing_a_dimension>>).
@@ -152,7 +148,7 @@ Control point:: One of the ordered points P₀, P₁, … that define a UES loop
 Effective diameter (ED):: The lens blank size metric defined in ISO 8624 using the boxing system: stem:[\mathrm{ED} = \sqrt{\left(\frac{A}{2} + \mathrm{Dec}\right)^2 + \left(\frac{B}{2}\right)^2}], where A is the <<boxing_a_dimension,boxing width>>, B is the vertical height of the minimum axis-aligned bounding rectangle, and Dec is the horizontal decentration.
 Do not confuse ED with the UES size parameter, which is the boxing width A (see <<size-table>>).
 
-Unit shape:: An aperture contour expressed in normalized coordinates such that (a) the boxing centre is at the origin (Dec = 0) and (b) the <<boxing_a_dimension,boxing width A>> is equal to 1.
+Unit shape:: An aperture contour expressed in normalized coordinates such that (a) the boxing centre is at the origin (Dec = 0) and (b) the <<boxing_a_dimension,boxing width A>> is equal to 2 (i.e. on-curve endpoints span x ∈ [−1, +1]).
 
 == System Overview
 
@@ -186,20 +182,24 @@ A compliant lens of product code UES-TT-SS SHALL NOT be expected to mate with a 
 
 All UES aperture shapes are defined as *looped cubic Bézier curves* in a normalized coordinate system.
 This single contour governs both the lens body outline and the frame rim aperture opening.
-This decouples shape geometry from physical size: the shape is specified once as a unit shape with a normalised <<boxing_a_dimension,boxing width A>> of 1, and the size codes in <<_size_catalogue>> scale it by the aperture boxing width A to produce physical dimensions.
+This decouples shape geometry from physical size: the shape is specified once as a unit shape with a normalised <<boxing_a_dimension,boxing width A>> of 2 (on-curve endpoints at x = ±1), and the size codes in <<_size_catalogue>> scale it to produce physical dimensions.
 
 === Coordinate System and Normalization
 
 The coordinate system for unit shapes is:
 
 * Origin at the <<boxing_centre,boxing centre>> of the aperture contour (ISO 8624 §5 boxing system).
-* X-axis: horizontal, positive toward the temporal (right) side.
+* X-axis: horizontal, positive toward the temporal side (toward the wearer's right for the right lens).
 * Y-axis: vertical, positive toward the superior (top) direction.
+
+All unit shapes in the catalogue are defined for the *right lens*.
+The left lens unit shape is obtained by reflecting the right lens shape about the Y-axis: replace each control point (x, y) with (−x, y).
+The reflected contour remains counter-clockwise when viewed from the front.
 
 A *unit shape* is an aperture contour expressed in normalized coordinates such that:
 
 * The <<boxing_centre,boxing centre>> of the contour lies at the origin (Dec = 0); and
-* The <<boxing_a_dimension,boxing width *A*>> is 1 (i.e. the horizontal bounding-box extent is exactly 1).
+* The <<boxing_a_dimension,boxing width *A*>> is 2 (i.e. on-curve endpoints span x ∈ [−1, +1]).
 
 A shape code identifies a particular unit shape via an ordered list of control points in this normalized coordinate system.
 
@@ -230,7 +230,27 @@ In a cubic Bézier segment, P_{3i} and P_{(3i+3) mod M} are the on-curve endpoin
 Each shape in the catalogue is defined by its shape code, representing an ordered list of M = 3N control points in the normalized coordinate system of <<_coordinate_system_and_normalization>>.
 The control points fully determine the unit shape.
 
-TODO SHAPES
+==== Circular
+
+Shape code: *C*
+
+[cols="^1,^1,^1", options="header"]
+|===
+|Index |X |Y
+
+|0 |0 |0.9
+|1 |-0.35 |0.9
+|2 |-1 |0.8
+|3 |-1 |0.25
+|4 |-1 |-0.15
+|5 |-0.8 |-0.9
+|6 |0 |-0.9
+|7 |0.65 |-0.9
+|8 |1 |-0.35
+|9 |1 |0.25
+|10 |1 |0.65
+|11 |0.4 |0.9
+|===
 
 ==== Progressive Lens Clearance
 
@@ -268,24 +288,29 @@ All dimensions are nominal.
 The UES aperture contour is not flat; it lies on an ellipsoidal surface whose curvature is fixed for each size code.
 Two radii, measured from the midpoint of the bridge, define this surface:
 
-Centre of curvature:: The single reference point from which both Rx and Ry are measured.
+Centre of curvature:: The single reference point from which both Rx and Rz are measured.
 It is located at the midpoint of the bridge, in the datum plane (the vertical plane at the horizontal centreline of the lenses).
 Because both radii share this point, the aperture surface of each lens is a patch of an ellipsoidal surface centred at the bridge midpoint, so the lens pair follows the curvature of the wearer's face.
 
 Rx (horizontal radius):: Distance from the centre of curvature to the aperture surface, measured in the horizontal plane.
 A smaller Rx produces a more pronounced temporal wrap.
 
-Ry (vertical radius):: Distance from the centre of curvature to the aperture surface, measured in the vertical plane through the centre of curvature.
-A smaller Ry produces a more pronounced vertical (pantoscopic) wrap.
+Rz (vertical radius):: Distance from the centre of curvature to the aperture surface, measured in the vertical plane through the centre of curvature.
+A smaller Rz produces a more pronounced vertical (pantoscopic) wrap.
 
 NOTE: [informative] Curvature is size-code dependent because a larger aperture subtends a greater arc of the face; fixing the radii per size code keeps the lateral and vertical wrap angles consistent across frame sizes.
+
+NOTE: [informative] Because the left lens contour is the horizontal mirror of the right lens (see <<_coordinate_system_and_normalization>>), the horizontal curvature wraps in the opposite direction for the left lens relative to the right lens. Rx and Rz are the same values for both lenses.
+
+.Top view of the Aperture Curvature. The contour is curved at the bottom of the shape, with the bridge center at the center of the half elipsoid.
+image::diagrams/curvature-top.svg[Aperture Curvature Top View,600,align="center"]
 
 [[curvature-table]]
 [cols="1,1,1", options="header"]
 |===
 |Size Code
 |Rx (mm)
-|Ry (mm)
+|Rz (mm)
 
 |XS
 |TODO
@@ -296,10 +321,10 @@ NOTE: [informative] Curvature is size-code dependent because a larger aperture s
 |TODO
 |===
 
-The lens body SHALL be curved to match Rx and Ry for its declared size code.
-The frame rim aperture SHALL present the same Rx and Ry for its declared size code, so that the lens edge lies flush against the rim channel inner wall around the full perimeter.
+The lens body SHALL be curved to match Rx and Rz for its declared size code.
+The frame rim aperture SHALL present the same Rx and Rz for its declared size code, so that the lens edge lies flush against the rim channel inner wall around the full perimeter.
 
-NOTE: [informative] Rx and Ry are measured from the shared centre of curvature at the bridge midpoint.
+NOTE: [informative] Rx and Rz are measured from the shared centre of curvature at the bridge midpoint.
 The local radius of curvature of the rim channel inner wall varies around the perimeter because the aperture is not circular; the values in <<curvature-table>> are the principal-plane radii from the bridge midpoint and serve as the reference for tooling setup and measurement.
 
 == Lens Edge Geometry
@@ -308,7 +333,7 @@ The local radius of curvature of the rim channel inner wall varies around the pe
 === Lens Edge Outline
 
 The physical edge outline (without the ridge) of the lens is derived from the unit shape of the declared shape code (see <<shape-catalogue>>) and the boxing width A of the declared size code (see <<size-table>>) as follows:
-multiply the x- and y-coordinates of every control point in the unit shape by A (in millimetres).
+multiply the x- and y-coordinates of every control point in the unit shape by A/2 (in millimetres).
 
 The lens body SHALL conform to this scaled outline.
 
@@ -336,12 +361,7 @@ The rim aperture SHALL conform to this outline.
 === Bevel Zone Width
 
 The lens edge SHALL present a fixed-width axial band — the bevel zone — of nominal axial width *3.00 mm* continuously around the full perimeter, centred on the lens mid-plane.
-Within the bevel zone, the flat land areas on each side of the bevel ridge base SHALL lie on a common cylinder (constant radius from the lens axis).
-
-The flat lands on each side of the 2.64 mm ridge base are each nominally 0.18 mm wide (= (3.00 − 2.64) / 2).
-
-.Lens Bevel Ridge Cross-Section
-image::diagrams/bevel-lens-side.drawio.png[Lens Bevel Ridge Cross-Section,600,align="center"]
+Within the bevel zone, the flat land areas on each side of the bevel ridge base SHALL lie on a common surface of constant offset from the aperture contour, following the aperture curvature (Rx, Rz) of the declared size code (see <<_aperture_curvature>>).
 
 === Edge Face Perpendicularity
 
@@ -351,11 +371,22 @@ The outer cylindrical face of the lens edge (the surface on which the bevel ridg
 === Rim Channel Width
 
 The inner wall of the frame rim aperture SHALL present a fixed-width axial channel — the rim channel — of nominal axial width *3.20 mm* continuously around the full aperture perimeter, centred on the rim mid-plane.
-Within the rim channel, the flat land areas on each side of the bevel groove opening SHALL lie on a common cylinder (constant radius from the rim axis).
+Within the rim channel, the flat land areas on each side of the bevel groove opening SHALL lie on a common surface of constant offset from the aperture contour, following the aperture curvature (Rx, Rz) of the declared size code (see <<_aperture_curvature>>).
 
 The flat lands on each side of the 1.30 mm groove opening are each nominally 0.95 mm wide (= (3.20 − 1.30) / 2).
 
 NOTE: The 3.20 mm channel width equals the lens bevel zone width (3.00 mm) plus 0.10 mm axial clearance per side, and is independent of lens prescription.
 
-.Frame Channel Cross-Section
-image::diagrams/bevel-frame-side.drawio.png[Frame Channel Cross-Section,600,align="center"]
+The outer border profile of the frame rim SHALL follow the same contour as the lens body outline for the declared size code.
+The frame border cross-section geometry is identical to the lens edge geometry in the bevel zone.
+
+[[_frame_rim_clearance]]
+=== Clearance for Lens Extrusion
+
+A compliant frame rim SHALL provide sufficient axial clearance on the eye-facing (posterior) side of the rim channel to accommodate lens extrusion inwards toward the eye.
+This clearance is required because high-prescription (thick) lenses extrude significantly beyond the frame plane on the posterior side.
+
+The posterior clearance depth SHALL be no less than *4.00 mm* measured axially from the rim mid-plane toward the posterior face of the rim.
+
+NOTE: This requirement ensures that a thick lens does not contact the frame body before the bevel ridge is fully seated in the bevel groove.
+It does not constrain the external (anterior) profile of the frame.
