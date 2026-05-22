@@ -20,7 +20,9 @@ def create_reference_lens(size_code: str, lens_thickness: float = 2.0) -> Part:
     spec = LENS_SPECS[size_code]
     lens_wire = make_lens_wire(spec)
     T         = lens_thickness
-    BZ        = BEVEL_ZONE_WIDTH / 2   # half-width of the standardised interface band
+    BZ_TOP    = T / 2                        # anterior face of lens (= anterior face of bevel zone)
+    BZ_BOT    = T / 2 - BEVEL_ZONE_WIDTH     # posterior end of bevel zone
+    BZ_CEN    = T / 2 - BEVEL_ZONE_WIDTH / 2 # centre of bevel zone (ridge sits here, equal flat lands)
     D, W2, TIP_R, s, ux, uz_up, uz_dn = bevel_tip_params()
     # Cutter extends this far *outward* past the perimeter (u > 0) so the boolean
     # subtract cleanly removes the outer face regardless of spline numerical slop.
@@ -28,11 +30,13 @@ def create_reference_lens(size_code: str, lens_thickness: float = 2.0) -> Part:
     cutter_overhang = 0.5
 
     # Bevel cutter profile in local (u, z): u=0 at perimeter, u<0 inward.
-    # The cutter removes everything outside the fixed BZ band, leaving a
-    # cylindrical interface band of BEVEL_ZONE_WIDTH regardless of lens_thickness.
-    p_up          = (ux * s,   uz_up * s)
-    p_dn          = (ux * s,   uz_dn * s)
-    mid           = (-TIP_R,   0)
+    # The bevel zone is anchored at the anterior face (BZ_TOP) and extends
+    # posteriorly to BZ_BOT.  The V-ridge sits at BZ_CEN with 0.72 mm flat lands
+    # on each side.  The cutter removes the outer ring posterior to BZ_BOT (for
+    # lenses thicker than BEVEL_ZONE_WIDTH) and carves the V-ridge.
+    p_up          = (ux * s,   uz_up * s + BZ_CEN)
+    p_dn          = (ux * s,   uz_dn * s + BZ_CEN)
+    mid           = (-TIP_R,   BZ_CEN)
     profile_plane = profile_plane_at_wire_start(lens_wire)
 
     with BuildPart() as lens:
@@ -41,14 +45,14 @@ def create_reference_lens(size_code: str, lens_thickness: float = 2.0) -> Part:
 
         with BuildSketch(profile_plane):
             with BuildLine():
-                Line((-D,        W2),         (-D,        BZ))
-                Line((-D,        BZ),         (+cutter_overhang, BZ))
-                Line((+cutter_overhang, BZ),         (+cutter_overhang, -BZ))
-                Line((+cutter_overhang, -BZ),        (-D,        -BZ))
-                Line((-D,        -BZ),        (-D,        -W2))
-                Line((-D,        -W2),         p_dn)
+                Line((-D,        W2 + BZ_CEN),  (-D,        BZ_TOP))
+                Line((-D,        BZ_TOP),        (+cutter_overhang, BZ_TOP))
+                Line((+cutter_overhang, BZ_TOP), (+cutter_overhang, BZ_BOT))
+                Line((+cutter_overhang, BZ_BOT), (-D,        BZ_BOT))
+                Line((-D,        BZ_BOT),        (-D,        -W2 + BZ_CEN))
+                Line((-D,        -W2 + BZ_CEN),  p_dn)
                 ThreePointArc(p_dn, mid, p_up)
-                Line(p_up,                    (-D,        W2))
+                Line(p_up,                       (-D,        W2 + BZ_CEN))
             make_face()
         sweep(path=lens_wire, mode=Mode.SUBTRACT)
 

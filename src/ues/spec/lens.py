@@ -132,11 +132,11 @@ BEVEL_DEPTH         = 1.0   # mm — from lens perimeter surface to apex
 BEVEL_WIDTH         = 1.2   # mm — opening width at the lens surface
 BEVEL_ANGLE         = 120   # degrees (symmetrical V-ridge)
 
-# Bevel zone: fixed-width cylindrical band machined at the lens perimeter.
-# This is the ONLY dimension that must match between lens and frame — the
-# prescription-driven lens body thickness inboard of this band is unconstrained.
-# Ridge base (1.20 mm) + 0.90 mm flat land each side = 3.00 mm total.
-BEVEL_ZONE_WIDTH    = 3.0   # mm — axial width of the standardised interface band
+# Bevel zone: fixed-width cylindrical band at the ANTERIOR face of the lens edge,
+# extending posteriorly.  The lens body inboard of the bevel perimeter may extend
+# further posteriorly to any prescription thickness — that dimension is unconstrained.
+# Ridge base (1.20 mm) + 0.72 mm flat land each side = 2.64 mm total.
+BEVEL_ZONE_WIDTH    = 2.64  # mm — axial width of the bevel zone, from anterior face posteriorly
 
 # Assembly clearance applied to the frame groove (per flank / per face).
 # The groove is this much deeper and wider per side than the lens ridge,

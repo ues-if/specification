@@ -70,8 +70,8 @@ Required test equipment:
   All readings SHALL be within ± 1° of 120°.
 . Measure the bevel ridge apex radius at four positions.
   All readings SHALL be ≥ 0.15 mm and ≤ 0.25 mm.
-. Measure the bevel ridge apex axial position at four positions relative to the geometric mid-plane of the lens edge.
-  All readings SHALL be within ± 0.10 mm of the mid-plane.
+. Measure the bevel ridge apex axial position at four positions relative to the anterior face of the lens edge.
+  All readings SHALL be within ± 0.10 mm of 1.32 mm (= BEVEL_ZONE_WIDTH / 2) posterior from the anterior face.
 . Repeat steps 3-7 for the frame rim groove, applying the groove rows of xref:technical-spec.adoc#_dimensional_tolerances[Dimensional Tolerances].
 . Measure the rim aperture diameter at four orientations.
   Mean SHALL be within ± 0.10 mm of nominal.

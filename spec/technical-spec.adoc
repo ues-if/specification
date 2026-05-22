@@ -106,8 +106,8 @@ Bevel groove:: The V-shaped groove present continuously around the full inner (a
 
 Bevel ridge:: The V-shaped ridge formed continuously around the full perimeter of the edge of a UES-compliant lens; the male mating feature of the interface.
 
-Bevel zone:: A fixed-width axial band around the full perimeter of the lens edge, centred on the lens mid-plane, within which the bevel ridge is formed; the flat land areas on each side of the ridge base lie on a common surface of constant offset from the aperture contour, following the aperture curvature of the declared size code. Also, the corresponding annular region of the frame rim inner wall that carries the bevel groove.
-The bevel zone width is the same regardless of prescription-driven lens body thickness.
+Bevel zone:: A fixed-width axial band at the anterior (observer-facing) face of the lens edge, extending posteriorly from the anterior face, within which the bevel ridge is formed; the flat land areas on each side of the ridge base lie on a common surface of constant offset from the aperture contour, following the aperture curvature of the declared size code. Also, the corresponding annular region of the frame rim inner wall that carries the bevel groove.
+The bevel zone width is the same regardless of prescription-driven lens body thickness. The lens body inboard of the bevel perimeter may extend posteriorly beyond the bevel zone to accommodate prescription thickness.
 
 [[boxing_a_dimension]]
 Boxing width (A):: The horizontal width of the minimum axis-aligned bounding rectangle enclosing the lens aperture contour, as defined in the boxing system of ISO 8624 §5.
@@ -359,7 +359,7 @@ The rim aperture SHALL conform to this outline.
 [[_bevel_zone_width]]
 === Bevel Zone Width
 
-The lens edge SHALL present a fixed-width axial band — the bevel zone — of nominal axial width *3.00 mm* continuously around the full perimeter, centred on the lens mid-plane.
+The lens edge SHALL present a fixed-width axial band — the bevel zone — of nominal axial width *2.64 mm* at the anterior face of the lens edge, and MAY extend posteriorly from the anterior face.
 Within the bevel zone, the flat land areas on each side of the bevel ridge base SHALL lie on a common surface of constant offset from the aperture contour, following the aperture curvature (Rx, Rz) of the declared size code (see <<_aperture_curvature>>).
 
 === Edge Face Perpendicularity
@@ -369,12 +369,8 @@ The outer cylindrical face of the lens edge (the surface on which the bevel ridg
 [[_rim_channel_width]]
 === Rim Channel Width
 
-The inner wall of the frame rim aperture SHALL present a fixed-width axial channel — the rim channel — of nominal axial width *3.20 mm* continuously around the full aperture perimeter, centred on the rim mid-plane.
+The inner wall of the frame rim aperture SHALL present a fixed-width axial channel — the rim channel — of nominal axial width *2.84 mm* at the anterior face of the rim, extending posteriorly from the anterior face.
 Within the rim channel, the flat land areas on each side of the bevel groove opening SHALL lie on a common surface of constant offset from the aperture contour, following the aperture curvature (Rx, Rz) of the declared size code (see <<_aperture_curvature>>).
-
-The flat lands on each side of the 1.30 mm groove opening are each nominally 0.95 mm wide (= (3.20 − 1.30) / 2).
-
-NOTE: The 3.20 mm channel width equals the lens bevel zone width (3.00 mm) plus 0.10 mm axial clearance per side, and is independent of lens prescription.
 
 The outer border profile of the frame rim SHALL follow the same contour as the lens body outline for the declared size code.
 The frame border cross-section geometry is identical to the lens edge geometry in the bevel zone.
@@ -385,7 +381,7 @@ The frame border cross-section geometry is identical to the lens edge geometry i
 A compliant frame rim SHALL provide sufficient axial clearance on the eye-facing (posterior) side of the rim channel to accommodate lens extrusion inwards toward the eye.
 This clearance is required because high-prescription (thick) lenses extrude significantly beyond the frame plane on the posterior side.
 
-The posterior clearance depth SHALL be no less than *4.00 mm* measured axially from the rim mid-plane toward the posterior face of the rim.
+The posterior clearance depth SHALL be no less than *4.00 mm* measured axially from the posterior end of the rim channel toward the posterior face of the rim.
 
 NOTE: This requirement ensures that a thick lens does not contact the frame body before the bevel ridge is fully seated in the bevel groove.
 It does not constrain the external (anterior) profile of the frame.
