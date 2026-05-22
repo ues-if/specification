@@ -103,15 +103,15 @@ $(INDEX_HTML): $(INDEX) | $(BUILD_DIR)/images
 	$(ADOC) $(ADOC_ATTRS) -o $@ $(INDEX)
 	@cp -r images/* $(BUILD_DIR)/images/
 
-$(SPEC_HTML): $(SPEC) | $(BUILD_DIR)/spec $(BUILD_DIR)/images
+$(SPEC_HTML): $(SPEC) | $(BUILD_DIR)/spec $(BUILD_DIR)/spec/diagrams
 	@echo "Building $@ (v$(VERSION))..."
 	$(ADOC) $(ADOC_ATTRS) -o $@ $(SPEC)
-	@cp -r images/* $(BUILD_DIR)/images/
+	@cp -r spec/diagrams/. $(BUILD_DIR)/spec/diagrams/
 
-$(COMPLIANCE_TEST_HTML): $(COMPLIANCE_TEST) | $(BUILD_DIR)/spec $(BUILD_DIR)/images
+$(COMPLIANCE_TEST_HTML): $(COMPLIANCE_TEST) | $(BUILD_DIR)/spec $(BUILD_DIR)/spec/diagrams
 	@echo "Building $@ (v$(VERSION))..."
 	$(ADOC) $(ADOC_ATTRS) -o $@ $(COMPLIANCE_TEST)
-	@cp -r images/* $(BUILD_DIR)/images/
+	@cp -r spec/diagrams/. $(BUILD_DIR)/spec/diagrams/
 
 $(BUILD_DIR)/docs/%.html: docs/%.adoc | $(BUILD_DIR)/docs $(BUILD_DIR)/images
 	@echo "Building $@ (v$(VERSION))..."
@@ -142,6 +142,9 @@ $(BUILD_DIR):
 
 $(BUILD_DIR)/spec:
 	@mkdir -p $(BUILD_DIR)/spec
+
+$(BUILD_DIR)/spec/diagrams:
+	@mkdir -p $(BUILD_DIR)/spec/diagrams
 
 $(BUILD_DIR)/docs:
 	@mkdir -p $(BUILD_DIR)/docs

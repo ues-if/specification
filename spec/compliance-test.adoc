@@ -4,7 +4,7 @@
 :toclevels: 4
 :sectnums:
 :icons: font
-:imagesdir: ../images
+:imagesdir: diagrams
 :revnumber: 0.9
 :revdate: 2026-04-25
 :revremark: Draft for public review

@@ -4,12 +4,11 @@
 :toclevels: 4
 :sectnums:
 :icons: font
-:imagesdir: ../images
+:imagesdir: diagrams
 :revnumber: 0.9
 :revdate: 2026-04-25
 :revremark: Draft for public review
 :xrefstyle: full
-:imagesdir: ../images
 
 image::logo.svg[UES Logo,280,align="center"]
 
@@ -204,7 +203,7 @@ A *unit shape* is an aperture contour expressed in normalized coordinates such t
 A shape code identifies a particular unit shape via an ordered list of control points in this normalized coordinate system.
 
 .UES aperture contour coordinate system and normalization
-image::diagrams/coordinates.drawio.png[UES aperture contour coordinate system and normalization,600,align="center"]
+image::coordinates.drawio.png[UES aperture contour coordinate system and normalization,600,align="center"]
 
 === Looped Cubic Bézier Representation
 
@@ -303,7 +302,7 @@ NOTE: [informative] Curvature is size-code dependent because a larger aperture s
 NOTE: [informative] Because the left lens contour is the horizontal mirror of the right lens (see <<_coordinate_system_and_normalization>>), the horizontal curvature wraps in the opposite direction for the left lens relative to the right lens. Rx and Rz are the same values for both lenses.
 
 .Top view of the Aperture Curvature. The contour is curved at the bottom of the shape, with the bridge center at the center of the half elipsoid.
-image::diagrams/curvature-top.svg[Aperture Curvature Top View,600,align="center"]
+image::curvature-top.svg[Aperture Curvature Top View,600,align="center"]
 
 [[curvature-table]]
 [cols="1,1,1", options="header"]
@@ -344,7 +343,7 @@ A symmetrical V-shaped ridge SHALL run continuously around the full perimeter of
 The ridge normal SHALL NOT bend based on the contour's curvature and SHALL be co-planar with the xy plane.
 
 .Cross section view of the bevel ridge
-image::diagrams/ridge-top.svg[Lens Bevel Ridge Top View,600,align="center"]
+image::ridge-top.svg[Lens Bevel Ridge Top View,600,align="center"]
 
 [[_frame_rim_geometry]]
 == Frame Rim Geometry
