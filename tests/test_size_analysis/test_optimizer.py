@@ -228,7 +228,7 @@ def test_pop_covered_by_set_never_exceeds_total():
 
 def test_solve_returns_ranked_solutions():
     model, space = _two_group_model()
-    results = solve(space, model, top_n=3)
+    results = solve(space, model)
     ranked = rank(results, top_n=3)
     assert isinstance(ranked, list)
     assert all(isinstance(r, RankedSolution) for r in ranked)
@@ -237,27 +237,27 @@ def test_solve_returns_ranked_solutions():
 @pytest.mark.parametrize("top_n", [1, 3, 5])
 def test_solve_top_n_respected(top_n):
     model, space = _two_group_model()
-    results = solve(space, model, top_n=top_n)
+    results = solve(space, model)
     ranked = rank(results, top_n=top_n)
     assert len(ranked) <= top_n
 
 
 def test_solve_sorted_by_coverage_descending():
     model, space = _two_group_model()
-    coverages = [r.coverage for r in solve(space, model, top_n=5)]
+    coverages = [r.coverage for r in rank(solve(space, model), top_n=5)]
     assert coverages == sorted(coverages, reverse=True)
 
 
 def test_solve_specs_sorted_by_frame_pd():
     model, space = _two_group_model()
-    for result in solve(space, model, top_n=3):
+    for result in rank(solve(space, model), top_n=3):
         pds = [s.lens + s.bridge for s in result.specs]
         assert pds == sorted(pds)
 
 
 def test_solve_each_solution_has_correct_n_specs():
     model, space = _two_group_model()
-    for result in solve(space, model, top_n=3):
+    for result in rank(solve(space, model), top_n=3):
         assert len(result.specs) == space.n_sizes
 
 

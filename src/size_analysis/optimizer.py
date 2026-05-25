@@ -48,11 +48,14 @@ import itertools
 import statistics
 from typing import Callable
 
+from collections import defaultdict
+
 from size_analysis.constraint import SizeConstraint
 from size_analysis.categories import Category
 from size_analysis.frame_model import FrameSpec
 from size_analysis.ipd_model import IPDModel, Normal
 from size_analysis.population_model import PopulationModel
+from size_analysis.math import absolute_mean_difference
 
 
 logger = logging.getLogger(__name__)
@@ -197,22 +200,40 @@ def objective(frames: list[FrameSpec], model: Model) -> float:
     return pop_covered_by_set(frames, model)
 
 
-def fit_error(frames: list[FrameSpec], model: Model, group_cats: list[Category] | None = None) -> float:
+def to_voronoi_intervals(frame_pds: list[FrameSpec]) -> list[tuple[float, float, float]]:
+    voronoi_intervals = []
+    sorted_pds = sorted(frame_pds)
+    for i, pd in enumerate(sorted_pds):
+        left_bound = float('-inf') if i == 0 else (sorted_pds[i-1] + pd) / 2
+        right_bound = float('inf') if i == len(sorted_pds) - 1 else (pd + sorted_pds[i+1]) / 2
+        voronoi_intervals.append((pd, left_bound, right_bound))
+    return voronoi_intervals
+
+
+def fit_error(frames: list[FrameSpec], model: Model, group_cats: list[str]) -> float:
     """Total population-weighted fit error for the selected frame set.
 
     The fit error is computed as the sum of each group's population multiplied
     by the distance from that group's mean IPD to the nearest frame PD.
     """
-    frame_pds = [spec.lens + spec.bridge for spec in frames]
-    if not frame_pds:
-        return float('inf')
-    if group_cats is None:
-        group_cats = list(model.groups)
+    frame_pds = defaultdict(list)
+    
+    for spec in frames:
+        frame_pds[spec.lens + spec.bridge].append(spec)
+
+    total_pop = sum(model.groups.values())
+
     error = 0.0
     for cat in group_cats:
-        dist = model.ipd_groups[cat]
-        nearest = min(abs(dist.mean - pd) for pd in frame_pds)
-        error += model.groups[cat] * nearest
+        pop_size = model.groups[cat]
+        dist: statistics.NormalDist = model.ipd_groups[cat]
+        voronoi_intervals = to_voronoi_intervals(frame_pds.keys())
+        for seed_pd, left_bound, right_bound in voronoi_intervals:
+            group_error = pop_size/total_pop * absolute_mean_difference(
+                dist.mean, dist.standard_deviation, (left_bound, seed_pd, right_bound)
+            )
+            error += group_error
+        
     return error
 
 
@@ -263,9 +284,10 @@ def solve(
             model.groups[cat] * union_coverage_group(frame_pds, model.ipd_groups[cat], model.tolerance)
             for cat in group_cats
         )
+        error = fit_error(list(combo) + pinned, model, group_cats)
         results.append(RankedSolution(
             coverage=coverage,
-            fit_error=fit_error(list(combo) + pinned, model, group_cats),
+            fit_error=error,
             specs=sorted(combo, key=lambda frame: frame.lens + frame.bridge),
         ))
     return results

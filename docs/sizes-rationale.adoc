@@ -13,61 +13,61 @@ Top 10 frame pairs ranked by coverage of ages 5–10
 (total population ages 5–10 modelled: 26,979,543).
 
 .Top 10 pairs by child coverage
-[cols=">s,^,^,>,>",options="header"]
+[cols=">s,^,^,>,>,>",options="header"]
 |===
-| Rank | Spec XS | Spec S | Pop. covered | Coverage
-| 1 | 38-13 | 43-16 | 25,751,284 | 95.4 % ★
-| 2 | 38-13 | 43-15 | 25,559,403 | 94.7 %
-| 3 | 38-13 | 42-15 | 25,205,828 | 93.4 %
-| 4 | 38-14 | 44-16 | 25,116,880 | 93.1 %
-| 5 | 38-14 | 43-16 | 25,021,214 | 92.7 %
-| 6 | 38-14 | 43-15 | 24,829,332 | 92.0 %
-| 7 | 38-13 | 41-15 | 24,606,354 | 91.2 %
-| 8 | 38-14 | 42-15 | 24,475,757 | 90.7 %
-| 9 | 39-14 | 45-16 | 24,088,936 | 89.3 %
-| 10 | 39-14 | 44-16 | 24,045,172 | 89.1 %
+| Rank | Spec XS | Spec S | Pop. covered | Coverage | Fit error
+| 1 | 38-13 | 41-15 | 24,606,354 | 91.2 % | 0.11516 ★
+| 2 | 38-13 | 42-15 | 25,205,828 | 93.4 % | 0.11687
+| 3 | 38-14 | 42-15 | 24,475,757 | 90.7 % | 0.11703
+| 4 | 38-14 | 41-15 | 23,876,283 | 88.5 % | 0.11864
+| 5 | 38-13 | 40-15 | 23,669,483 | 87.7 % | 0.12161
+| 6 | 38-14 | 43-15 | 24,829,332 | 92.0 % | 0.12172
+| 7 | 38-13 | 43-15 | 25,559,403 | 94.7 % | 0.12486
+| 8 | 39-14 | 42-15 | 23,404,049 | 86.7 % | 0.12561
+| 9 | 39-14 | 43-15 | 23,757,624 | 88.1 % | 0.12710
+| 10 | 38-14 | 40-15 | 22,939,413 | 85.0 % | 0.12840
 |===
 
-.Recommended pair — 38-13 + 43-16
-[cols="^s,^,>,>",options="header"]
+.Recommended pair — 38-13 + 41-15
+[cols="^s,^,>,>,>",options="header"]
 |===
-| Size | Spec | Pop. covered | Share of children
-| XS | 38-13 | 15,685,022 | 58.1 %
-| S | 43-16 | 10,066,262 | 37.3 %
-| *Union* |  | *25,751,284* | *95.4 %*
+| Size | Spec | Pop. covered | Share of children | Fit error
+| XS | 38-13 | 15,685,022 | 58.1 % | 
+| S | 41-15 | 17,113,550 | 63.4 % | 
+| *Union* |  | *24,606,354* | *91.2 %* | *0.11516*
 |===
 
 === Unconstrained 5-Size Solution (XS–XL) — All EU27 Ages
 
-Population modelled: 422,525,422 — coverage: *421,412,833* (99.7 %).
+Population modelled: 422,525,422 — coverage: *407,202,031* (96.4 %).
 
-[cols="^s,^,>,>,<",options="header"]
+[cols="^s,^,>,>,>,<",options="header"]
 |===
-| Label | Spec | Unique pop | % of total | Groups covered
-| XS | 38-13 | 25,995,626 | 6.2 % | 05-07-F-ALL (70%), 08-10-F-ALL (59%), 11-13-F-ALL (38%), 14-16-F-ALL (18%), 05-07-M-ALL (67%), 08-10-M-ALL (38%), 11-13-M-ALL (18%), 14-16-M-ALL (4%), 18-99-F-ALL (2%)
-| S | 43-16 | 192,207,882 | 45.5 % | 05-07-F-ALL (21%), 08-10-F-ALL (38%), 11-13-F-ALL (59%), 14-16-F-ALL (76%), 05-07-M-ALL (28%), 08-10-M-ALL (61%), 11-13-M-ALL (76%), 14-16-M-ALL (67%), 18-99-F-ALL (55%), 18-99-M-ALL (32%)
-| M | 49-18 | 193,920,871 | 45.9 % | 11-13-F-ALL (2%), 14-16-F-ALL, 08-10-M-ALL (2%), 11-13-M-ALL, 14-16-M-ALL (28%), 18-99-F-ALL (42%), 18-99-M-ALL (63%)
-| L | 55-20 | 9,288,453 | 2.2 % | 18-99-M-ALL
+| Label | Spec | Unique pop | % of total | Fit error | Groups covered
+| XS | 41-15 | 102,433,452 | 24.2 % | 7 | 05-07-F-ALL (48%), 08-10-F-ALL (67%), 11-13-F-ALL (75%), 14-16-F-ALL (70%), 05-07-M-ALL (59%), 08-10-M-ALL (78%), 11-13-M-ALL (70%), 14-16-M-ALL (38%), 18-99-F-ALL (26%), 18-99-M-ALL (10%)
+| S | 45-16 | 182,961,970 | 43.3 % | 4 | 05-07-F-ALL (2%), 08-10-F-ALL (4%), 11-13-F-ALL (12%), 14-16-F-ALL (25%), 05-07-M-ALL (2%), 08-10-M-ALL (11%), 11-13-M-ALL (25%), 14-16-M-ALL (49%), 18-99-F-ALL (51%), 18-99-M-ALL (43%)
+| M | 47-17 | 83,020,422 | 19.6 % | 4 | 14-16-F-ALL (1%), 11-13-M-ALL (1%), 14-16-M-ALL (10%), 18-99-F-ALL (17%), 18-99-M-ALL (28%)
+| L | 50-18 | 38,786,187 | 9.2 % | 6 | 14-16-M-ALL (2%), 18-99-F-ALL (5%), 18-99-M-ALL (16%)
 |===
 
-Partial coverage (1.1 M, 0.3 % uncovered): 05-07-F-ALL: 91%, 08-10-F-ALL: 98%, 11-13-F-ALL: 99%, 05-07-M-ALL: 96%, 08-10-M-ALL: 100%
+Partial coverage (15.3 M, 3.6 % uncovered): 05-07-F-ALL: 50%, 08-10-F-ALL: 72%, 11-13-F-ALL: 87%, 14-16-F-ALL: 97%, 05-07-M-ALL: 61%, 08-10-M-ALL: 89%, 11-13-M-ALL: 97%, 14-16-M-ALL: 99%, 18-99-F-ALL: 99%, 18-99-M-ALL: 98%
 
 === Constrained Solution — Children Sizes Fixed, Rest Optimised
 
-Population modelled: 422,525,422 — coverage: *421,412,833* (99.7 %).
+Population modelled: 422,525,422 — coverage: *412,124,380* (97.5 %).
 
-First 2 sizes locked to the best children's pair; remaining 2 sizes re-optimised across all groups. Coverage vs unconstrained: +0.0 M (+0.00 %).
+First 2 sizes locked to the best children's pair; remaining 2 sizes re-optimised across all groups. Coverage vs unconstrained: +4.9 M (+1.16 %).
 
-[cols="^s,^,>,>,<",options="header"]
+[cols="^s,^,>,>,>,<",options="header"]
 |===
-| Label | Spec | Unique pop | % of total | Groups covered
-| XS | 38-13 | 25,995,626 | 6.2 % | 05-07-F-ALL (70%), 08-10-F-ALL (59%), 11-13-F-ALL (38%), 14-16-F-ALL (18%), 05-07-M-ALL (67%), 08-10-M-ALL (38%), 11-13-M-ALL (18%), 14-16-M-ALL (4%), 18-99-F-ALL (2%)
-| S | 43-16 | 192,207,882 | 45.5 % | 05-07-F-ALL (21%), 08-10-F-ALL (38%), 11-13-F-ALL (59%), 14-16-F-ALL (76%), 05-07-M-ALL (28%), 08-10-M-ALL (61%), 11-13-M-ALL (76%), 14-16-M-ALL (67%), 18-99-F-ALL (55%), 18-99-M-ALL (32%)
-| M | 49-18 | 193,920,871 | 45.9 % | 11-13-F-ALL (2%), 14-16-F-ALL, 08-10-M-ALL (2%), 11-13-M-ALL, 14-16-M-ALL (28%), 18-99-F-ALL (42%), 18-99-M-ALL (63%)
-| L | 55-20 | 9,288,453 | 2.2 % | 18-99-M-ALL
+| Label | Spec | Unique pop | % of total | Fit error | Groups covered
+| XS | 38-13 | 25,995,626 | 6.2 % | 12 | 05-07-F-ALL (70%), 08-10-F-ALL (59%), 11-13-F-ALL (38%), 14-16-F-ALL (18%), 05-07-M-ALL (67%), 08-10-M-ALL (38%), 11-13-M-ALL (18%), 14-16-M-ALL (4%), 18-99-F-ALL (2%)
+| S | 41-15 | 85,716,224 | 20.3 % | 7 | 05-07-F-ALL (20%), 08-10-F-ALL (34%), 11-13-F-ALL (49%), 14-16-F-ALL (55%), 05-07-M-ALL (26%), 08-10-M-ALL (51%), 11-13-M-ALL (55%), 14-16-M-ALL (34%), 18-99-F-ALL (24%), 18-99-M-ALL (10%)
+| M | 45-17 | 216,233,609 | 51.2 % | 4 | 05-07-F-ALL (2%), 08-10-F-ALL (4%), 11-13-F-ALL (12%), 14-16-F-ALL (26%), 05-07-M-ALL (2%), 08-10-M-ALL (11%), 11-13-M-ALL (26%), 14-16-M-ALL (54%), 18-99-F-ALL (59%), 18-99-M-ALL (54%)
+| L | 49-18 | 84,178,921 | 19.9 % | 5 | 14-16-M-ALL (7%), 18-99-F-ALL (14%), 18-99-M-ALL (32%)
 |===
 
-Partial coverage (1.1 M, 0.3 % uncovered): 05-07-F-ALL: 91%, 08-10-F-ALL: 98%, 11-13-F-ALL: 99%, 05-07-M-ALL: 96%, 08-10-M-ALL: 100%
+Partial coverage (10.4 M, 2.5 % uncovered): 05-07-F-ALL: 91%, 08-10-F-ALL: 98%, 11-13-F-ALL: 99%, 05-07-M-ALL: 96%, 08-10-M-ALL: 100%, 14-16-M-ALL: 100%, 18-99-F-ALL: 99%, 18-99-M-ALL: 96%
 
 include::sizes-rationale-sources.adoc[]
 
@@ -75,17 +75,17 @@ include::sizes-rationale-sources.adoc[]
 
 Coverage of the constrained solution recalculated in other population/IPD models derived from processed IPD records. Results vary by model, but the constrained solution generally retains high coverage across different populations and IPD assumptions.
 
-[cols="<,^s,^,>,>",options="header"]
+[cols="<,^s,^,>,>,>",options="header"]
 |===
-| Model | Label | Spec | Unique pop | % of total
-| taiwan_plos_s002 | XS | 38-13 | 10 | 5.0 %
-| taiwan_plos_s002 | S | 43-16 | 157 | 76.4 %
-| taiwan_plos_s002 | M | 49-18 | 38 | 18.2 %
-| taiwan_plos_s002 | L | 55-20 | 1 | 0.4 %
-| *taiwan_plos_s002 total* |  |  | *206* | *100.0 %*
-| eurostat_demo_pjan | XS | 38-13 | 25,995,626 | 6.2 %
-| eurostat_demo_pjan | S | 43-16 | 192,207,882 | 45.5 %
-| eurostat_demo_pjan | M | 49-18 | 193,920,871 | 45.9 %
-| eurostat_demo_pjan | L | 55-20 | 9,288,453 | 2.2 %
-| *eurostat_demo_pjan total* |  |  | *421,412,833* | *99.7 %*
+| Model | Label | Spec | Unique pop | % of total | Fit error
+| taiwan_plos_s002 | XS | 38-13 | 10 | 5.0 % | 9.16326
+| taiwan_plos_s002 | S | 41-15 | 96 | 46.8 % | 4.43351
+| taiwan_plos_s002 | M | 45-17 | 88 | 42.6 % | 3.19049
+| taiwan_plos_s002 | L | 49-18 | 11 | 5.2 % | 6.98669
+| *taiwan_plos_s002 total* |  |  | *205* | *99.5 %* | *1.50894*
+| eurostat_demo_pjan | XS | 38-13 | 25,995,626 | 6.2 % | 11.55798
+| eurostat_demo_pjan | S | 41-15 | 85,716,224 | 20.3 % | 6.99912
+| eurostat_demo_pjan | M | 45-17 | 216,233,609 | 51.2 % | 3.66874
+| eurostat_demo_pjan | L | 49-18 | 84,178,921 | 19.9 % | 5.16513
+| *eurostat_demo_pjan total* |  |  | *412,124,380* | *97.5 %* | *1.49119*
 |===

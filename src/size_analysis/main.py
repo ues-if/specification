@@ -35,6 +35,7 @@ TERMINOLOGY
 First number in standard frame notation, e.g. 51-18-140 = lens 51 mm,
 bridge 18 mm, temple 140 mm.
 """
+from typing import Callable
 
 import os
 import dataclasses
@@ -86,16 +87,8 @@ def _is_child_group(cat: Category) -> bool:
     return False
 
 
-def rank(result: list[RankedSolution], top_n: int = 1, how: str = "pareto") -> list[RankedSolution]:
-    if how == "pareto":
-        # Pareto rank by coverage (descending) and fit error (ascending).
-        # This is the default for all results in the report.
-        ranked = sorted(result, key=lambda r: (-r.coverage, r.fit_error))
-    elif how == "sort":
-        # Sort by coverage (descending) and fit error (ascending), but ignore Pareto dominance.
-        ranked = sorted(result, key=lambda r: -r.coverage)
-    else:
-        raise ValueError(f"Unknown ranking method: {how}")
+def rank(result: list[RankedSolution], top_n: int = 1) -> list[RankedSolution]:
+    ranked = sorted(result, key=lambda r: (r.fit_error, -r.coverage))
     return ranked[:top_n]
 
 
@@ -111,7 +104,7 @@ def children_2size(model: Model, space: SearchSpace) -> list[RankedSolution]:
         group_filter=_is_child_group,
     )
 
-    return rank(result, top_n=10, how="sort")
+    return rank(result, top_n=10)
 
 
 def all_ages_4size(model: Model, space: SearchSpace) -> list[FrameSpec]:
@@ -192,14 +185,14 @@ def _adoc_table8(model: Model, space: SearchSpace, hyp: SizeHypothesis) -> str:
 
     ranking_rows = [
         [rk, str(pair.specs[0]), str(pair.specs[1]),
-         f"{pair.coverage:,.0f}", f"{100 * pair.coverage / total_child:.1f} %" + (" \u2605" if rk == 1 else ""),
-         f"{pair.fit_error:,.0f}"]
+         f"{pair.coverage:,.0f}", f"{100 * pair.coverage / total_child:.1f} %",
+         f"{pair.fit_error:,.5f}" + (" \u2605" if rk == 1 else "")]
         for rk, pair in enumerate(pairs, 1)
     ]
     summary_rows = [
         ["XS", str(p.specs[0]), f"{pop_a:,.0f}", f"{100 * pop_a / total_child:.1f} %", ""],
         ["S",  str(p.specs[1]), f"{pop_b:,.0f}", f"{100 * pop_b / total_child:.1f} %", ""],
-        ["*Union*", "", f"*{p.coverage:,.0f}*", f"*{100 * p.coverage / total_child:.1f} %*", f"*{p.fit_error:,.0f}*"],
+        ["*Union*", "", f"*{p.coverage:,.0f}*", f"*{100 * p.coverage / total_child:.1f} %*", f"*{p.fit_error:,.5f}*"],
     ]
 
     lines = [
@@ -250,7 +243,7 @@ def _adoc_coverage_section(heading: str, frames: dict[str, FrameSpec], model: Mo
             for cat in model.groups
             if marginal[cat] > 0.01
         ]
-        fe = fit_error([f], model)
+        fe = fit_error([f], model, model.groups)
         cov_rows.append([
             lbl, str(f), f"{unique:,.0f}",
             f"{100*unique/total:.1f} %",
@@ -298,13 +291,13 @@ def _adoc_cv_section(heading: str, cross_val: dict[str, dict], hyp: SizeHypothes
                 str(ld['spec']),
                 f"{ld['unique_population']:,.0f}",
                 f"{ld['unique_pct']:.1f} %",
-                f"{ld['fit_error']:,.0f}",
+                f"{ld['fit_error']:,.5f}",
             ])
         rows.append([
             f"*{model_name} total*", "", "",
             f"*{data['coverage']:,.0f}*",
             f"*{data['coverage_pct']:.1f} %*",
-            f"*{data['fit_error']:,.0f}*",
+            f"*{data['fit_error']:,.5f}*",
         ])
 
     lines = [
@@ -321,7 +314,11 @@ def _adoc_cv_section(heading: str, cross_val: dict[str, dict], hyp: SizeHypothes
     ]
     return "\n".join(lines)
 
-def cross_validate_other_set(fc: dict[str, FrameSpec], other_models: dict[str, tuple[PopulationModel, IPDModel]], tolerance: float = None) -> dict[str, dict]:
+def cross_validate_other_set(
+        fc: dict[str, FrameSpec],
+        other_models: dict[str,tuple[PopulationModel, IPDModel]],
+        tolerance: float = None,
+) -> dict[str, dict]:
     """Given other IPD models, recalculate per-labeled-spec marginal coverage of fc in those models."""
     if tolerance is None:
         tolerance = 4.0
@@ -345,7 +342,7 @@ def cross_validate_other_set(fc: dict[str, FrameSpec], other_models: dict[str, t
                 for cat, dist in model.ipd_groups.items()
             }
             unique = pop_of(model.groups, marginal)
-            fe = fit_error([spec], model)
+            fe = fit_error([spec], model, model.groups)
             per_label[label] = {
                 'spec': spec,
                 'unique_population': unique,
@@ -355,7 +352,7 @@ def cross_validate_other_set(fc: dict[str, FrameSpec], other_models: dict[str, t
             prev_specs.append(spec)
 
         total_coverage = pop_covered_by_set(fc_specs, model)
-        total_fit_error = fit_error(fc_specs, model)
+        total_fit_error = fit_error(fc_specs, model, model.groups)
         results[model_name] = {
             'total_population': total_pop,
             'coverage': total_coverage,
@@ -477,7 +474,9 @@ def write_adoc(
     hyp: SizeHypothesis,
     cv_models=dict[str, tuple[PopulationModel, IPDModel]],
     path: str = _ADOC_PATH,
+    
 ) -> None:
+
     f4 = all_ages_4size(model, space)
     f4_labeled: dict[str, FrameSpec] = dict(zip(hyp.labels, f4))
     fc = constrained_all_ages(model, space, hyp)
