@@ -1,0 +1,91 @@
+= Eyeglass Frame Size Optimisation
+:description: Statistical analysis deriving optimal standardised frame sizes
+:toc:
+:numbered:
+
+include::sizes-rationale-hypothesis.adoc[]
+
+== Results
+
+=== 2-Size Solution: Children (ages 5–10)
+
+Top 10 frame pairs ranked by coverage of ages 5–10
+(total population ages 5–10 modelled: 26,979,543).
+
+.Top 10 pairs by child coverage
+[cols=">s,^,^,>,>",options="header"]
+|===
+| Rank | Spec XS | Spec S | Pop. covered | Coverage
+| 1 | 38-13 | 43-16 | 25,751,284 | 95.4 % ★
+| 2 | 38-13 | 43-15 | 25,559,403 | 94.7 %
+| 3 | 38-13 | 42-15 | 25,205,828 | 93.4 %
+| 4 | 38-14 | 44-16 | 25,116,880 | 93.1 %
+| 5 | 38-14 | 43-16 | 25,021,214 | 92.7 %
+| 6 | 38-14 | 43-15 | 24,829,332 | 92.0 %
+| 7 | 38-13 | 41-15 | 24,606,354 | 91.2 %
+| 8 | 38-14 | 42-15 | 24,475,757 | 90.7 %
+| 9 | 39-14 | 45-16 | 24,088,936 | 89.3 %
+| 10 | 39-14 | 44-16 | 24,045,172 | 89.1 %
+|===
+
+.Recommended pair — 38-13 + 43-16
+[cols="^s,^,>,>",options="header"]
+|===
+| Size | Spec | Pop. covered | Share of children
+| XS | 38-13 | 15,685,022 | 58.1 %
+| S | 43-16 | 10,066,262 | 37.3 %
+| *Union* |  | *25,751,284* | *95.4 %*
+|===
+
+=== Unconstrained 5-Size Solution (XS–XL) — All EU27 Ages
+
+Population modelled: 422,525,422 — coverage: *421,412,833* (99.7 %).
+
+[cols="^s,^,>,>,<",options="header"]
+|===
+| Label | Spec | Unique pop | % of total | Groups covered
+| XS | 38-13 | 25,995,626 | 6.2 % | 05-07-F-ALL (70%), 08-10-F-ALL (59%), 11-13-F-ALL (38%), 14-16-F-ALL (18%), 05-07-M-ALL (67%), 08-10-M-ALL (38%), 11-13-M-ALL (18%), 14-16-M-ALL (4%), 18-99-F-ALL (2%)
+| S | 43-16 | 192,207,882 | 45.5 % | 05-07-F-ALL (21%), 08-10-F-ALL (38%), 11-13-F-ALL (59%), 14-16-F-ALL (76%), 05-07-M-ALL (28%), 08-10-M-ALL (61%), 11-13-M-ALL (76%), 14-16-M-ALL (67%), 18-99-F-ALL (55%), 18-99-M-ALL (32%)
+| M | 49-18 | 193,920,871 | 45.9 % | 11-13-F-ALL (2%), 14-16-F-ALL, 08-10-M-ALL (2%), 11-13-M-ALL, 14-16-M-ALL (28%), 18-99-F-ALL (42%), 18-99-M-ALL (63%)
+| L | 55-20 | 9,288,453 | 2.2 % | 18-99-M-ALL
+|===
+
+Partial coverage (1.1 M, 0.3 % uncovered): 05-07-F-ALL: 91%, 08-10-F-ALL: 98%, 11-13-F-ALL: 99%, 05-07-M-ALL: 96%, 08-10-M-ALL: 100%
+
+=== Constrained Solution — Children Sizes Fixed, Rest Optimised
+
+Population modelled: 422,525,422 — coverage: *421,412,833* (99.7 %).
+
+First 2 sizes locked to the best children's pair; remaining 2 sizes re-optimised across all groups. Coverage vs unconstrained: +0.0 M (+0.00 %).
+
+[cols="^s,^,>,>,<",options="header"]
+|===
+| Label | Spec | Unique pop | % of total | Groups covered
+| XS | 38-13 | 25,995,626 | 6.2 % | 05-07-F-ALL (70%), 08-10-F-ALL (59%), 11-13-F-ALL (38%), 14-16-F-ALL (18%), 05-07-M-ALL (67%), 08-10-M-ALL (38%), 11-13-M-ALL (18%), 14-16-M-ALL (4%), 18-99-F-ALL (2%)
+| S | 43-16 | 192,207,882 | 45.5 % | 05-07-F-ALL (21%), 08-10-F-ALL (38%), 11-13-F-ALL (59%), 14-16-F-ALL (76%), 05-07-M-ALL (28%), 08-10-M-ALL (61%), 11-13-M-ALL (76%), 14-16-M-ALL (67%), 18-99-F-ALL (55%), 18-99-M-ALL (32%)
+| M | 49-18 | 193,920,871 | 45.9 % | 11-13-F-ALL (2%), 14-16-F-ALL, 08-10-M-ALL (2%), 11-13-M-ALL, 14-16-M-ALL (28%), 18-99-F-ALL (42%), 18-99-M-ALL (63%)
+| L | 55-20 | 9,288,453 | 2.2 % | 18-99-M-ALL
+|===
+
+Partial coverage (1.1 M, 0.3 % uncovered): 05-07-F-ALL: 91%, 08-10-F-ALL: 98%, 11-13-F-ALL: 99%, 05-07-M-ALL: 96%, 08-10-M-ALL: 100%
+
+include::sizes-rationale-sources.adoc[]
+
+=== Cross-Validation of Constrained Solution in Other Models
+
+Coverage of the constrained solution recalculated in other population/IPD models derived from processed IPD records. Results vary by model, but the constrained solution generally retains high coverage across different populations and IPD assumptions.
+
+[cols="<,^s,^,>,>",options="header"]
+|===
+| Model | Label | Spec | Unique pop | % of total
+| taiwan_plos_s002 | XS | 38-13 | 10 | 5.0 %
+| taiwan_plos_s002 | S | 43-16 | 157 | 76.4 %
+| taiwan_plos_s002 | M | 49-18 | 38 | 18.2 %
+| taiwan_plos_s002 | L | 55-20 | 1 | 0.4 %
+| *taiwan_plos_s002 total* |  |  | *206* | *100.0 %*
+| eurostat_demo_pjan | XS | 38-13 | 25,995,626 | 6.2 %
+| eurostat_demo_pjan | S | 43-16 | 192,207,882 | 45.5 %
+| eurostat_demo_pjan | M | 49-18 | 193,920,871 | 45.9 %
+| eurostat_demo_pjan | L | 55-20 | 9,288,453 | 2.2 %
+| *eurostat_demo_pjan total* |  |  | *421,412,833* | *99.7 %*
+|===

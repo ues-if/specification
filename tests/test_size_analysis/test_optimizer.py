@@ -5,6 +5,7 @@ import pytest
 from size_analysis.categories import AgeGroup, Category, Sex
 from size_analysis.frame_model import FrameSpec
 from size_analysis.ipd_model import IPDModel, Normal
+from size_analysis.main import rank
 from size_analysis.population_model import PopulationModel
 from size_analysis.optimizer import (
     Model,
@@ -228,14 +229,17 @@ def test_pop_covered_by_set_never_exceeds_total():
 def test_solve_returns_ranked_solutions():
     model, space = _two_group_model()
     results = solve(space, model, top_n=3)
-    assert isinstance(results, list)
-    assert all(isinstance(r, RankedSolution) for r in results)
+    ranked = rank(results, top_n=3)
+    assert isinstance(ranked, list)
+    assert all(isinstance(r, RankedSolution) for r in ranked)
 
 
 @pytest.mark.parametrize("top_n", [1, 3, 5])
 def test_solve_top_n_respected(top_n):
     model, space = _two_group_model()
-    assert len(solve(space, model, top_n=top_n)) <= top_n
+    results = solve(space, model, top_n=top_n)
+    ranked = rank(results, top_n=top_n)
+    assert len(ranked) <= top_n
 
 
 def test_solve_sorted_by_coverage_descending():
@@ -259,33 +263,35 @@ def test_solve_each_solution_has_correct_n_specs():
 
 def test_solve_optimal_covers_both_groups():
     model, space = _two_group_model()
-    best = solve(space, model)[0]
+    best = rank(solve(space, model), top_n=1)[0]
     assert best.coverage / total_modelled(model.groups) > 0.95
 
 
 def test_solve_coverage_never_exceeds_total():
     model, space = _two_group_model()
     total = total_modelled(model.groups)
-    for result in solve(space, model, top_n=5):
+    for result in rank(solve(space, model), top_n=5):
         assert result.coverage <= total + 1
 
 
 def test_solve_group_filter_restricts_candidates():
     model, space = _two_group_model()
-    results = solve(space, model, group_filter=lambda cat: cat.sex == Sex.FEMALE, top_n=1)
+    results = rank(solve(space, model, group_filter=lambda cat: cat.sex == Sex.FEMALE), top_n=1)
     assert len(results) == 1
 
 
 def test_solve_group_filter_coverage_below_unfiltered():
     model, space = _two_group_model()
     female_only = lambda cat: cat.sex == Sex.FEMALE
-    assert solve(space, model, group_filter=female_only)[0].coverage <= solve(space, model)[0].coverage
+    left = rank(solve(space, model, group_filter=female_only), top_n=1)
+    right = rank(solve(space, model), top_n=1)
+    assert left[0].coverage <= right[0].coverage
 
 
 def test_solve_pinned_frames_add_to_coverage():
     model, space_2 = _two_group_model()
     space_1 = SearchSpace(n_sizes=1, candidates=space_2.candidates)
     pin = FrameSpec(lens=45, bridge=10)
-    with_pin    = solve(space_1, model, pinned=[pin])[0].coverage
-    without_pin = solve(space_1, model)[0].coverage
+    with_pin    = rank(solve(space_1, model, pinned=[pin]), top_n=1)[0].coverage
+    without_pin = rank(solve(space_1, model), top_n=1)[0].coverage
     assert with_pin >= without_pin - 1

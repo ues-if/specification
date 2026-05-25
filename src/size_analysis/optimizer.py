@@ -1,4 +1,16 @@
 """
+
+Abbreviations
+-------------
+- IPD: Inter-Pupillary Distance
+- PD: Pupillary Distance (lens + bridge)
+- CDF: Cumulative Distribution Function
+- PDF: Probability Density Function
+- popᵢ: population count of group i
+- μᵢ: mean IPD of group i
+- σᵢ: standard deviation of IPD in group i
+- X: fitting tolerance (e.g. 5mm)
+
 Coverage-maximisation optimizer for frame PD sets.
 
 Given a population of G groups, each described by a weight (population count)
@@ -16,6 +28,8 @@ Normal(μ, σ) IPD the covered fraction is:
 
     coverage(pd) = CDF(pd + X) − CDF(pd − X)
 
+Meaning the higher the coverage, the more people in that group are likely to find a good fit with that frame.
+
 For a set S the union coverage is the probability that at least one pd fits,
 computed exactly by merging the tolerance windows into disjoint intervals.
 
@@ -27,6 +41,7 @@ f is a non-negative monotone submodular function.  Two solvers are provided:
   solve_exhaustive_pairs — exact brute-force for k = 2 (used when the
                            candidate set is small enough).
 """
+import logging
 
 import dataclasses
 import itertools
@@ -38,6 +53,9 @@ from size_analysis.categories import Category
 from size_analysis.frame_model import FrameSpec
 from size_analysis.ipd_model import IPDModel, Normal
 from size_analysis.population_model import PopulationModel
+
+
+logger = logging.getLogger(__name__)
 
 # ============================================================================
 # COVERAGE MODEL
@@ -179,9 +197,29 @@ def objective(frames: list[FrameSpec], model: Model) -> float:
     return pop_covered_by_set(frames, model)
 
 
+def fit_error(frames: list[FrameSpec], model: Model, group_cats: list[Category] | None = None) -> float:
+    """Total population-weighted fit error for the selected frame set.
+
+    The fit error is computed as the sum of each group's population multiplied
+    by the distance from that group's mean IPD to the nearest frame PD.
+    """
+    frame_pds = [spec.lens + spec.bridge for spec in frames]
+    if not frame_pds:
+        return float('inf')
+    if group_cats is None:
+        group_cats = list(model.groups)
+    error = 0.0
+    for cat in group_cats:
+        dist = model.ipd_groups[cat]
+        nearest = min(abs(dist.mean - pd) for pd in frame_pds)
+        error += model.groups[cat] * nearest
+    return error
+
+
 @dataclasses.dataclass
 class RankedSolution:
     coverage: float
+    fit_error: float
     specs: list[FrameSpec]
 
 
@@ -190,7 +228,6 @@ def solve(
     model: Model,
     pinned: list[FrameSpec] | None = None,
     group_filter: Callable[[Category], bool] | None = None,
-    top_n: int = 1,
 ) -> list[RankedSolution]:
     """Rank the top_n frame sets by exhaustive enumeration of f(S).
 
@@ -203,11 +240,12 @@ def solve(
                    category where group_filter(category) is True.
     top_n        : number of top-ranked solutions to return.
 
-    Returns top_n RankedSolutions sorted by coverage descending; each solution's
-    specs are sorted by frame_pd ascending.
+    Returns top_n RankedSolutions sorted by coverage descending and fit error
+    ascending; each solution's specs are sorted by frame_pd ascending.
     """
     pinned = pinned or []
     candidates = list(space.candidates)
+    logger.info("Number of candidates before filtering: %d", len(candidates))
     if group_filter is not None:
         candidates = [
             spec for spec in candidates
@@ -227,7 +265,7 @@ def solve(
         )
         results.append(RankedSolution(
             coverage=coverage,
+            fit_error=fit_error(list(combo) + pinned, model, group_cats),
             specs=sorted(combo, key=lambda frame: frame.lens + frame.bridge),
         ))
-    results.sort(key=lambda result: -result.coverage)
-    return results[:top_n]
+    return results
