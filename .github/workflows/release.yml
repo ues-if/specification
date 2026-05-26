@@ -1,4 +1,4 @@
-name: CI/CD
+name: Spec CI/CD
 
 on:
   push:
@@ -11,19 +11,13 @@ permissions:
   contents: write
 
 jobs:
-  # ---------------------------------------------------------------------------
-  # Job 1: Build documentation inside the official AsciiDoctor Docker image
-  # ---------------------------------------------------------------------------
-  docs:
+  spec:
     runs-on: ubuntu-latest
     container:
       image: asciidoctor/docker-asciidoctor:latest
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Install rsvg-convert
-        run: apk add --no-cache rsvg-convert
 
       - name: Extract version
         id: ver
@@ -35,29 +29,24 @@ jobs:
       - name: Build PDF
         run: make pdf VERSION=${{ steps.ver.outputs.version }}
 
-      - name: Package HTML
+      - name: Package spec HTML
         run: |
           apk add --no-cache zip
-          cd build
-          zip -r ../ues-docs-html-${{ steps.ver.outputs.version }}.zip .
+          cd build/spec
+          zip -r ../../ues-spec-html-${{ steps.ver.outputs.version }}.zip .
 
-      - name: Upload docs artefacts
+      - name: Upload spec artefacts
         uses: actions/upload-artifact@v4
         with:
-          name: docs
+          name: spec
           path: |
-            ues-docs-html-${{ steps.ver.outputs.version }}.zip
+            ues-spec-html-${{ steps.ver.outputs.version }}.zip
             build/spec/technical-spec.pdf
-            build/docs/idea-and-business.pdf
+            build/spec/compliance-test.pdf
 
-  # ---------------------------------------------------------------------------
-  # Job 2: Export CAD (STEP / STL)
-  # ---------------------------------------------------------------------------
-  # Job 2: Create GitHub Release with all artefacts
-  # ---------------------------------------------------------------------------
   release:
     runs-on: ubuntu-latest
-    needs: [docs]
+    needs: [spec]
     if: startsWith(github.ref, 'refs/tags/')
 
     steps:
@@ -65,10 +54,10 @@ jobs:
         id: ver
         run: echo "version=$GITHUB_REF_NAME" >> "$GITHUB_OUTPUT"
 
-      - name: Download docs
+      - name: Download spec artefacts
         uses: actions/download-artifact@v4
         with:
-          name: docs
+          name: spec
           path: artefacts/
 
       - name: Create Release
@@ -85,9 +74,9 @@ jobs:
 
             | File | Description |
             |------|-------------|
-            | `ues-docs-html-*.zip` | Full HTML documentation (open `index.html`) |
+            | `ues-spec-html-*.zip` | HTML bundle for the technical specification and compliance test |
             | `technical-spec.pdf` | Technical Specification |
-            | `idea-and-business.pdf` | Idea & Business Model |
+            | `compliance-test.pdf` | Compliance Test Procedures |
 
             ### Sizes
             | Code | Diameter | Bridge |
@@ -97,6 +86,6 @@ jobs:
             | UES-C-M  | 61 mm | 19 mm |
             | UES-C-L  | 67 mm | 21 mm |
           files: |
-            artefacts/ues-docs-html-${{ steps.ver.outputs.version }}.zip
+            artefacts/ues-spec-html-${{ steps.ver.outputs.version }}.zip
             artefacts/build/spec/technical-spec.pdf
-            artefacts/build/docs/idea-and-business.pdf
+            artefacts/build/spec/compliance-test.pdf

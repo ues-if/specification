@@ -1,16 +1,20 @@
-# Universal Eyeglass Socket: Interchangeable Lens Specification
+# Universal Eyeglass Socket Specification
 
-An open, royalty-free standard for interchangeable prescription eyeglass lenses.
+This repository is scoped to the normative UES specification set only.
 
-## Project Overview
+The maintained source documents are:
 
-This repository contains a multi-document AsciiDoc specification for the **Universal Eyeglass Socket** initiative—a proposal to create industry-wide standardized, interchangeable prescription lenses with fixed sizes that work across compatible frames.
+- `spec/technical-spec.adoc`
+- `spec/compliance-test.adoc`
 
-## Building the Documentation
+All diagrams required to render the specification are stored in `spec/diagrams/`.
 
-### Generate docs
+## Building the Specification
 
 ```bash
 make html
 make pdf
 ```
+
+`make html` renders HTML for both specification documents into `build/spec/`.
+`make pdf` renders PDFs for both documents into the same directory.
